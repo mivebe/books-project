@@ -22,28 +22,25 @@ export default function Login() {
     }
 
     return (
-        <div>
-            <h2>Sigh in</h2>
-            <form>
-                <div className="inputBox">
-                    <input type="text" value={loginData.username} required onChange={handleLoginChange('username')} />
-                    <label htmlFor="">Username</label>
-                </div>
-                <div className="inputBox">
-                    <input type="password" value={loginData.password} required onChange={handleLoginChange('password')} />
-                    <label htmlFor="">Password</label>
-                </div>
-                <div id="submit">
-                    <input type="submit" name="submit" value="Login" onClick={handleLogin} />
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-                <noscript>
-                    <input type="submit" value="Submit form!" />
-                </noscript>
-            </form>
-        </div>
+        <form>
+            <div className="inputBox">
+                <input type="text" value={loginData.username} required onChange={handleLoginChange('username')} />
+                <label htmlFor="">Username</label>
+            </div>
+            <div className="inputBox">
+                <input type="password" value={loginData.password} required onChange={handleLoginChange('password')} />
+                <label htmlFor="">Password</label>
+            </div>
+            <div id="submit">
+                <input type="submit" name="submit" value="Login" onClick={handleLogin} />
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <noscript>
+                <input type="submit" value="Submit form!" />
+            </noscript>
+        </form>
     )
 }

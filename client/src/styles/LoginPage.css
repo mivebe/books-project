@@ -1,12 +1,23 @@
 :root {
     --logoGreen: #00a900;
     --logoBrown:#a57000;
+    --boxBG:rgba(0,139,139, .4);
+    --boxShadow:rgba(0,139,139, .3)
   }
   
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+.noselect{
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
 }
 
 body{
@@ -21,21 +32,21 @@ body{
     background-image: url("../media/dark-staircase-bg.jpg");
     background-size: cover;
 }
-
-
 #heading-primary{
-    position: absolute;
+    position: relative;
     top: 20%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translateX(-50%);
     color: #fff;
     text-align: center;
 }
 #heading-primary .logo{
+    position: relative;
+    top:1vh;
     height: 15vh;
 }
 #heading-primary-main{
-font-size: 8rem;
+font-size: 10vh;
 font-weight: 700;
 }
 #heading-primary-main :nth-child(1){
@@ -46,35 +57,34 @@ font-weight: 700;
 }
 #heading-primary-sub{
 color:#fff;
-font-size: 2rem;
+font-size: 2.5vh;
 font-weight: 500;
 }
 .box{
-    position: absolute;
-    top: 50%;
+    position: relative;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%);
     width: 30vh;
-    padding: 30px;
-    background: rgba(0,139,139, .4);
+    background: var(--boxBG);
     box-sizing: border-box;
-    box-shadow: 0 15px 25px rgba(0,139,139, 0.3);
+    box-shadow: 0 15px 25px var(--boxShadow);
     border-radius: 10px;
     text-align: center;
 }
-.box h2{
+/* .box h2{
     margin: 0;
     padding: 0;
     color: #fff;
     text-align: center;
-}
+} */
 .box .inputBox{
+    padding: calc(2% + 10px);
     position: relative;
 }
 .box .inputBox input{
     width: 100%;
-    padding: 10px 0;
-    font-size: 16px;
+    padding:10px 0;
+    font-size: 1.2em;
     color: #fff;
     margin-bottom: 30px;
     border: none;
@@ -87,8 +97,8 @@ font-weight: 500;
     position: absolute;
     top: 0;
     left: 0;
-    padding: 10px 0;
-    font-size: 16px;
+    padding: calc(2% + 10px);
+    font-size: 1.2em;
     color: #fff;
     pointer-events: none;
     transition: .5s;
@@ -99,7 +109,7 @@ font-weight: 500;
     top: -18px;
     left: 0;
     color: #03a9f4;
-    font-size: 12px;
+    font-size: 1em;
 }
 .box form input[type="submit"]{
     background: transparent;
@@ -110,7 +120,7 @@ font-weight: 500;
     cursor: pointer;
     text-decoration: none;
     border-radius: 2px;
-    font-size: 18px;
+    font-size: 1.4em;
     letter-spacing: 2px;
     font-weight: bold;
 }

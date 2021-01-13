@@ -3,7 +3,7 @@ import logo from "../../media/bambook-logo.png"
 import { useState } from "react"
 import Login from "../Login"
 import Register from "../Register"
-
+import LoginTabs from "../LoginTabs"
 
 const LoginPage = () => {
     const [panelSelected, setPanelSelected] = useState(true)
@@ -15,11 +15,11 @@ const LoginPage = () => {
             <p id="heading-primary-sub">Some may read it as бомбок, but this is not the case.</p>
         </div>
         <div className="box">
-            <div style={{ width: "100%", color: "white", display: "flex", justifyContent: "center" }}>
-                <p style={{ alignSelf: "flex-start" }} onClick={e => setPanelSelected(true)} >Login</p>
-                <p style={{ alignSelf: "flex-end" }} onClick={e => setPanelSelected(false)}>Register</p>
-            </div>
-            {panelSelected ? <Login /> : <Register />}
+            {panelSelected ?
+                <><LoginTabs panelSelected={panelSelected} setPanelSelected={setPanelSelected} />
+                    <Login /></> :
+                <><LoginTabs panelSelected={panelSelected} setPanelSelected={setPanelSelected} />
+                    <Register /></>}
         </div>
     </>)
 }
