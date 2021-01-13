@@ -4,7 +4,7 @@ import Home from '../pages/HomePage'
 import PageNotFound from '../pages/PageNotFound';
 
 export default function PrivateSwitch() {
-    console.log("ASD");
+    console.log("Private Switch Entered");
     return (
         <Switch>
             <Route exact path="/home"><Home /></Route>

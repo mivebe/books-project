@@ -1,31 +1,41 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import axios from "axios"
+import "../styles/LoginButton.css"
 
-export default function Register() {
+const Register = () => {
     const history = useHistory();
-    const [registerData, setRegisterData] = useState({ fName: "", lName: "", regUsername: "", email: "", regPassword: "" });
+    const [registerData, setRegisterData] = useState({ firstName: "", lastName: "", username: "", email: "", password: "" });
 
     const handleRegisterChange = key => e => setRegisterData({ ...registerData, [key]: e.target.value });
 
-    const handleRegister = e => {
+    const handleRegister = async e => {
         e.preventDefault();
         console.log(registerData);
-        axios.post("http://localhost:3001/register", { ...registerData }).then(res => console.log(res))
-        history.push("/register")
+        const body = { ...registerData }
+        try {
+            const res = await axios.post("http://localhost:3001/users/register", body)
+            console.log(res)
+            history.push("/register")
+        } catch (err) {
+            console.log(err, "gosho");
+            history.push("/404")
+        }
+
+
     }
     return (
         <form>
             <div className="inputBox">
-                <input type="text" value={registerData.fName} required onChange={handleRegisterChange('fName')} />
+                <input type="text" value={registerData.firstName} required onChange={handleRegisterChange('firstName')} />
                 <label htmlFor="">First Name</label>
             </div>
             <div className="inputBox">
-                <input type="text" value={registerData.lName} required onChange={handleRegisterChange('lName')} />
+                <input type="text" value={registerData.lastName} required onChange={handleRegisterChange('lastName')} />
                 <label htmlFor="">Last Name</label>
             </div>
             <div className="inputBox">
-                <input type="text" value={registerData.regUsername} required onChange={handleRegisterChange('regUsername')} />
+                <input type="text" value={registerData.username} required onChange={handleRegisterChange('username')} />
                 <label htmlFor="">Username</label>
             </div>
             <div className="inputBox">
@@ -33,7 +43,7 @@ export default function Register() {
                 <label htmlFor="">Email</label>
             </div>
             <div className="inputBox">
-                <input type="password" value={registerData.regPassword} required onChange={handleRegisterChange('regPassword')} />
+                <input type="password" value={registerData.password} required onChange={handleRegisterChange('password')} />
                 <label htmlFor="">Password</label>
             </div>
             <div id="submit">
@@ -49,3 +59,4 @@ export default function Register() {
         </form>
     )
 }
+export default Register

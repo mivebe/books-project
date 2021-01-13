@@ -2,12 +2,12 @@ import React, { useContext, useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import axios from "axios"
 import { InnerStorage } from "../App"
+import "../styles/LoginButton.css"
 
 export default function Login() {
     const authContext = useContext(InnerStorage)
     const history = useHistory();
     const [loginData, setLoginData] = useState({ username: "", password: "" });
-
 
     const handleLoginChange = key => e => setLoginData({ ...loginData, [key]: e.target.value });
 
