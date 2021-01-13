@@ -28,9 +28,25 @@ const createUser = (data) => async (firstName, lastName, username, email, passwo
     const [user] = await data.createUser(firstName, lastName, username, email, passwordHash)
     return { err: null, user: user };
 }
+const loginUser = (data) => async (username, password) => {
+    const [user] = await data.retrieveUserFullInfoByUsername(username);
+
+    if (!user || !await bcrypt.compare(password, user.password)) {
+        return {
+            err: userErrors.INVALID_SIGNIN,
+            user: null
+        }
+    }
+    return {
+        err: null,
+        user: user
+    }
+
+}
 
 export default {
     refreshToken,
     saveRefreshToken,
     createUser,
+    loginUser
 }

@@ -1,4 +1,4 @@
-import pool from "../pool.js";
+import pool from "./pool.js";
 
 const retrieveAllBooks = async () => {
     const sql = `SELECT * FROM books`;
@@ -9,7 +9,11 @@ const retrieveAllBooks = async () => {
 
 };
 const retrieveUserFullInfoByUsername = async (username) => {
-    const sql = ` SELECT * FROM users WHERE username = ?`;
+    const sql = ` SELECT u.*, r.role 
+    FROM users AS u 
+    JOIN roles AS r 
+    ON u.roles_id = r.id 
+    WHERE u.username = ? `;
     const userInfo = await pool.query(sql, [username]);
     return [...userInfo]
 }
