@@ -6,11 +6,11 @@ import PublicSwitch from './components/switches/PublicSwitch'
 
 const AppRouter = () => {
 
-    const { token } = useContext(InnerStorage);
+    const { logged } = useContext(InnerStorage)
 
     return (
         <Router>
-            {token ? <PrivateSwitch /> : <PublicSwitch />}
+            {logged ? <PrivateSwitch /> : <PublicSwitch />}
         </Router>
     )
 }

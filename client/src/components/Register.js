@@ -16,9 +16,9 @@ const Register = () => {
         try {
             const res = await axios.post("http://localhost:3001/users/register", body)
             console.log(res)
-            history.push("/register")
+            history.push("/confirmation")
         } catch (err) {
-            console.log(err, "gosho");
+            console.log(err, "register err");
             history.push("/404")
         }
 

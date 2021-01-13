@@ -1,24 +1,37 @@
 import React, { useContext, useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import axios from "axios"
-import { InnerStorage } from "../App"
 import "../styles/LoginButton.css"
+import { InnerStorage } from '../App';
 
 export default function Login() {
-    const authContext = useContext(InnerStorage)
     const history = useHistory();
     const [loginData, setLoginData] = useState({ username: "", password: "" });
+    const authContext = useContext(InnerStorage)
 
     const handleLoginChange = key => e => setLoginData({ ...loginData, [key]: e.target.value });
 
-    const handleLogin = e => {
+    const handleLogin = async e => {
         e.preventDefault();
-        authContext.setToken(true);
         console.log(loginData);
-        axios.post("http://localhost:3000/login", loginData)
-            .then(res => console.log(res))
-            .catch(err => console.log(err))
-        history.push("/home");
+        const body = { ...loginData }
+
+        try {
+            const res = await axios.post("http://localhost:3001/users/login", body)
+            console.log(res.data);
+            document.cookie = `token=${res.data.token}`
+            document.cookie = `refreshToken=${res.data.refreshToken}`
+
+            authContext.setToken(res.token);
+            authContext.setRefreshToken(res.refreshToken);
+            authContext.setLogged(true);
+
+            history.push("/home");
+        } catch (err) {
+            console.log(err, "login err");
+            history.push("/404")
+        }
+
     }
 
     return (

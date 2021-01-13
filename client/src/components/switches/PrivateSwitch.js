@@ -3,7 +3,7 @@ import { Switch, Route, Redirect } from "react-router-dom"
 import Home from '../pages/HomePage'
 import PageNotFound from '../pages/PageNotFound';
 
-export default function PrivateSwitch() {
+const PrivateSwitch = () => {
     console.log("Private Switch Entered");
     return (
         <Switch>
@@ -14,3 +14,4 @@ export default function PrivateSwitch() {
         </Switch>
     )
 }
+export default PrivateSwitch
