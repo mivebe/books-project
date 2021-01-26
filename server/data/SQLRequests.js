@@ -1,7 +1,11 @@
 import pool from "./pool.js";
 
-const retrieveAllBooks = async () => {
-    const sql = `SELECT * FROM books`;
+const retrieveAllListedBooks = async (search = "") => {
+    const sql = ` SELECT b.*
+    FROM books b
+    WHERE b.listed = 1
+    AND b.title LIKE '%${search}%'
+`;
 
     const res = await pool.query(sql);
 
@@ -33,7 +37,7 @@ VALUE (?,?,?,?,?)
 
 }
 export default {
-    retrieveAllBooks,
+    retrieveAllListedBooks,
     retrieveUserFullInfoByUsername,
     retrieveUserFullInfoByEmail,
     createUser,
