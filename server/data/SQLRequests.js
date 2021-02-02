@@ -34,11 +34,63 @@ VALUE (?,?,?,?,?)
     await pool.query(sql, [firstName, lastName, username, email, password]);
 
     return await retrieveUserFullInfoByUsername(username);
-
+}
+const getBookById = async (id, listed = 1) => {
+    const sql = ` SELECT * FROM books WHERE id = ? AND listed=?`;
+    const bookInfo = await pool.query(sql, [id, listed]);
+    return [...bookInfo]
+}
+const getBookBySpecs = async (title, author, publishdate) => {
+    const sql = ` SELECT * FROM books WHERE title= ? AND author=? AND publishdate=?`;
+    const bookInfo = await pool.query(sql, [title, author, publishdate]);
+    return [...bookInfo]
+}
+const createBook = async (title, author, genre, description, publishdate, copies) => {
+    const sql = `
+INSERT INTO books(title, author, genre, description, publishdate, copies)
+VALUE (?,?,?,?,?,?)
+`;
+    const { insertId } = await pool.query(sql, [title, author, genre, description, publishdate, copies]);
+    const [book] = await getBookById(insertId);
+    return await book
+}
+const getRegisterEntry = async (id) => {
+    const sql = ` SELECT * FROM register WHERE id = ?`;
+    const entryInfo = await pool.query(sql, [id]);
+    return [...entryInfo]
+}
+const createRegisterEntry = async (userId, bookId, state = 1) => {
+    const sql = `
+INSERT INTO register(users_id, books_id, state)
+VALUE (?,?,?)
+`;
+    const { insertId } = await pool.query(sql, [userId, bookId, state]);
+    const [entry] = await getRegisterEntry(insertId);
+    return await entry
+}
+const createInUseEntry = async (userId, bookId) => {
+    const sql = `
+INSERT INTO inuse(users_id, books_id)
+VALUE (?,?)
+`;
+    await pool.query(sql, [userId, bookId]);
+}
+const getInUseByBookId = async (id) => {
+    const sql = `
+SELECT COUNT(books_id) AS count FROM inuse WHERE books_id=?;
+`
+    const inUseInfo = await pool.query(sql, [id]);
+    return [...inUseInfo]
 }
 export default {
     retrieveAllListedBooks,
     retrieveUserFullInfoByUsername,
     retrieveUserFullInfoByEmail,
     createUser,
+    createBook,
+    getBookById,
+    createRegisterEntry,
+    getBookBySpecs,
+    getInUseByBookId,
+    createInUseEntry,
 }

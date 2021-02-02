@@ -6,7 +6,7 @@ const authMiddlewareRefresh = passport.authenticate('refresh', { session: false 
  * @param {string} roleName The corect roll to check
  * @returns {Function} callback that check the role
  */
-const roleMiddleware = (roleName) => {
+const roleMiddleware = (roleName = "admin") => {
     return (req, res, next) => {
         if (req.user && req.user.role === roleName) {
             next();
@@ -17,28 +17,29 @@ const roleMiddleware = (roleName) => {
 };
 
 /**
- * @param {any} libraryData The dataBase
+ * @param {any} SQLRequests The dataBase
  * @returns {Function} callback that check if user is banned
  */
-const bannedMiddleware = (libraryData) => {
+const bannedMiddleware = (SQLRequests) => {
     return async (req, res, next) => {
         const userId = req.user.id;
-        const user = await libraryData.getOneFrom('id', userId, 'users');
+        const user = await SQLRequests.getOneFrom('id', userId, 'users');
 
         if (!user.isBanned) {
             next();
         } else {
-            const banReason = await libraryData.getWithBanReason(userId);
+            const banReason = await SQLRequests.getWithBanReason(userId);
             next('User is banned. Reason: ' + banReason.ban_reason);
         }
     };
 };
 /**
- * Middleware thаt catch errors and send corect status code
+ * Middleware thаt catches errors and send correct status code
  */
 const errorMiddleware = (err, req, res, next) => {
     res.status(400).send({ msg: err });
 };
+
 export {
     authMiddleware,
     roleMiddleware,

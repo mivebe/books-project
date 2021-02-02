@@ -18,8 +18,8 @@ app.use(cors());
 app.use(helmet());
 app.use(passport.initialize());
 
-app.use('/users', usersController);
-app.use("/books", booksController);
+app.use('/users', usersController, errorMiddleware);
+app.use("/books", authMiddleware, booksController, errorMiddleware);
 
 
 

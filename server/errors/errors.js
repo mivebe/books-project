@@ -29,18 +29,20 @@ export const queryErrors = {
     INVALID_OFFSET: 'Invalid offset value!',
 };
 
-export const quizzesErrors = {
-    QUIZ_NAME_EXIST: 'Quiz with that name alreaady exist!',
-    IS_MULTIPLE_NOT_CORECT_USED:
-        'If isMultiple is checked you need to select more then 1 corect answers!',
-    POSIBLE_ANSWERS_LESS_THEN_CORRECT:
-        'Posible answers must be more then correct ones!',
-    ATLEAST_TWO_ANSWERS: 'There must be atleast two answers!',
-    POINTS_RANGE: 'Points for the question must be between (1-6)!',
-    THERE_IS_NO_CATEGORIES:
-        'There is no categories at the moment please create one before trying to create quiz first!',
-    QUIZ_MUST_HAVE_ATLEAST_TWO_QUESTIONS:
-        'To finish with submision you need to ad atleaste two questions!',
-    INVALID_QUIZ_ID: 'Invalid quiz id!',
-    NO_PERMISSION: 'You have already completed this quiz!',
+export const bookErrors = {
+    TITLE_IS_REQUIRED: 'Title is required!',
+    TITLE_MUST_BE_A_VALID_STRING: "Title must be a valid string!",
+    AUTHOR_IS_REQUIRED: 'Author name is required!',
+    AUTHOR_MUST_BE_A_VALID_STRING: "Author name must be a valid string!",
+    GENRE_IS_REQUIRED: 'Genre is required!',
+    GENRE_MUST_BE_A_VALID_STRING: "Genre must be a valid string!",
+    DESCRIPTION_IS_REQUIRED: 'Description is required!',
+    DESCRIPTION_MUST_BE_A_VALID_STRING: "Description must be a valid string!",
+    PUBLISHDATE_IS_REQUIRED: 'Publishdate is required!',
+    PUBLISHDATE_MUST_BE_A_VALID_YEAR: "Publishdate must be a valid number!",
+    COPIES_IS_REQUIRED: 'Number of copies is required!',
+    COPIES_MUST_BE_A_VALID_NUMBER: "Number of copies must be a valid number!",
+    INVALID_BOOK_ID: "Invlid book ID!",
+    BOOK_ALREADY_EXISTS: "This book already exists! Find and change it instead.",
+    NO_AVAILABLE_COPIES: "There are no more available copies of this book.",
 };
