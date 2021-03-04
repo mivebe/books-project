@@ -1,8 +1,3 @@
-export const categoriesErrors = {
-    CATEGORY_EXIST: 'Category with that name already exist!',
-    CATEGORY_NAME_MUST_BE_STRING: 'Category name must contain letters only!',
-    CATEGORY_LENGTH_ATLEAST_TWO: 'Category name must be atleast 2 symbols!',
-};
 
 export const userErrors = {
     /** Such a record does not exist (when it is expected to exist) */
@@ -45,4 +40,5 @@ export const bookErrors = {
     INVALID_BOOK_ID: "Invlid book ID!",
     BOOK_ALREADY_EXISTS: "This book already exists! Find and change it instead.",
     NO_AVAILABLE_COPIES: "There are no more available copies of this book.",
+    NO_MATCHING_RENTED_BOOK: "This user has no such rented book."
 };
