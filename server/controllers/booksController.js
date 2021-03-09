@@ -2,7 +2,7 @@ import express from "express"
 import SQLRequests from "../data/SQLRequests.js"
 import booksService from "../services/books-service.js"
 import { roleMiddleware } from "../auth/auth-middleware.js"
-import { createValidator, createBookSchema, queryValidator, limitAndOffsetSchema } from "../validations/schemeNozzle.js"
+import { createValidator, createBookSchema, queryValidator, limitAndOffsetSchema, createCommentSchema } from "../validations/schemeNozzle.js"
 
 
 const booksController = express.Router()
@@ -68,6 +68,37 @@ booksController
             return res.status(400).send({ msg: err })
         }
         res.status(200).send(book)
+    })
+
+    .get("/:id/comments", async (req, res) => {
+        const bookId = req.params.id;
+        const { err, comments } = await booksService.getBookComments(SQLRequests)(bookId);
+        if (err) {
+            return res.status(400).send({ msg: err })
+        }
+        res.status(200).send(comments)
+    })
+
+    .post("/:id/comments", createValidator(createCommentSchema), async (req, res) => {
+        const userId = req.user.id;
+        const bookId = req.params.id;
+        const comment = req.body.comment;
+        const { err, commentEntry } = await booksService.createBookComment(SQLRequests)(userId, bookId, comment);
+        if (err) {
+            return res.status(400).send({ msg: err })
+        }
+        res.status(200).send(commentEntry)
+    })
+
+    .delete("/:id/comments/:commentId", async (req, res) => {
+        const userId = req.user.id;
+        const bookId = req.params.id;
+        const commentId = req.params.commentId;
+        const { err, commentEntry } = await booksService.deleteBookComment(SQLRequests)(userId, bookId, commentId);
+        if (err) {
+            return res.status(400).send({ msg: err })
+        }
+        res.status(200).send(commentEntry)
     })
 
 export default booksController

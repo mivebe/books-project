@@ -1,4 +1,5 @@
-import { bookErrors } from "../errors/errors.js"
+import SQLRequests from "../data/SQLRequests.js";
+import { bookErrors, commentErrors } from "../errors/errors.js"
 
 const getAllBooks = (SQLRequests) => async (search, limit, offset, role) => {
     console.log(limit);
@@ -102,6 +103,72 @@ const updateBookVisibility = (SQLRequests) => async (bookId) => {
     }
 }
 
+const getBookComments = (SQLRequests) => async (bookId) => {
+    const [book] = await SQLRequests.getBookById(bookId);
+    if (!book) {
+        return {
+            err: bookErrors.INVALID_BOOK_ID,
+            comments: null
+        }
+    }
+
+    const bookComments = await SQLRequests.getBookComments(bookId);
+
+    return {
+        err: null,
+        comments: bookComments
+    }
+}
+
+const createBookComment = (SQLRequests) => async (userId, bookId, comment) => {
+    const [book] = await SQLRequests.getBookById(bookId);
+    if (!book) {
+        return {
+            err: bookErrors.INVALID_BOOK_ID,
+            commentEntry: null
+        }
+    }
+
+    const [commentEntry] = await SQLRequests.createBookComment(userId, bookId, comment);
+
+    return {
+        err: null,
+        commentEntry: commentEntry
+    }
+
+}
+
+const deleteBookComment = (SQLRequests) => async (userId, bookId, commentId) => {
+    const [book] = await SQLRequests.getBookById(bookId);
+    if (!book) {
+        return {
+            err: bookErrors.INVALID_BOOK_ID,
+            commentEntry: null
+        }
+    }
+
+    const [commentEntry] = await SQLRequests.getBookCommentById(commentId);
+    if (!commentEntry) {
+        return {
+            err: commentErrors.COMMENT_DOES_NOT_EXIST,
+            commentEntry: null
+        }
+    }
+
+    if (commentEntry.users_id !== userId) {
+        return {
+            err: commentErrors.COMMENT_NOT_ACCESIBLE,
+            commentEntry: null
+        }
+    }
+
+    await SQLRequests.deleteBookComment(commentId)
+    return {
+        err: null,
+        commentEntry: commentEntry
+    }
+}
+
 export default {
     getAllBooks,
     createBook,
@@ -109,4 +176,7 @@ export default {
     rentBook,
     returnBook,
     updateBookVisibility,
+    getBookComments,
+    createBookComment,
+    deleteBookComment,
 }

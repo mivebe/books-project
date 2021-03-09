@@ -42,10 +42,13 @@ usersController
         );
         returnBothTokens(err, user, res);
     })
+
     .post("/login", createValidator(loginUserSchema), async (req, res) => {
         const { username, password } = req.body;
         const { err, user } = await usersService.loginUser(SQLRequests)(username, password);
         returnBothTokens(err, user, res);
     })
+
+
 
 export default usersController

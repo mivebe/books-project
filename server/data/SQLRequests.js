@@ -1,3 +1,4 @@
+import { commentErrors } from "../errors/errors.js";
 import pool from "./pool.js";
 
 const retrieveAllListedBooks = async (search = "", limit = 20, offset = 0) => {
@@ -127,9 +128,43 @@ const deleteInUseEntry = async (id) => {
 }
 
 const updateBookListed = async (bookId, changeTo) => {
-    const sql = `UPDATE books SET listed = ? WHERE id = ?
+    const sql = `
+    UPDATE books SET listed = ? WHERE id = ?;
     `
     await pool.query(sql, [changeTo, bookId]);
+}
+
+const getBookComments = async (bookId) => {
+    const sql = `
+    SELECT c.*,u.username FROM comments c JOIN users u ON u.id=c.users_id WHERE books_id=?;
+    `
+    const bookComments = await pool.query(sql, [bookId])
+    return bookComments
+}
+
+const getBookCommentById = async (commentId) => {
+    const sql = `
+    SELECT c.*,u.username FROM comments c JOIN users u ON u.id=c.users_id WHERE c.id=?;
+    `
+    const commentEntry = await pool.query(sql, [commentId])
+    return [...commentEntry]
+}
+
+const createBookComment = async (userId, bookId, comment) => {
+    const sql = `
+    INSERT INTO comments(users_id, books_id, comment)
+    VALUE (?,?,?);
+    `
+    const { insertId } = await pool.query(sql, [userId, bookId, comment])
+    const commentEntry = await getBookCommentById(insertId)
+    return [...commentEntry]
+}
+
+const deleteBookComment = async (commentId) => {
+    const sql = `
+    DELETE FROM comments WHERE id = ?;
+    `
+    await pool.query(sql, [commentId])
 }
 
 export default {
@@ -148,4 +183,8 @@ export default {
     deleteInUseEntry,
     updateBookListed,
     getAnyBookById,
+    getBookComments,
+    createBookComment,
+    getBookCommentById,
+    deleteBookComment,
 }

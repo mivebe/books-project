@@ -40,5 +40,12 @@ export const bookErrors = {
     INVALID_BOOK_ID: "Invlid book ID!",
     BOOK_ALREADY_EXISTS: "This book already exists! Find and change it instead.",
     NO_AVAILABLE_COPIES: "There are no more available copies of this book.",
-    NO_MATCHING_RENTED_BOOK: "This user has no such rented book."
+    NO_MATCHING_RENTED_BOOK: "This user has no such rented book.",
 };
+
+export const commentErrors = {
+    COMMENT_IS_REQUIRED: "Comment is required.",
+    COMMENT_CONSTRAINTS: "Comments must be between 3 and 200 symbols.",
+    COMMENT_DOES_NOT_EXIST: "Comment does not exist.",
+    COMMENT_NOT_ACCESSIBLE: "You have no access to this commentary."
+}
