@@ -33,6 +33,11 @@ booksController
         res.status(200).send(book)
     })
 
+    .get("/traffic", async (req, res) => {
+        const traffic = await booksService.getTraffic(SQLRequests)();
+        return res.status(200).send(traffic)
+    })
+
     .get("/:id", async (req, res) => {
         const { id } = req.params;
         const { role } = req.user;
@@ -100,5 +105,7 @@ booksController
         }
         res.status(200).send(commentEntry)
     })
+
+
 
 export default booksController

@@ -169,6 +169,18 @@ const deleteBookComment = (SQLRequests) => async (userId, bookId, commentId) => 
     }
 }
 
+const getTraffic = (SQLRequests) => async () => {
+    const [{ booksInUseCount }] = await SQLRequests.getBooksInUseCount();
+    const mostRentedBooks = await SQLRequests.getMostRentedBooks();
+    const mostRentedAuthors = await SQLRequests.getMostRentedAuthors();
+
+    return {
+        booksInUseCount,
+        mostRentedBooks,
+        mostRentedAuthors
+    }
+}
+
 export default {
     getAllBooks,
     createBook,
@@ -179,4 +191,5 @@ export default {
     getBookComments,
     createBookComment,
     deleteBookComment,
+    getTraffic,
 }

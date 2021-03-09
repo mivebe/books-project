@@ -180,6 +180,38 @@ const getUserHistoryById = async (userId) => {
     return [...userHistory]
 }
 
+const getBooksInUseCount = async () => {
+    const sql = `
+    SELECT COUNT(*) AS booksInUseCount FROM inuse
+    `
+    const booksInUseCount = await pool.query(sql)
+    return [...booksInUseCount]
+}
+
+const getMostRentedAuthors = async () => {
+    const sql = `
+    SELECT COUNT(b.author) AS topAuthors, b.author
+    FROM register AS r JOIN books AS b ON r.books_id=b.id
+    WHERE r.state=1
+    GROUP BY b.author
+    ORDER BY topAuthors DESC LIMIT 5
+    `
+    const mostRentedAuthor = await pool.query(sql)
+    return [...mostRentedAuthor]
+}
+
+const getMostRentedBooks = async () => {
+    const sql = `
+    SELECT COUNT(r.books_id) AS rented, b.title, b.author, b.publishdate, b.cover, r.books_id
+    FROM register AS r JOIN books AS b ON r.books_id=b.id
+    WHERE r.state=1
+    GROUP BY r.books_id
+    ORDER BY rented DESC LIMIT 5
+    `
+    const mostRentedBooks = await pool.query(sql)
+    return [...mostRentedBooks]
+}
+
 export default {
     retrieveAllListedBooks,
     retrieveAllBooks,
@@ -202,4 +234,7 @@ export default {
     deleteBookComment,
     getUserHistoryById,
     getUserById,
+    getBooksInUseCount,
+    getMostRentedBooks,
+    getMostRentedAuthors,
 }
