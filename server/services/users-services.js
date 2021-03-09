@@ -1,15 +1,17 @@
 import bcrypt from "bcrypt";
 import { userErrors } from "../errors/errors.js"
 
-const saveRefreshToken = (data) => async (refreshToken, userId) => {
-    return await data.insertRefreshToken(refreshToken, userId)
+const saveRefreshToken = (SQLRequests) => async (refreshToken, userId) => {
+    return await SQLRequests.insertRefreshToken(refreshToken, userId)
 }
-const refreshToken = (data) => async (username) => {
-    return await data.retrieveUserFullInfo(username)
+
+const refreshToken = (SQLRequests) => async (username) => {
+    return await SQLRequests.retrieveUserFullInfo(username)
 }
-const createUser = (data) => async (firstName, lastName, username, email, password) => {
-    const [existingUser] = await data.retrieveUserFullInfoByUsername(username);
-    const [existingUser2] = await data.retrieveUserFullInfoByEmail(email);
+
+const createUser = (SQLRequests) => async (firstName, lastName, username, email, password) => {
+    const [existingUser] = await SQLRequests.retrieveUserFullInfoByUsername(username);
+    const [existingUser2] = await SQLRequests.retrieveUserFullInfoByEmail(email);
 
 
     if (existingUser) {
@@ -25,11 +27,12 @@ const createUser = (data) => async (firstName, lastName, username, email, passwo
         };
     }
     const passwordHash = await bcrypt.hash(password, 10);
-    const [user] = await data.createUser(firstName, lastName, username, email, passwordHash)
+    const [user] = await SQLRequests.createUser(firstName, lastName, username, email, passwordHash)
     return { err: null, user: user };
 }
-const loginUser = (data) => async (username, password) => {
-    const [user] = await data.retrieveUserFullInfoByUsername(username);
+
+const loginUser = (SQLRequests) => async (username, password) => {
+    const [user] = await SQLRequests.retrieveUserFullInfoByUsername(username);
 
     if (!user || !await bcrypt.compare(password, user.password)) {
         return {
@@ -44,9 +47,27 @@ const loginUser = (data) => async (username, password) => {
 
 }
 
+const getUserHistoryById = (SQLRequests) => async (userId) => {
+    const [user] = await SQLRequests.getUserById(userId);
+    if (!user) {
+        return {
+            err: "EMI NEMA BATE",
+            userHistory: null
+        }
+    }
+
+    const userHistory = await SQLRequests.getUserHistoryById(userId)
+
+    return {
+        err: null,
+        userHistory: userHistory
+    }
+}
+
 export default {
     refreshToken,
     saveRefreshToken,
     createUser,
-    loginUser
+    loginUser,
+    getUserHistoryById,
 }

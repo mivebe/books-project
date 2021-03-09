@@ -1,4 +1,3 @@
-import { commentErrors } from "../errors/errors.js";
 import pool from "./pool.js";
 
 const retrieveAllListedBooks = async (search = "", limit = 20, offset = 0) => {
@@ -40,6 +39,12 @@ const retrieveUserFullInfoByUsername = async (username) => {
 const retrieveUserFullInfoByEmail = async (email) => {
     const sql = ` SELECT * FROM users WHERE email = ?`;
     const userInfo = await pool.query(sql, [email]);
+    return [...userInfo]
+}
+
+const getUserById = async (userId) => {
+    const sql = ` SELECT * FROM users WHERE id = ?`;
+    const userInfo = await pool.query(sql, [userId]);
     return [...userInfo]
 }
 
@@ -167,6 +172,14 @@ const deleteBookComment = async (commentId) => {
     await pool.query(sql, [commentId])
 }
 
+const getUserHistoryById = async (userId) => {
+    const sql = `
+    SELECT * FROM register WHERE users_id=?
+    `
+    const userHistory = await pool.query(sql, [userId])
+    return [...userHistory]
+}
+
 export default {
     retrieveAllListedBooks,
     retrieveAllBooks,
@@ -187,4 +200,6 @@ export default {
     createBookComment,
     getBookCommentById,
     deleteBookComment,
+    getUserHistoryById,
+    getUserById,
 }

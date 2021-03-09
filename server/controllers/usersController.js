@@ -49,6 +49,13 @@ usersController
         returnBothTokens(err, user, res);
     })
 
-
+    .get("/:id/history", async (req, res) => {
+        const targetUserId = req.params.id;
+        const { err, userHistory } = await usersService.getUserHistoryById(SQLRequests)(targetUserId);
+        if (err) {
+            return res.status(400).send({ msg: err })
+        }
+        return res.status(200).send(userHistory)
+    })
 
 export default usersController
