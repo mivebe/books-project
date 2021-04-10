@@ -181,6 +181,50 @@ const getTraffic = (SQLRequests) => async () => {
     }
 }
 
+const createBookRate = (SQLRequests) => async (userId, bookId, rate) => {
+    if (rate < 0 || rate > 10) {
+        return {
+            err: bookErrors.INVALID_BOOK_RATE,
+            rateEntry: null
+        }
+    }
+
+    const [book] = await SQLRequests.getBookById(bookId);
+    if (!book) {
+        return {
+            err: bookErrors.INVALID_BOOK_ID,
+            rateEntry: null
+        }
+    }
+
+    const [rateEntry] = await SQLRequests.createBookRate(userId, bookId, rate);
+    return {
+        err: null,
+        rateEntry: rateEntry
+    }
+}
+
+const getBookRating = (SQLRequests) => async (bookId) => {
+    const [book] = await SQLRequests.getBookById(bookId);
+    if (!book) {
+        return {
+            err: bookErrors.INVALID_BOOK_ID,
+            rating: null
+        }
+    }
+
+    const fullRating = await SQLRequests.getBookRating(bookId)
+    console.log(fullRating[0]);
+    const rating = fullRating[0].rate || 0
+
+    // fullRating[0].rate ? rating = fullRating[0].rate : rating = 0
+
+    return {
+        err: null,
+        rating: rating
+    }
+}
+
 export default {
     getAllBooks,
     createBook,
@@ -192,4 +236,6 @@ export default {
     createBookComment,
     deleteBookComment,
     getTraffic,
+    createBookRate,
+    getBookRating,
 }

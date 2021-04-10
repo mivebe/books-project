@@ -41,6 +41,7 @@ export const bookErrors = {
     BOOK_ALREADY_EXISTS: "This book already exists! Find and change it instead.",
     NO_AVAILABLE_COPIES: "There are no more available copies of this book.",
     NO_MATCHING_RENTED_BOOK: "This user has no such rented book.",
+    INVALID_BOOK_RATE: "Rating must be a nnumber from 1-10",
 };
 
 export const commentErrors = {

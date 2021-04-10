@@ -106,6 +106,26 @@ booksController
         res.status(200).send(commentEntry)
     })
 
+    .post("/:id/rate", async (req, res) => {
+        const userId = req.user.id;
+        const bookId = req.params.id;
+        const rate = req.body.rate;
+        const { err, rateEntry } = await booksService.createBookRate(SQLRequests)(userId, bookId, rate);
+
+        if (err) {
+            return res.status(400).send({ msg: err })
+        }
+        res.status(200).send(`You rated this book with ${rateEntry.rate}`)
+    })
+
+    .get("/:id/rating", async (req, res) => {
+        const bookId = req.params.id;
+        const { err, rating } = await booksService.getBookRating(SQLRequests)(bookId);
+        if (err) {
+            return res.status(400).send({ msg: err })
+        }
+        res.status(200).send({ rating })
+    })
 
 
 export default booksController

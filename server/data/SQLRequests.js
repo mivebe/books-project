@@ -212,6 +212,33 @@ const getMostRentedBooks = async () => {
     return [...mostRentedBooks]
 }
 
+const createBookRate = async (userId, bookId, rate) => {
+    const sql = `
+    INSERT INTO rates(users_id, books_id, rate)
+    VALUE (?,?,?);
+    `
+    const { insertId } = await pool.query(sql, [userId, bookId, rate])
+    const rateEntry = await getBookRate(insertId)
+    return rateEntry
+}
+
+const getBookRate = async (rateId) => {
+    const sql = `
+    SELECT * FROM rates WHERE id=?
+    `
+    const rateEntry = await pool.query(sql, [rateId])
+    return [...rateEntry]
+}
+
+const getBookRating = async (bookId) => {
+    const sql = `
+    SELECT AVG(rate) as rate
+    FROM rates
+    `
+    const bookRating = await pool.query(sql, [bookId])
+    return [...bookRating]
+}
+
 export default {
     retrieveAllListedBooks,
     retrieveAllBooks,
@@ -237,4 +264,6 @@ export default {
     getBooksInUseCount,
     getMostRentedBooks,
     getMostRentedAuthors,
+    createBookRate,
+    getBookRating,
 }

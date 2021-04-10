@@ -5,4 +5,3 @@ export const TOKEN_LIFETIME = 60 * 60 * 24;
 
 export const REFRESH_TOKEN_LIFETIME = 7 * 24 * 60 * 60;
 
-// export const DEFAULT_USER_ROLE = 'Basic';
