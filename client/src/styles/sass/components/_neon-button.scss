@@ -17,6 +17,10 @@
         letter-spacing: 2px;
         font-size: 4rem;
         transition: 0.2s;
+
+        &:focus{
+            outline: none;
+        }
     }
 
     & span{

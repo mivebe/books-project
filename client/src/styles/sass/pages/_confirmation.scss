@@ -1,0 +1,48 @@
+.confirmation{
+    display: block;
+
+    & .confirmation__container{
+        margin-top: 10rem;
+        position: absolute;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        & .confirmation__heading{
+            color: white;
+            font-size: 5rem;
+            text-align: center;
+        }
+
+        & .confirmation__check{
+            color: $color-primary;
+            font-weight: 900;
+            font-size: 18rem;
+            text-align: center;
+            height: 25rem;
+            width: 25rem;
+            background-color:$color-tertiary-dark;
+            border-radius: 50%;
+        }
+
+        & .confirmation__btn{
+            padding: 1rem;
+            border-radius: 10px;
+            font-size: 4rem;
+            background-color: $color-tertiary-dark;
+            color: $color-white;
+            border: none;
+            margin-top: 5rem;
+            
+            &:hover{
+                background-color: $color-login-btn-light;
+                box-shadow: 0 0 1rem $color-login-btn-light, 0 0 4rem $color-login-btn-light, 0 0 8rem $color-login-btn-light;
+            }
+
+            &:focus {
+            outline: none;
+            }
+        }
+    }
+}

@@ -1,0 +1,21 @@
+.nfp {
+    display: block;
+
+    & .nfp__container {
+        background-color: $color-white !important;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+
+        & .nfp__image {
+            position: absolute;
+            width: 50vw;
+            height: 50vh;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+        }
+    }
+    
+}

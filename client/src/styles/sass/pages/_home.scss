@@ -1,0 +1,28 @@
+#home {
+
+    & .heading{
+        color: $color-white;
+        font-size: 5rem;
+        text-align: center
+    }
+
+    & .logout-btn{
+        padding: 1rem;
+        color: $color-white;
+        font-size: 5rem;
+        text-align: center;
+        background-color: $color-tertiary-dark;
+        border-radius: 10px;
+        outline: none;
+        border: none;
+
+        &:hover{
+            background-color: $color-login-btn-light;
+            box-shadow: 0 0 1rem $color-login-btn-light, 0 0 4rem $color-login-btn-light, 0 0 8rem $color-login-btn-light;
+        }
+
+        &:focus {
+        outline: none;
+        }
+    }
+}
