@@ -1,4 +1,3 @@
-import "../../styles/LoginPage.css"
 import logo from "../../media/bambook-logo.png"
 import { useState } from "react"
 import Login from "../Login"
@@ -9,10 +8,10 @@ const LoginPage = () => {
     const [panelSelected, setPanelSelected] = useState(true)
 
     return (<>
-        <div id="heading-primary">
+        <div className="heading">
             <img className="logo" src={logo} alt="logo"></img>
-            <p id="heading-primary-main"><span>Bam</span><span>Book</span></p>
-            <p id="heading-primary-sub">Some may read it as бомбок, but this is not the case.</p>
+            <p className="heading__primary"><span>Bam</span><span>Book</span></p>
+            <p className="heading__secondary">Some may read it as бомбок, but this is not the case.</p>
         </div>
         <div className="box">
             {panelSelected ?

@@ -1,0 +1,88 @@
+.form__submit {
+    display: inline-block;
+    background: $color-transparent;
+    position: relative;
+    cursor: pointer;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: 0.2s;
+
+    & input{
+        background-color: $color-transparent;
+        padding: .5rem;
+        margin: 0;
+        border: none;
+        border-radius: 8px;
+        color: $color-white;
+        letter-spacing: 2px;
+        font-size: 4rem;
+        transition: 0.2s;
+    }
+
+    & span{
+        position: absolute;
+        display: block;
+
+        &:nth-child(2){
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: .5rem;
+            background: linear-gradient(90deg,$color-transparent,$color-login-btn-light);
+        }
+
+        &:nth-child(3){
+            top: -100%;
+            right: 0;
+            width: .5rem;
+            height: 100%;
+            background: linear-gradient(180deg,$color-transparent,$color-login-btn-light);
+        }
+
+        &:nth-child(4){
+            bottom: 0;
+            right: -100%;
+            width: 100%;
+            height: .5rem;
+            background: linear-gradient(270deg,$color-transparent,$color-login-btn-light);
+        }
+
+        &:nth-child(5){
+            bottom: -100%;
+            left: 0;
+            width: .5rem;
+            height: 100%;
+            background: linear-gradient(360deg, $color-transparent, $color-login-btn-light);
+        }
+    }
+
+    &:hover{
+        color: $color-login-btn-dark;
+        background: $color-login-btn-light;
+        box-shadow: 0 0 1rem $color-login-btn-light, 0 0 4rem $color-login-btn-light, 0 0 8rem $color-login-btn-light;
+        transition-delay: 800ms;
+        
+        & span:nth-child(2){
+            left: 100%;
+            transition: 500ms;
+        }
+
+        & span:nth-child(3){
+            top: 100%;
+            transition: 500ms;
+            transition-delay: 200ms;
+        }
+
+        & span:nth-child(4){
+            right: 100%;
+            transition: 500ms;
+            transition-delay: 400ms;
+        }
+
+        & span:nth-child(5){
+            bottom: 100%;
+            transition: 500ms;
+            transition-delay: 600ms;
+        }
+    }
+}

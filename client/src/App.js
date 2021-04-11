@@ -1,10 +1,9 @@
 import React, { createContext, useState } from 'react'
+import "./styles/sass/main.scss";
 import { getCookie } from "./components/Cookies"
 import jwt_decode from "jwt-decode"
-// import { BrowserRouter as Router } from "react-router-dom"
-// import PrivateSwitch from './components/switches/PrivateSwitch'
-// import PublicSwitch from './components/switches/PublicSwitch'
 import AppRouter from "./AppRouter"
+
 
 const init = { logged: false, token: null, refreshToken: null, tokenInfo: {}, setLogged: () => { }, setToken: () => { }, setRefreshToken: () => { }, setTokenInfo: () => { } }
 export const InnerStorage = createContext(init);

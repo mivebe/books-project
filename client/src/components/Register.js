@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import axios from "axios"
-import "../styles/LoginButton.css"
 
 const Register = () => {
     const history = useHistory();
@@ -26,27 +25,27 @@ const Register = () => {
     }
     return (
         <form>
-            <div className="inputBox">
+            <div className="input__box">
                 <input type="text" value={registerData.firstName} required onChange={handleRegisterChange('firstName')} />
                 <label htmlFor="">First Name</label>
             </div>
-            <div className="inputBox">
+            <div className="input__box">
                 <input type="text" value={registerData.lastName} required onChange={handleRegisterChange('lastName')} />
                 <label htmlFor="">Last Name</label>
             </div>
-            <div className="inputBox">
+            <div className="input__box">
                 <input type="text" value={registerData.username} required onChange={handleRegisterChange('username')} />
                 <label htmlFor="">Username</label>
             </div>
-            <div className="inputBox">
+            <div className="input__box">
                 <input type="email" value={registerData.email} required onChange={handleRegisterChange('email')} />
                 <label htmlFor="">Email</label>
             </div>
-            <div className="inputBox">
+            <div className="input__box">
                 <input type="password" value={registerData.password} required onChange={handleRegisterChange('password')} />
                 <label htmlFor="">Password</label>
             </div>
-            <div id="submit">
+            <div className="form__submit">
                 <input type="submit" name="submit" value="Register" onClick={handleRegister} />
                 <span></span>
                 <span></span>

@@ -1,0 +1,134 @@
+.heading{
+    position: relative;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: $color-white;
+    text-align: center;
+    padding: 6rem;
+
+    & .logo{
+        position: relative;
+        width: 30rem;
+        @include noselect;
+    }
+
+    & .heading__primary{
+        font-size: 14rem;
+        font-weight: 700;
+        @include noselect;
+
+        & :nth-child(1){
+            color: $color-primary;
+        }
+
+        & :nth-child(2){
+            color: $color-secondary;
+        }
+    }
+
+    & .heading__secondary{
+        color:$color-white;
+        font-size: 3rem;
+        font-weight: 500;
+    }
+}
+
+.box{
+    position: relative;
+    margin-bottom: 100rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50rem;
+    background: $color-tertiary-dark;
+    box-sizing: border-box;
+    box-shadow: 0 3rem 5rem $color-tertiary-light;
+    border-radius: 10px;
+    text-align: center;
+
+    & .input__box{
+        padding: 3rem;
+        position: relative;
+
+        & input{
+            width: 100%;
+            padding:2rem 0;
+            font-size: 3.5rem;
+            color: $color-white;
+            border: none;
+            margin-bottom: 2rem;
+            border-bottom: .2rem solid #fff;
+            outline: none;
+            background-color: $color-transparent;
+
+            &:-webkit-autofill{
+                background-color: $color-transparent;
+                -webkit-text-fill-color: $color-white;
+                box-shadow: $color-tertiary-dark;
+                -webkit-box-shadow: 0 0 0px 100rem $color-tertiary-dark 0 inset;
+                transition: background-color 5000s ease-in-out 0s;
+            }
+
+            &:focus ~ label,
+            &:valid ~ label{
+                padding-top: 4rem ;
+                font-size: 2.5rem;
+                top: -3rem;
+                left: 0;
+                color: $color-login-btn-light;
+            }
+        }
+
+        & label{
+            position: absolute;
+            top: 3rem;
+            left: 0;
+            padding: 2rem;
+            font-size: 2rem;
+            color: $color-white;
+            pointer-events: none;
+            transition: .5s;
+        }
+
+        & form input[type="submit"]{
+            background: transparent;
+            position: relative;
+            border: none;
+            outline: none;
+            color: $color-white;
+            cursor: pointer;
+            text-decoration: none;
+            border-radius: 2px;
+            font-size: 5rem;
+            letter-spacing: .2rem;
+            font-weight: bold;
+        }
+    }
+}
+
+#tabs-container{
+    display: flex;
+    flex-direction: row;
+    top:0;
+    left: 0;
+    width: 100%;
+    font-size:3.5rem ;
+    color: $color-white;
+    padding: 0;
+    text-decoration: none;
+}
+.tab{
+    width: 50%;
+    padding-top: 1rem;
+    @include noselect;
+}
+.login-tab{
+    background-color: $color-half-transparent;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+.register-tab{
+    background-color: $color-half-transparent;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius:10px;
+}

@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import axios from "axios"
-import "../styles/LoginButton.css"
 import { InnerStorage } from '../App';
 
 export default function Login() {
@@ -36,15 +35,15 @@ export default function Login() {
 
     return (
         <form>
-            <div className="inputBox">
+            <div className="input__box">
                 <input type="text" value={loginData.username} required onChange={handleLoginChange('username')} />
                 <label htmlFor="">Username</label>
             </div>
-            <div className="inputBox">
+            <div className="input__box">
                 <input type="password" value={loginData.password} required onChange={handleLoginChange('password')} />
                 <label htmlFor="">Password</label>
             </div>
-            <div id="submit">
+            <div className="form__submit">
                 <input type="submit" name="submit" value="Login" onClick={handleLogin} />
                 <span></span>
                 <span></span>
