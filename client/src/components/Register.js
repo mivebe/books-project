@@ -26,24 +26,24 @@ const Register = () => {
     return (
         <form>
             <div className="input__box">
-                <input type="text" value={registerData.firstName} required onChange={handleRegisterChange('firstName')} />
-                <label htmlFor="">First Name</label>
+                <input type="text" name="fname" value={registerData.firstName} required onChange={handleRegisterChange('firstName')} />
+                <label htmlFor="fname">First Name</label>
             </div>
             <div className="input__box">
-                <input type="text" value={registerData.lastName} required onChange={handleRegisterChange('lastName')} />
-                <label htmlFor="">Last Name</label>
+                <input type="text" name="lname" value={registerData.lastName} required onChange={handleRegisterChange('lastName')} />
+                <label htmlFor="lname">Last Name</label>
             </div>
             <div className="input__box">
-                <input type="text" value={registerData.username} required onChange={handleRegisterChange('username')} />
-                <label htmlFor="">Username</label>
+                <input type="text" name="username" value={registerData.username} required onChange={handleRegisterChange('username')} />
+                <label htmlFor="username">Username</label>
             </div>
             <div className="input__box">
-                <input type="email" value={registerData.email} required onChange={handleRegisterChange('email')} />
-                <label htmlFor="">Email</label>
+                <input type="email" name="email" value={registerData.email} required onChange={handleRegisterChange('email')} />
+                <label htmlFor="email">Email</label>
             </div>
             <div className="input__box">
-                <input type="password" value={registerData.password} required onChange={handleRegisterChange('password')} />
-                <label htmlFor="">Password</label>
+                <input type="password" name="password" value={registerData.password} required onChange={handleRegisterChange('password')} />
+                <label htmlFor="password">Password</label>
             </div>
             <div className="form__submit">
                 <input type="submit" name="submit" value="Register" onClick={handleRegister} />
