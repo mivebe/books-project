@@ -8,20 +8,20 @@
 @import "base/utilities";
 
 // @import "components/bg-video";
-// @import "components/button";
-// @import "components/card";
+@import "components/button";
+@import "components/card";
 // @import "components/composition";
-// @import "components/feature-box";
+@import "components/category-box";
 // @import "components/form";
 // @import "components/popup";
 // @import "components/story";
 @import "components/neon-button";
-@import "components/navbar";
 @import "components/navbar__button";
 
-// @import "layout/footer";
-// @import "layout/grid";
-// @import "layout/header";
+
+@import "layout/footer";
+@import "layout/grid";
+@import "layout/navbar";
 // @import "layout/navigation";
 
 @import "pages/home";

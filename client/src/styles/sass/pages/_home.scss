@@ -1,9 +1,49 @@
-#home {
+div.home {
+
+    //HEAEDING
 
     & .heading{
         color: $color-white;
         font-size: 5rem;
         text-align: center
+    }
+
+    //TRAFFC SECTION
+
+    .section-traffic {
+        background-color: darken($color: darkgrey, $amount: 40%);
+        padding: 25rem 0 15rem 0;
+
+        & .heading-secondary{
+            font-size: 5rem;
+        }
+
+        @include responsive(tab-port) {
+            padding: 20rem 0 10rem 0;
+        }
+    }
+
+    //CATEGORIES
+
+    .section-categories {
+        padding: 20rem 0;
+        background-image: linear-gradient(
+            to right bottom,
+            rgba($color-primary, 0.8),
+            rgba($color-secondary, 0.8)),
+        url(../../../media/user-6.jpg);
+        background-size: cover;
+        transform: skewY(-7deg);
+        margin-top: -10rem;
+    
+        & > * {
+            transform: skewY(7deg);
+        }
+    
+        @include responsive(tab-port) {
+            padding: 10rem 0;
+        }
+    
     }
 
     & .logout-btn{
