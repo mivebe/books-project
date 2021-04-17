@@ -1,0 +1,136 @@
+.footer {
+    position: relative;
+    width: 100vw;
+    height: 40rem;
+    background-color: $color-grey-dark-3;
+    padding: 6rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    @include responsive(tab-port) {
+        padding: 8rem 0;
+    }
+
+    & .footer__logo-container{
+        width: 33%;
+        & .footer__logo{
+            width: 35rem;
+            padding: 2rem;
+        }
+    }
+
+
+    &__navigation {
+        border-top: 2px solid $color-grey-dark;
+        padding-top: 2rem;
+        display: inline-block;
+        font-size: 2rem;
+
+        @include responsive(tab-port) {
+            width: 100%;
+            text-align: center;
+        }
+    }
+
+    &__list {
+        list-style: none;
+    }
+
+    &__list-item {
+        display: flex;
+        align-items: center;
+
+
+        &:not(:last-child) {
+            margin-right: 1.5rem;
+            margin-bottom: 2rem;
+        }
+    }
+
+    &__list-image {
+        width: 10rem;
+        margin-right: 1.5rem;
+        padding: .5rem;
+    }
+
+    &__link {
+        &:link,
+        &:visited {
+            color: $color-grey-light-1;
+            background-color: $color-grey-dark-3;
+            text-decoration: none;
+            text-align: center;
+            text-transform: uppercase;
+            display: inline-block;
+            transition: all .2s;
+        }
+
+        &:hover,
+        &:active {
+            color: $color-primary;
+            // box-shadow: 0 1rem 2rem rgba($color-black, .4);
+            transform: rotate(5deg) scale(1.3);
+        }
+    }
+
+    &__terms{
+        text-align: center;
+        font-size: 2rem;
+
+        &:hover,
+        &:active {
+            color: $color-primary;
+            transform: rotate(5deg) scale(1.3) translateY(-1rem);
+            cursor: pointer;
+        }
+    }
+
+    &__copyright {
+        border-top: 2px solid $color-grey-dark;
+        padding-top: 2rem;
+        width: 100%;
+        font-size: 2rem;
+
+
+        @include responsive(tab-port) {
+            width: 100%;
+            float: none;
+        }
+    }
+
+    &__za-warudo{
+        top: 0;
+        left: 0;
+        position: fixed;
+        z-index: 999;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba($color: dimgray, $alpha: .8);
+        display: flex;
+        flex-direction: column;
+
+        & button {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, 26rem);
+            z-index: 999;
+            background-color: royalblue;
+            color: $color-white;
+            font-size: 4rem;
+            width: 25rem;
+            border-radius: 10px;
+            padding: 2rem 1rem;
+        }
+
+        & img{
+            position: fixed;
+            z-index: 999;
+            height: 50rem;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+}

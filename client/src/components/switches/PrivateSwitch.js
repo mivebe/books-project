@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from "react-router-dom"
 import HomePage from '../pages/HomePage'
 import PageNotFound from '../pages/PageNotFound';
 import Navbar from "../Navbar"
+import Footer from "../Footer"
 
 const PrivateSwitch = () => {
     console.log("Private Switch Entered");
@@ -15,6 +16,7 @@ const PrivateSwitch = () => {
                 <Redirect from="/logout" to="/login" />
                 <Redirect from="*" to="/home" />
             </Switch>
+            <Footer />
         </div>
     )
 }
