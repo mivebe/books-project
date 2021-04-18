@@ -4,6 +4,8 @@ import HomePage from '../pages/HomePage'
 import PageNotFound from '../pages/PageNotFound';
 import Navbar from "../Navbar"
 import Footer from "../Footer"
+import Book from "../pages/BookPage"
+import CreateBookPage from '../pages/CreateBookPage';
 
 const PrivateSwitch = () => {
     console.log("Private Switch Entered");
@@ -12,6 +14,8 @@ const PrivateSwitch = () => {
             <Navbar />
             <Switch>
                 <Route exact path="/home"><HomePage /></Route>
+                <Route exact path="/book"><Book /></Route>
+                <Route exact path="/create-book"><CreateBookPage /></Route>
                 <Route exact path="/404"><PageNotFound /></Route>
                 <Redirect from="/logout" to="/login" />
                 <Redirect from="*" to="/home" />
