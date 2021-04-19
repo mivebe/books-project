@@ -16,9 +16,26 @@ booksController
         res.status(200).send(books)
     })
 
+    // .post("/", roleMiddleware("admin"), createValidator(createBookSchema), async (req, res) => {
+    //     const { title, author, genre, description, publishdate, copies } = req.body
+    //     const { err, book } = await booksService.createBook(SQLRequests)(
+    //         title,
+    //         author,
+    //         genre,
+    //         description,
+    //         publishdate,
+    //         copies,
+    //     );
+    //     if (err) {
+    //         return res.status(400).send({ msg: err, book })
+    //     }
+
+    //     res.status(200).send(book)
+    // })
     .post("/", roleMiddleware("admin"), createValidator(createBookSchema), async (req, res) => {
         const { title, author, genre, description, publishdate, copies } = req.body
         const { err, book } = await booksService.createBook(SQLRequests)(
+            // cover,
             title,
             author,
             genre,

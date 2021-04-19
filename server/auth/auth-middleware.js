@@ -11,7 +11,7 @@ const roleMiddleware = (roleName = "admin") => {
         if (req.user && req.user.role === roleName) {
             next();
         } else {
-            next('Resource is forbidden.');
+            next('Resource is forbidden. You are not an Admin!');
         }
     };
 };

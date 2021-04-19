@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { InnerStorage } from '../../App';
 import axios from "axios";
+import emptyBook from "../../media/grey-book.png"
 
 const Book = () => {
     const [book, setBook] = useState({});
@@ -32,7 +33,7 @@ const Book = () => {
         <div className="book__page">
             <div className="book__container" style={{ display: "flex", flexDirection: "column", fontSize: "5rem" }}>
                 <div className="book__cover-container">
-                    <img src={book.cover}></img>
+                    <img src={book.cover || emptyBook}></img>
                 </div>
 
                 <div className="book__info-container">
