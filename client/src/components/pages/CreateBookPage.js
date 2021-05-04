@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState, useContext } from "react";
-import "../../styles/csp.css"
+import "../../styles/csp.css";
 import { InnerStorage } from "../../App";
 
 function CreateBookPage() {
@@ -39,7 +39,7 @@ function CreateBookPage() {
                     'Authorization': `Bearer ${authContext.token}`
                 }
             })
-            console.log(res.data);
+            console.log("Book Creation Success", res.data);
 
             // history.push("/home");
         } catch (err) {

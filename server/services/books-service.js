@@ -11,7 +11,7 @@ const getAllBooks = (SQLRequests) => async (search, limit, offset, role) => {
     }
 }
 
-const createBook = (SQLRequests) => async (title, author, genre, description, publishdate, copies) => {
+const createBook = (SQLRequests) => async (cover, title, author, genre, publishdate, listed, copies, description) => {
     const [existingBook] = await SQLRequests.getBookBySpecs(title, author, publishdate)
     if (existingBook) {
         return {
@@ -21,7 +21,7 @@ const createBook = (SQLRequests) => async (title, author, genre, description, pu
     }
     return {
         err: null,
-        book: await SQLRequests.createBook(title, author, genre, description, publishdate, copies),
+        book: await SQLRequests.createBook(cover, title, author, genre, publishdate, listed, copies, description),
     }
 }
 const getBook = (SQLRequests) => async (id, role) => {

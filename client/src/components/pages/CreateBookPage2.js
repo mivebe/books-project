@@ -1,33 +1,92 @@
-import React, { useState } from 'react'
+import React, { useState, useContext, useEffect } from 'react';
+import axios from "axios";
+import { InnerStorage } from "../../App";
 
-const CreateBookPage = () => {
+const CreateBookPage2 = () => {
+
     const curYear = new Date().getFullYear();
+    const authContext = useContext(InnerStorage);
+    const [bookInfo, setBookInfo] = useState({
+        cover: "",
+        title: "",
+        author: "",
+        genre: "",
+        publishdate: "",
+        listed: "",
+        copies: "",
+        description: "",
+    });
 
-    // const handleUploadClick = (e) => {
-    //     e.preventDefault();
-    //     document.getElementById("upload-cover").click();
-    //     console.log(document.getElementById("upload-cover"));
-    // }
+    const handleInputChange = key => e => {
+        // console.log(e.target.type);
+        e.target.type !== "checkbox" ? setBookInfo({ ...bookInfo, [key]: e.target.value }) :
+            setBookInfo({ ...bookInfo, [key]: e.target.checked });
+        // console.log(bookInfo);
+    };
+    useEffect(() => {
+        console.log(bookInfo);
 
-    // const handleUploadFile = async (e) => {
-    //     const chosenFile = (e.target.files[0])
-    //     const fileFormData = new FormData();
-    //     fileFormData.append("file", chosenFile, chosenFile.name);
-    //     console.log(fileFormData);
-    // }
+    }, [bookInfo])
 
-    const handleSubmit = () => {
-        const asd = document.querySelectorAll(".cb__form-input");
-        console.log(asd);
-        asd.forEach((node) => {
-            console.log(node.nodeValue);
-        })
+    const handleImageChoice = key => e => {
+        const imageFile = e.target.files[0];
+        console.log("imageFile", imageFile);
+        const formData = new FormData();
+        formData.append("cover", imageFile);
+        console.log("formData", formData);
+
+        setBookInfo({ ...bookInfo, [key]: imageFile });
+        console.log("bookInfo.cover", bookInfo.cover);
+
+    }
+
+    const radioControl = (e) => {
+        console.log(bookInfo.genre == e.target.value);
+        if (bookInfo.genre == e.target.value) {
+            return 'true'
+        } else {
+            return 'false'
+        }
+    }
+
+    const handleSubmit = async (e) => {
+        // const inputs = document.querySelectorAll(".cb__form-input");
+        // console.log(inputs);
+        // const radios = document.querySelectorAll(".cb__form-input--radio");
+        // console.log(radios);
+        // radios.forEach((node) => {
+        //     node.checked && console.log(node.value, node.checked);
+        // })
+        // inputs.forEach((node) => {
+        //     console.log(node.value);
+        // })
+        // const listed = document.getElementById("listed");
+        // console.log(listed.value, listed.checked);
+
+        e.preventDefault();
+        console.log(bookInfo);
+        const body = { ...bookInfo }
+
+        try {
+            const res = await axios.post("http://localhost:3001/books/", body, {
+                headers: {
+                    'Authorization': `Bearer ${authContext.token}`
+                }
+            })
+            console.log(res.data);
+
+            // history.push("/home");
+        } catch (err) {
+            console.log(err, "Book Creation Error");
+            // history.push("/404")
+        }
+
     }
 
     const [image, setImage] = useState({})
     const fileOnChange = (e) => {
         setImage(e.target.files[0]);
-        console.log("imge set");
+        console.log("image set");
     }
     const sendImage = (e) => {
         let formData = new FormData();
@@ -61,64 +120,66 @@ const CreateBookPage = () => {
                 <form className="cb__form" style={{ display: "flex", flexDirection: "column" }}>
                     <p>FORM</p>
 
-                    {/* <label htmlFor="cover">COVER</label>
-                    <input className="cb__form-input" type="file" name="cover" ></input> */}
+                    <label htmlFor="cover">COVER</label>
+                    <input className="cb__form-input" type="file" name="cover" onChange={handleImageChoice('cover')} ></input>
                     {/* <button className="upload-button" onClick={() => { handleUploadClick }}>Upload Image</button> */}
 
                     <label htmlFor="title">TITLE</label>
-                    <input className="cb__form-input" type="text" name="title" required></input>
+                    <input className="cb__form-input" type="text" name="title" defaultValue={bookInfo.title} onChange={handleInputChange('title')} required></input>
 
                     <label htmlFor="author">AUTHOR</label>
-                    <input className="cb__form-input" type="text" name="author" required></input>
+                    <input className="cb__form-input" type="text" name="author" defaultValue={bookInfo.author} onChange={handleInputChange('author')} required></input>
 
-                    <label >GENRE</label>
-                    <ul className="cb__form-input">
-                        <li >
-                            <input type="radio" name="genre" defaultValue="Classics" required></input>
+                    <label htmlFor="genre">GENRE</label>
+                    <div className="cb__radio-list row">
+                        <li className="col-1-of-4">
+                            <input type="radio" name="genre" className="cb__form-input--radio" defaultValue="Classics" onChange={handleInputChange('genre')} required></input>
                             <label htmlFor="Classics">Classics</label>
                         </li>
-                        <li>
-                            <input type="radio" name="genre" defaultValue="Detective & Mystery"></input>
+                        <li className="col-1-of-4">
+                            <input type="radio" name="genre" className="cb__form-input--radio" onChange={handleInputChange('genre')} defaultValue="Detective & Mystery"></input>
                             <label htmlFor="Detective & Mystery">Detective & Mystery</label>
                         </li>
-                        <li>
-                            <input type="radio" name="genre" defaultValue="Science Fiction"></input>
+                        <li className="col-1-of-4">
+                            <input type="radio" name="genre" className="cb__form-input--radio" onChange={handleInputChange('genre')} defaultValue="Science Fiction"></input>
                             <label htmlFor="Science Fiction">Science Fiction</label>
                         </li>
-                        <li>
-                            <input type="radio" name="genre" defaultValue=""></input>
+                        <li className="col-1-of-4">
+                            <input type="radio" name="genre" className="cb__form-input--radio" onChange={handleInputChange('genre')} defaultValue="Action & Adventure"></input>
                             <label htmlFor="Action & Adventure">Action & Adventure</label>
                         </li>
-                        <li>
-                            <input type="radio" name="genre" defaultValue="Romance"></input>
+                    </div>
+
+                    <div className="cb__radio-list row">
+                        <li className="col-1-of-4">
+                            <input type="radio" name="genre" className="cb__form-input--radio" onChange={handleInputChange('genre')} defaultValue="Romance"></input>
                             <label htmlFor="Romance">Romance</label>
                         </li>
-                        <li>
-                            <input type="radio" name="genre" defaultValue="Comic Book & Novel"></input>
+                        <li className="col-1-of-4">
+                            <input type="radio" name="genre" className="cb__form-input--radio" onChange={handleInputChange('genre')} defaultValue="Comic Book & Novel"></input>
                             <label htmlFor="Comic Book & Novel">Comic Book & Novel</label>
                         </li>
-                        <li>
-                            <input type="radio" name="genre" defaultValue="Short Stories"></input>
+                        <li className="col-1-of-4">
+                            <input type="radio" name="genre" className="cb__form-input--radio" onChange={handleInputChange('genre')} defaultValue="Short Stories"></input>
                             <label htmlFor="Short Stories">Short Stories</label>
                         </li>
-                        <li>
-                            <input type="radio" name="genre" defaultValue="Horror"></input>
+                        <li className="col-1-of-4">
+                            <input type="radio" name="genre" className="cb__form-input--radio" onChange={handleInputChange('genre')} defaultValue="Horror"></input>
                             <label htmlFor="Horror">Horror</label>
                         </li>
-                    </ul>
-
+                    </div>
 
                     <label htmlFor="publishdate">PUBLISHDATE</label>
-                    <input className="cb__form-input" type="number" name="publishdate" min="1497" max={curYear} required></input>
+                    <input className="cb__form-input" type="number" name="publishdate" defaultValue={bookInfo.publishdate} min="1497" max={curYear} onChange={handleInputChange('publishdate')} required></input>
 
-                    <input className="cb__form-input" type="checkbox" name="listed" defaultValue="Book is Visible"></input>
+                    <input className="cb__form-input" type="checkbox" name="listed" id="listed" checked={bookInfo.listed} onChange={handleInputChange('listed')} defaultValue="Book is Visible"></input>
                     <label htmlFor="listed">VISIBILITY</label>
 
-                    <label htmlFor="copies">AMMOUNT OF COPIES</label>
-                    <input className="cb__form-input" type="number" name="copies" min="0" required></input>
+                    <label htmlFor="copies">NUMBER OF COPIES</label>
+                    <input className="cb__form-input" type="number" name="copies" min="0" defaultValue={bookInfo.copies} onChange={handleInputChange('copies')} required></input>
 
                     <label htmlFor="description">DESCRIPTION</label>
-                    <input className="cb__form-input" type="text" name="description" required></input>
+                    <input className="cb__form-input" type="text" name="description" defaultValue={bookInfo.description} onChange={handleInputChange('description')} required></input>
 
                     <input defaultValue="Create Book" onClick={handleSubmit}></input>
                 </form>
@@ -127,4 +188,4 @@ const CreateBookPage = () => {
     )
 }
 
-export default CreateBookPage
+export default CreateBookPage2

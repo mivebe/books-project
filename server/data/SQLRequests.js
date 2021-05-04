@@ -75,12 +75,12 @@ const getBookBySpecs = async (title, author, publishdate) => {
     return [...bookInfo]
 }
 
-const createBook = async (title, author, genre, description, publishdate, copies) => {
+const createBook = async (cover, title, author, genre, publishdate, listed, copies, description) => {
     const sql = `
-    INSERT INTO books(title, author, genre, description, publishdate, copies)
-    VALUE (?,?,?,?,?,?)
+    INSERT INTO books(cover, title, author, genre, publishdate, listed, copies, description)
+    VALUE (?,?,?,?,?,?,?,?)
     `;
-    const { insertId } = await pool.query(sql, [title, author, genre, description, publishdate, copies]);
+    const { insertId } = await pool.query(sql, [cover, title, author, genre, publishdate, listed, copies, description]);
     const [book] = await getBookById(insertId);
     return await book
 }
