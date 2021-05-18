@@ -1,0 +1,22 @@
+{
+  "name": "books-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"npm start --prefix server\" \"npm start --prefix client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mivebe/books-project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mivebe/books-project/issues"
+  },
+  "homepage": "https://github.com/mivebe/books-project#readme",
+  "dependencies": {
+    "concurrently": "^6.1.0"
+  }
+}
