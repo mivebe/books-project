@@ -6,7 +6,8 @@ import { useHistory } from 'react-router-dom';
 
 const Navbar = () => {
 
-    const history = useHistory()
+    const history = useHistory();
+    const username = "User Name"
 
     return (
         <div className="padding-container">
@@ -24,17 +25,20 @@ const Navbar = () => {
                     </form>
 
                     <nav className="navigation__container">
-                        <a className="navbar__btn navbar__btn--green " href="/create-book" >All Books</a>
-                        <a className="navbar__btn navbar__btn--green " href="#" >qnko</a>
+                        <a className="navbar__btn navbar__btn--green " href="/create-book" >Create Book</a>
+                        <a className="navbar__btn navbar__btn--green " href="/book" >Book</a>
+                        <a className="navbar__btn navbar__btn--green " href="/books" >All Books</a>
                     </nav>
-                    <div className="nav__user-panel">
+
+                    <div className="nav__user-panel" onClick={() => { history.push("/account") }}>
                         <div className="nav__username-container">
-                            <p>PESHO</p>
+                            <p>{username}</p>
                         </div>
                         <div className="nav__photo-container">
                             <img className="nav__user-photo" src={userImage} alt="User photo"></img>
                         </div>
                     </div>
+
                 </header>
             </div>
         </div>

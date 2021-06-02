@@ -2,11 +2,12 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { InnerStorage } from '../../App';
 import axios from "axios";
-import emptyBook from "../../media/grey-book.png"
+import placeholderCover from "../../media/grey-book.png"
 
-const Book = () => {
+const Book = ({ id }) => {
     const [book, setBook] = useState({});
     const authContext = useContext(InnerStorage);
+    const { backEndURL } = authContext;
     const history = useHistory();
 
     useEffect(() => {
@@ -14,7 +15,7 @@ const Book = () => {
 
             if (!authContext.logged) { history.push('/login') }
             else {
-                const res = await fetch('http://localhost:3001/books/16', {
+                const res = await fetch(`${backEndURL}/books/${id || "16"}`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${authContext.token}`
@@ -33,7 +34,7 @@ const Book = () => {
         <div className="book__page">
             <div className="book__container" style={{ display: "flex", flexDirection: "column", fontSize: "5rem" }}>
                 <div className="book__cover-container">
-                    <img src={book.cover || emptyBook}></img>
+                    <img src={book.cover ? `${backEndURL}/static/${book.cover}` : placeholderCover}></img>
                 </div>
 
                 <div className="book__info-container">
@@ -42,6 +43,8 @@ const Book = () => {
                     <div>
                         <p className="book__genre">{book.genre}</p>
                         <p className="book__publishdate">{book.publishdate}</p>
+                        <p className="book__copies">{book.copies}</p>
+                        <p className="book__visibility">{book.listed ? "Visible" : "Hidden"}</p>
                     </div>
                 </div>
 
@@ -50,8 +53,6 @@ const Book = () => {
                 </div>
 
             </div>
-
-            <button onClick={() => { history.push('/create-book') }}>CREATE BOOK</button>
 
         </div>
     )

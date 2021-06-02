@@ -5,7 +5,7 @@ import PageNotFound from '../pages/PageNotFound'
 import ConfirmationPage from '../pages/ConfirmationPage'
 
 const PublicSwitch = () => {
-
+    console.log("PUBLIC Switch");
     return (
         <Switch>
             <Route exact path="/login"><LoginPage /></Route>

@@ -10,6 +10,7 @@
     font-size: 2rem;
 }
 .cb__form-container{
+    position: relative;
     grid-column: 1/2;
     grid-row: 1/2;
 }
@@ -41,6 +42,13 @@ flex-direction: column;
 //             grid-area: 6/1/7/5;
 //         }
 //     }
+&-title{
+    align-self: center;
+}
+& label{
+    font-size: 2rem;
+    padding: 0;
+}
 }
 .cb__radio-list{
     display: grid;
@@ -70,9 +78,10 @@ flex-direction: column;
 }
 
 .cb__form-input{
-    padding: 1.5rem;
+    padding: 1rem;
     margin: 1.5rem 0;
     border-radius: 15px;
+    font-size: 3rem;
 
     &[type="file"]{
         display: none;
@@ -92,9 +101,90 @@ flex-direction: column;
     }
 
 }
-.cb__book-preview{
-    grid-column: 2/3;
-    grid-row: 1/2;
+.cb__preview{
+
+    &__container{
+        grid-column: 2/3;
+        grid-row: 1/2;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+    }
+
+    &__image-container{
+        align-self: center;
+        height: 80rem;
+        width: 80%;
+        padding: 5rem 10rem;
+        display: grid;
+        grid-template-rows: 1fr 5fr 1fr;
+        grid-template-columns: 1fr 5fr 1fr;
+    }
+
+    &__info-container{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        font-size: 3rem;
+
+
+        &--secondary{
+            align-self: center;
+            width: 60%;
+            display: grid;
+            grid-template-rows: 1fr 1fr;
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+
+    &__image{
+        width: 100%;
+        grid-area: 2/2/2/3;
+    }
+
+    &__image-loader{
+        width: 100%;
+        grid-area: 2/2/2/3;
+    }
+
+    &__title{
+        width: 100%;
+        text-align: center;
+    }
+
+    &__author{
+        width: 100%;
+        text-align: center;
+    }
+
+    &__genre{
+        width: 100%;
+        text-align: center;
+    }
+
+    &__publishdate{
+        width: 100%;
+        text-align: center;
+    }
+
+    &__copies{
+        width: 100%;
+        text-align: center;
+    }
+
+    &__visibility{
+        width: 100%;
+        text-align: center;
+    }
+
+    &__description{
+        padding-top: 5rem;
+        width: 100%;
+        text-align: center;
+        font-size: 2.5rem;
+    }
+
 }
 .cb__form-button{
     width: 30%;

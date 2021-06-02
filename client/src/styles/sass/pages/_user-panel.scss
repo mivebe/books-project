@@ -1,0 +1,85 @@
+.user-page{
+    width: 100%;
+    position: relative;
+    font-size: 2.5rem;
+}
+.up__container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    
+
+    & .up__avatar-section{
+        align-self: center;
+        width: 90%;
+        height: 70rem;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-bottom: 20rem;
+
+        & .up__current-image-container{
+            height: 100%;
+
+            & .up__avatar{
+                width: 100%;
+            }
+        }
+
+        & .up__button-container{
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            & .up__form-button{
+                margin-bottom: 10rem;
+                width: 100%;
+            }
+        }
+
+        & .up__preview__image-container {
+            height: 100%;
+            width: 30%;
+            display: grid;
+            grid-template-columns: 1fr 20fr 1fr;
+            grid-template-rows: 1fr 20fr 1fr;
+
+            & .up__preview__image{
+                width: 100%;
+                grid-area: 2/2/2/3;
+            }
+            & .up__preview__image-loader{
+                width: 100%;
+                grid-area: 2/2/2/3;
+            }
+        }
+    }
+
+    & .up__info-container{
+        color: $color-white;
+        margin-left: 20rem;
+        width: 60%;
+        display: grid;
+        grid-template-columns: 1fr 5fr;
+        grid-template-rows: repeat(4, 1fr);
+
+        // & .up__name{
+
+        //     &--first{
+
+        //     }
+        //     &--last{
+
+        //     }
+            
+        // }
+        // & .up__username{
+
+        // }
+        // & .up__email{
+
+        // }
+    }
+}

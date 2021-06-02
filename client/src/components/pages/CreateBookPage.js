@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import axios from "axios";
 import { InnerStorage } from "../../App";
 import placeholderBook from "../../media/grey-book.png";
-import asd from "../../media/user-6.jpg";
+import loader from "../../media/user-6.jpg";
 
 const CreateBookPage2 = () => {
 
@@ -56,20 +56,6 @@ const CreateBookPage2 = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // const inputs = document.querySelectorAll(".cb__form-input");
-        // console.log(inputs);
-        // const radios = document.querySelectorAll(".cb__form-input--radio");
-        // console.log(radios);
-        // radios.forEach((node) => {
-        //     node.checked && console.log(node.value, node.checked);
-        // })
-        // inputs.forEach((node) => {
-        //     console.log(node.value);
-        // })
-        // const listed = document.getElementById("listed");
-        // console.log(listed.value, listed.checked);
-
-
 
         try {
             // console.log(bookInfo);
@@ -85,10 +71,16 @@ const CreateBookPage2 = () => {
                 }
             })
             console.log("Book Created !!! ", res.data);
+            console.log(res.data.id);
 
-            // history.push("/create-book2");
+            //display popup or modal saying that book is created successfully and give two options
+            //option 1 create another  -> a button to reload the create-book page
+            //option 2 see the book    -> a button to link the book page with the correct id of the newly created book
+
+            // history.push("/book/");
         } catch (err) {
             console.log(err, "Book Creation Error");
+            // Display some popup or modal saying that something is wrong 
             // history.push("/404");
         }
 
@@ -108,37 +100,43 @@ const CreateBookPage2 = () => {
 
     const sendImage = async e => {
         if (image) {
-            let formData = new FormData();
 
+            let formData = new FormData();
             formData.append("cover", image);
 
-            // fetch(`${backEndURL}/uploadFile`, {
-            //     method: "post",
-            //     body: formData,
-            // })
-            //     .then((res) => res.json())
-            //     .then((resBody) => {
-            //         console.log("Value of resBody is: ", resBody);
-            //         const { imageID } = resBody;
-            //         console.log("Image ID is: ", imageID);
-            //         setBookInfo({ ...bookInfo, "cover": imageID });
-            //         return resBody
-            //     })
             const res = await fetch(`${backEndURL}/uploadFile`, {
                 method: "post",
                 body: formData,
             })
             const resBody = await res.json()
-            console.log("resBody is equal to ", await resBody);
             return await resBody
         }
     }
 
     return (
         <div className="create-book__page">
-            <div className="cb__book-preview">
-                <img src={preview} alt="IMAGE"></img>
-                {isLoading && <img src={asd} alt="loading"></img>}
+            <div className="cb__preview__container">
+
+                <div className="cb__preview__image-container">
+                    <img className="cb__preview__image" src={preview} alt="IMAGE"></img>
+                    {isLoading && <img className="cb__preview__image-loader" src={loader} alt="loading"></img>}
+                </div>
+
+                <div className="cb__preview__info-container">
+                    <p className="cb__preview__title">{bookInfo.title || " "}</p>
+                    <p className="cb__preview__author">{bookInfo.author}</p>
+
+                    <div className="cb__preview__info-container--secondary">
+                        <p className="cb__preview__genre">{bookInfo.genre}</p>
+                        <p className="cb__preview__publishdate">{bookInfo.publishdate}</p>
+                        <p className="cb__preview__copies">{bookInfo.copies}</p>
+                        <p className="cb__preview__visibility">{bookInfo.listed ? "Visible" : "Hidden"}</p>
+                    </div>
+                </div>
+
+                <div className="cb__preview__description-container">
+                    <p className="cb__preview__description">{bookInfo.description}</p>
+                </div>
 
             </div>
 
@@ -150,8 +148,6 @@ const CreateBookPage2 = () => {
                     <label htmlFor="cover">COVER</label>
                     <input className="cb__form-input" type="file" id="file-input" name="cover" onChange={handleImageChange("cover")}></input>
                     <button className="btn cb__form-button" onClick={() => { document.getElementById("file-input").click() }}>Choose Image</button>
-                    <button className="btn cb__form-button" onClick={sendImage}>Upload Image ONLY</button>
-
 
                     <label htmlFor="title">TITLE</label>
                     <input className="cb__form-input" type="text" name="title" defaultValue={bookInfo.title} onChange={handleInputChange('title')} required></input>

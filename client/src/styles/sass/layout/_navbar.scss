@@ -18,6 +18,10 @@ header.navbar{
     border-bottom: 1px solid $color-grey-dark;
 
     & .nav__logo-container{
+        
+        &:hover{
+            cursor: pointer;
+        }
 
         & .nav__logo{
             position: absolute;
@@ -59,6 +63,10 @@ header.navbar{
             position:absolute;
             right: .2rem;
             border: none;
+            
+            &:hover{
+                cursor: pointer;
+            }
 
             & img{
                 height: 5.6rem;
@@ -83,6 +91,10 @@ header.navbar{
         display: flex;
         align-items: center;
         height: 100%;
+
+        &:hover{
+            cursor: pointer;
+        }
 
         & .nav__username-container{
 
