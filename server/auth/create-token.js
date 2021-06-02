@@ -1,6 +1,8 @@
 import jwt from 'jsonwebtoken';
 import { REFRESH_PRIVATE_KEY, REFRESH_TOKEN_LIFETIME, PRIVATE_KEY, TOKEN_LIFETIME } from './../config.js';
-/**Creates jwt and takes payload as param*/
+
+
+/** Create JWT and taking payload as parameter */
 
 export const createToken = (payload) => {
 

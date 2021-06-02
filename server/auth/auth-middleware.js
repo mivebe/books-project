@@ -3,8 +3,8 @@ import passport from 'passport';
 const authMiddleware = passport.authenticate('jwt', { session: false });
 const authMiddlewareRefresh = passport.authenticate('refresh', { session: false });
 /**
- * @param {string} roleName The corect roll to check
- * @returns {Function} callback that check the role
+ * @param {string} roleName The correct role to be checked.
+ * @returns {Function} Callback that checks user's role.
  */
 const roleMiddleware = (roleName = "admin") => {
     return (req, res, next) => {
@@ -17,8 +17,8 @@ const roleMiddleware = (roleName = "admin") => {
 };
 
 /**
- * @param {any} SQLRequests The dataBase
- * @returns {Function} callback that check if user is banned
+ * @param {any} SQLRequests Database layer function/s.
+ * @returns {Function} Callback function that checks if the user is banned.
  */
 const bannedMiddleware = (SQLRequests) => {
     return async (req, res, next) => {
@@ -34,7 +34,9 @@ const bannedMiddleware = (SQLRequests) => {
     };
 };
 /**
- * Middleware thаt catches errors and send correct status code
+ * Middleware thаt catches errors and sends the correct status code.
+ * 
+ * @returns {string} The status code and error message.
  */
 const errorMiddleware = (err, req, res, next) => {
     res.status(400).send({ msg: err });

@@ -32,6 +32,7 @@ booksController
 
     //     res.status(200).send(book)
     // })
+
     .post("/", roleMiddleware("admin"), createValidator(createBookSchema), async (req, res) => {
         const { cover, title, author, genre, publishdate, listed, copies, description } = req.body
         const { err, book } = await booksService.createBook(SQLRequests)(

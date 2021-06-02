@@ -1,9 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { useHistory } from 'react-router-dom';
 import axios from "axios"
+import { InnerStorage } from '../App';
+
 
 const Register = () => {
     const history = useHistory();
+    const { backEndURL } = useContext(InnerStorage)
     const [registerData, setRegisterData] = useState({ firstName: "", lastName: "", username: "", email: "", password: "" });
 
     const handleRegisterChange = key => e => setRegisterData({ ...registerData, [key]: e.target.value });
@@ -13,7 +16,7 @@ const Register = () => {
         console.log(registerData);
         const body = { ...registerData }
         try {
-            const res = await axios.post("http://localhost:3001/users/register", body)
+            const res = await axios.post(`${backEndURL}/users/register`, body)
             console.log(res)
             history.push("/confirmation")
         } catch (err) {

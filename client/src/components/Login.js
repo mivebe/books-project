@@ -6,7 +6,8 @@ import { InnerStorage } from '../App';
 export default function Login() {
     const history = useHistory();
     const [loginData, setLoginData] = useState({ username: "", password: "" });
-    const authContext = useContext(InnerStorage)
+    const authContext = useContext(InnerStorage);
+    const { backEndURL } = authContext;
 
     const handleLoginChange = key => e => setLoginData({ ...loginData, [key]: e.target.value });
 
@@ -16,8 +17,8 @@ export default function Login() {
         const body = { ...loginData }
 
         try {
-            const res = await axios.post("http://localhost:3001/users/login", body)
-            console.log(res.data);
+            const res = await axios.post(`${backEndURL}/users/login`, body)
+            console.log(res.data, "from Login.js");
             document.cookie = `token=${res.data.token}`
             document.cookie = `refreshToken=${res.data.refreshToken}`
 
