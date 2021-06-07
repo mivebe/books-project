@@ -50,6 +50,22 @@
             background-color: $color-primary;
         }
     }
+    &--brown {
+        background-color: $color-secondary;
+        color: $color-white;
+
+        &::after {
+            background-color: $color-primary;
+        }
+    }
+    &--red {
+        background-color: red;
+        color: $color-white;
+
+        &::after {
+            background-color: $color-primary;
+        }
+    }
     
     &::after {
         content: "";
