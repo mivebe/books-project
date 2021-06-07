@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import { useHistory } from 'react-router-dom';
 import axios from "axios"
-import { InnerStorage } from '../App';
+import { InnerStorage } from './contexts/authContext';
 
 
 const Register = () => {

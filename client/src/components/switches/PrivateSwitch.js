@@ -17,8 +17,9 @@ const PrivateSwitch = () => {
             <Navbar />
             <Switch>
                 <Route exact path="/home"><HomePage /></Route>
+                <Route exact path="/book/:id"><Book /></Route>
                 <Route exact path="/book"><Book /></Route>
-                <Route exact path="/books"><AllBooks /></Route>
+                <Route exact path="/all-books"><AllBooks /></Route>
                 <Route exact path="/create-book"><CreateBookPage /></Route>
                 <Route exact path="/account"><UserPanel /></Route>
                 <Route exact path="/404"><PageNotFound /></Route>

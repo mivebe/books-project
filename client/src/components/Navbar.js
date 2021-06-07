@@ -27,7 +27,7 @@ const Navbar = () => {
                     <nav className="navigation__container">
                         <a className="navbar__btn navbar__btn--green " href="/create-book" >Create Book</a>
                         <a className="navbar__btn navbar__btn--green " href="/book" >Book</a>
-                        <a className="navbar__btn navbar__btn--green " href="/books" >All Books</a>
+                        <a className="navbar__btn navbar__btn--green " href="/all-books" >All Books</a>
                     </nav>
 
                     <div className="nav__user-panel" onClick={() => { history.push("/account") }}>

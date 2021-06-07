@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
-import { InnerStorage } from '../../App';
+import { useHistory, useParams } from 'react-router-dom';
+import { InnerStorage } from '../contexts/authContext';
 import axios from "axios";
 import placeholderCover from "../../media/grey-book.png"
 
-const Book = ({ id }) => {
+const Book = () => {
+    const { id } = useParams()
     const [book, setBook] = useState({});
     const authContext = useContext(InnerStorage);
     const { backEndURL } = authContext;

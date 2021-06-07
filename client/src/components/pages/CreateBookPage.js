@@ -1,12 +1,12 @@
 import React, { useState, useContext, useEffect } from 'react';
 import axios from "axios";
-import { InnerStorage } from "../../App";
+import { InnerStorage } from "../contexts/AuthContext";
 import placeholderBook from "../../media/grey-book.png";
 import loader from "../../media/user-6.jpg";
 import Modal from "../Modal"
 import checkmark from "../../media/checkmark.svg.png"
 
-const CreateBookPage2 = () => {
+const CreateBookPage = () => {
 
     const curYear = new Date().getFullYear();
     const authContext = useContext(InnerStorage);
@@ -17,7 +17,7 @@ const CreateBookPage2 = () => {
         image: checkmark,
         message: "Book Created Successfully!",
         url: "",
-    })
+    });
     const [image, setImage] = useState()
     const [preview, setPreview] = useState(placeholderBook);
     const [isLoading, setIsLoading] = useState()
@@ -28,7 +28,7 @@ const CreateBookPage2 = () => {
         author: "",
         genre: "",
         publishdate: "",
-        listed: "",
+        listed: false,
         copies: "",
         description: "",
     });
@@ -65,12 +65,12 @@ const CreateBookPage2 = () => {
         e.preventDefault();
 
         try {
-            const body = { ...bookInfo };
             const { imageID } = await sendImage();
+            setBookInfo({ ...bookInfo, "cover": await imageID });
 
-            setBookInfo({ ...bookInfo, "cover": imageID });
+            const body = await { ...bookInfo };
 
-            const res = await axios.post(`${backEndURL}/books/`, body, {
+            const res = await axios.post(`${backEndURL}/books/`, await body, {
                 headers: {
                     'Authorization': `Bearer ${authContext.token}`
                 }
@@ -112,6 +112,7 @@ const CreateBookPage2 = () => {
                 body: formData,
             })
             const resBody = await res.json()
+            console.log(resBody);
             return await resBody
         }
     }
@@ -219,4 +220,4 @@ const CreateBookPage2 = () => {
     )
 }
 
-export default CreateBookPage2
+export default CreateBookPage
