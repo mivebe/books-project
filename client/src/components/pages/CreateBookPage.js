@@ -3,6 +3,8 @@ import axios from "axios";
 import { InnerStorage } from "../../App";
 import placeholderBook from "../../media/grey-book.png";
 import loader from "../../media/user-6.jpg";
+import Modal from "../Modal"
+import checkmark from "../../media/checkmark.svg.png"
 
 const CreateBookPage2 = () => {
 
@@ -10,6 +12,12 @@ const CreateBookPage2 = () => {
     const authContext = useContext(InnerStorage);
     const { backEndURL } = authContext;
 
+    const [isOpen, setIsOpen] = useState(false)
+    const [modalData, setModalData] = useState({
+        image: checkmark,
+        message: "Book Created Successfully!",
+        url: "",
+    })
     const [image, setImage] = useState()
     const [preview, setPreview] = useState(placeholderBook);
     const [isLoading, setIsLoading] = useState()
@@ -53,16 +61,13 @@ const CreateBookPage2 = () => {
 
 
 
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            // console.log(bookInfo);
-            const body = { ...bookInfo }
-
+            const body = { ...bookInfo };
             const { imageID } = await sendImage();
-            // console.log(await imageID);
+
             setBookInfo({ ...bookInfo, "cover": imageID });
 
             const res = await axios.post(`${backEndURL}/books/`, body, {
@@ -70,14 +75,11 @@ const CreateBookPage2 = () => {
                     'Authorization': `Bearer ${authContext.token}`
                 }
             })
-            console.log("Book Created !!! ", res.data);
-            console.log(res.data.id);
+            console.log("Book Created !!! ", await res.data);
+            console.log(await res.data.id);
+            setModalData({ ...modalData, url: `/book/${await res.data.id}` })
+            setIsOpen(true)
 
-            //display popup or modal saying that book is created successfully and give two options
-            //option 1 create another  -> a button to reload the create-book page
-            //option 2 see the book    -> a button to link the book page with the correct id of the newly created book
-
-            // history.push("/book/");
         } catch (err) {
             console.log(err, "Book Creation Error");
             // Display some popup or modal saying that something is wrong 
@@ -87,6 +89,7 @@ const CreateBookPage2 = () => {
     }
 
     const handleImageChange = key => e => {
+        e.preventDefault();
 
         const file = e.target.files[0];
         if (file && file.type.substr(0, 5) == 'image') {
@@ -147,7 +150,7 @@ const CreateBookPage2 = () => {
 
                     <label htmlFor="cover">COVER</label>
                     <input className="cb__form-input" type="file" id="file-input" name="cover" onChange={handleImageChange("cover")}></input>
-                    <button className="btn cb__form-button" onClick={() => { document.getElementById("file-input").click() }}>Choose Image</button>
+                    <button className="btn cb__form-button" onClick={(e) => { e.preventDefault; document.getElementById("file-input").click() }}>Choose Image</button>
 
                     <label htmlFor="title">TITLE</label>
                     <input className="cb__form-input" type="text" name="title" defaultValue={bookInfo.title} onChange={handleInputChange('title')} required></input>
@@ -192,7 +195,7 @@ const CreateBookPage2 = () => {
                     </div>
 
                     <label htmlFor="publishdate">PUBLISHDATE</label>
-                    <input className="cb__form-input cb__form-input--date" type="number" name="publishdate" defaultValue={bookInfo.publishdate} min="1497" max={curYear} onChange={handleInputChange('publishdate')} required></input>
+                    <input className="cb__form-input cb__form-input--date" type="number" name="publishdate" defaultValue={bookInfo.publishdate} min="1970" max={curYear} onChange={handleInputChange('publishdate')} required></input>
 
                     <label htmlFor="listed">VISIBILITY</label>
                     <input className="cb__form-input cb__form-input--visibility" type="checkbox" name="listed" id="listed" checked={bookInfo.listed} onChange={handleInputChange('listed')} defaultValue="Book is Visible"></input>
@@ -206,6 +209,12 @@ const CreateBookPage2 = () => {
                     <input className="btn cb__form-button" defaultValue="Create Book" onClick={handleSubmit}></input>
                 </form>
             </div>
+
+            <Modal open={isOpen} onClose={() => setIsOpen(false)} modalData={{ ...modalData }} />
+            {/* Fancy Modal
+                    <button>modal</button>
+                {modalData.message} */}
+            {/* </Modal> */}
         </div>
     )
 }

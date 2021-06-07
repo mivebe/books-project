@@ -35,7 +35,7 @@ export default function Login() {
     }
 
     return (
-        <form>
+        <form autoFocus>
             <div className="input__box">
                 <input type="text" value={loginData.username} required onChange={handleLoginChange('username')} />
                 <label htmlFor="">Username</label>

@@ -1,4 +1,8 @@
-.heading{
+.login-page{
+    padding-bottom: 10%;
+}
+
+.site-identity{
     position: relative;
     top: 20%;
     left: 50%;
@@ -13,30 +17,31 @@
         @include noselect;
     }
 
-    & .heading__primary{
-        font-size: 14rem;
-        font-weight: 700;
-        @include noselect;
-
-        & :nth-child(1){
-            color: $color-primary;
+    & .heading{
+        &__primary{
+            font-size: 14rem;
+            font-weight: 700;
+            @include noselect;
+    
+            & :nth-child(1){
+                color: $color-primary;
+            }
+    
+            & :nth-child(2){
+                color: $color-secondary;
+            }
         }
-
-        & :nth-child(2){
-            color: $color-secondary;
+        &__secondary{
+            color:$color-white;
+            font-size: 3rem;
+            font-weight: 500;
         }
     }
 
-    & .heading__secondary{
-        color:$color-white;
-        font-size: 3rem;
-        font-weight: 500;
-    }
 }
 
-.box{
+.login-section{
     position: relative;
-    margin-bottom: 100rem;
     left: 50%;
     transform: translateX(-50%);
     width: 50rem;
@@ -47,7 +52,7 @@
     text-align: center;
 
     & .input__box{
-        padding: 3rem;
+        padding: 2rem;
         position: relative;
 
         & input{

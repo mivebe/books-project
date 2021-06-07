@@ -15,6 +15,7 @@ const UserPanel = () => {
     const username = "UseRnamE";
     const lName = "Lastname";
     const fName = "Firstname";
+    const role = "role"
 
     useEffect(() => {
         if (image) {
@@ -64,7 +65,8 @@ const UserPanel = () => {
     return (
         <div className="user-page">
             <div className="up__container">
-                <div className="up__avatar-section">
+
+                <section className="up__avatar-section">
 
                     <div className="up__current-image-container">
                         <img className="up__avatar" src={placeholderAvatar}></img>
@@ -81,29 +83,35 @@ const UserPanel = () => {
                         {isLoading && <img className="up__preview__image-loader" src={loader} alt="loading"></img>}
                     </div>
 
-                </div>
+                </section>
 
-                <div className="up__info-container">
-                    <label>First Name: </label>
-                    <p className="up__name up__name--first">{fName}</p>
-                    <label>Last Name: </label>
-                    <p className="up__name up__name--last">{lName}</p>
-                    <label>Username: </label>
-                    <p className="up__username">{username}</p>
-                    <label>Email: </label>
-                    <p className="up__email">{email}</p>
-                </div>
+                <section className="up__profile-data">
 
-                {/* <div className="up__password-form">
-                    <label htmlFor="CurPassword">Current Password</label>
-                    <input type="password" name="curPassword" required></input>
+                    <div className="up__info-container">
+                        <label>First Name: </label>
+                        <p className="up__name up__name--first">{fName}</p>
+                        <label>Last Name: </label>
+                        <p className="up__name up__name--last">{lName}</p>
+                        <label>Username: </label>
+                        <p className="up__username">{username}</p>
+                        <label>Email: </label>
+                        <p className="up__email">{email}</p>
+                        <label>Role: </label>
+                        <p className="up__role">{role}</p>
+                    </div>
 
-                    <label htmlFor="NewPassword">Nem Password</label>
-                    <input type="password" name="NewPassword" required></input>
+                    <div className="up__password-form">
+                        <label htmlFor="CurPassword">Current Password</label>
+                        <input type="password" name="curPassword" required></input>
 
-                    <label htmlFor="reNewPassword">Repeat New Password</label>
-                    <input type="password" name="reNewPassword" required></input>
-                </div> */}
+                        <label htmlFor="NewPassword">Nem Password</label>
+                        <input type="password" name="NewPassword" required></input>
+
+                        <label htmlFor="reNewPassword">Repeat New Password</label>
+                        <input type="password" name="reNewPassword" required></input>
+                    </div>
+
+                </section>
 
             </div>
         </div>
