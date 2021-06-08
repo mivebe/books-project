@@ -1,14 +1,17 @@
-import { useContext } from "react"
+import { useContext, useEffect, useState } from 'react'
+import { BooksContext } from '../contexts/BooksContext';
 import { InnerStorage } from "../contexts/AuthContext";
+import BookCard from "../BookCard"
 
 const AllBooks = () => {
-    const authContext = useContext(InnerStorage);
-    const { backEndURL } = authContext;
+    const books = useContext(BooksContext)
+
+    console.log(books);
 
 
     return (
-        <div>
-
+        <div className="all-books-page">
+            {books.map(el => <BookCard key={el.id} book={el} />)}
         </div>
     )
 }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import { InnerStorage } from '../contexts/authContext';
+import { InnerStorage } from '../contexts/AuthContext';
 import axios from "axios";
 import placeholderCover from "../../media/grey-book.png"
 
