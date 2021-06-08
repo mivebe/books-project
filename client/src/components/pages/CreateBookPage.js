@@ -69,10 +69,11 @@ const CreateBookPage = () => {
             setBookInfo({ ...bookInfo, "cover": await imageID });
 
             const body = await { ...bookInfo };
-
             const res = await axios.post(`${backEndURL}/books/`, await body, {
                 headers: {
-                    'Authorization': `Bearer ${authContext.token}`
+                    'Authorization': `Bearer ${authContext.token}`,
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json'
                 }
             })
             console.log("Book Created !!! ", await res.data);
@@ -108,7 +109,7 @@ const CreateBookPage = () => {
             formData.append("cover", image);
 
             const res = await fetch(`${backEndURL}/uploadFile`, {
-                method: "post",
+                method: "POST",
                 body: formData,
             })
             const resBody = await res.json()
@@ -210,12 +211,7 @@ const CreateBookPage = () => {
                     <input className="btn cb__form-button" defaultValue="Create Book" onClick={handleSubmit}></input>
                 </form>
             </div>
-
             <Modal open={isOpen} onClose={() => setIsOpen(false)} modalData={{ ...modalData }} />
-            {/* Fancy Modal
-                    <button>modal</button>
-                {modalData.message} */}
-            {/* </Modal> */}
         </div>
     )
 }

@@ -3,7 +3,7 @@ import "./styles/sass/main.scss";
 import { getCookie } from "./components/Cookies"
 import jwt_decode from "jwt-decode"
 import AppRouter from "./AppRouter"
-import { InnerStorage } from "./components/contexts/authContext"
+import { InnerStorage } from "./components/contexts/AuthContext"
 
 
 // const init = { logged: false, token: null, refreshToken: null, tokenInfo: {}, setLogged: () => { }, setToken: () => { }, setRefreshToken: () => { }, setTokenInfo: () => { } }

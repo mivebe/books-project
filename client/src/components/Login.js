@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import axios from "axios"
-import { InnerStorage } from './contexts/authContext';
+import { InnerStorage } from './contexts/AuthContext';
 
 export default function Login() {
     const history = useHistory();

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { useHistory } from "react-router-dom"
-import { InnerStorage } from "../contexts/authContext"
+import { InnerStorage } from "../contexts/AuthContext"
 
 export default function Home() {
 
