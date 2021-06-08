@@ -233,7 +233,7 @@ const getBookRate = async (rateId) => {
 const getBookRating = async (bookId) => {
     const sql = `
     SELECT AVG(rate) as rate
-    FROM rates
+    FROM rates WHERE books_id=${bookId}
     `
     const bookRating = await pool.query(sql, [bookId])
     return [...bookRating]

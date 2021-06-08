@@ -214,10 +214,7 @@ const getBookRating = (SQLRequests) => async (bookId) => {
     }
 
     const fullRating = await SQLRequests.getBookRating(bookId)
-    console.log(fullRating[0]);
     const rating = fullRating[0].rate || 0
-
-    // fullRating[0].rate ? rating = fullRating[0].rate : rating = 0
 
     return {
         err: null,
