@@ -11,16 +11,17 @@ const returnBothTokens = async (err, user, res) => {
         return res.status(400).send({ msg: err, devMsg: "sha ma praish na putka" })
     } else {
         const refreshPayload = {
-            sub: user.id,
+            id: user.id,
             username: user.username
         };
         const payload = {
-            sub: user.id,
+            id: user.id,
             firstName: user.firstName,
             lastName: user.lastName,
             username: user.username,
             email: user.email,
             role: user.role,
+            avatar: user.avatar
         }
         const refreshToken = createRefreshToken(refreshPayload);
         const token = createToken(payload);
@@ -28,6 +29,7 @@ const returnBothTokens = async (err, user, res) => {
         return res.status(200).send({ refreshToken, token, devMsg: "brao brat" })
     }
 }
+
 const usersController = express.Router();
 
 usersController

@@ -11,7 +11,7 @@ const refreshToken = (SQLRequests) => async (username) => {
 
 const createUser = (SQLRequests) => async (firstName, lastName, username, email, password) => {
     const [existingUser] = await SQLRequests.retrieveUserFullInfoByUsername(username);
-    const [existingUser2] = await SQLRequests.retrieveUserFullInfoByEmail(email);
+    const [existingEmail] = await SQLRequests.retrieveUserFullInfoByEmail(email);
 
 
     if (existingUser) {
@@ -20,7 +20,7 @@ const createUser = (SQLRequests) => async (firstName, lastName, username, email,
             user: null
         };
     }
-    if (existingUser2) {
+    if (existingEmail) {
         return {
             err: userErrors.DUPLICATE_EMAIL,
             user: null
@@ -40,6 +40,7 @@ const loginUser = (SQLRequests) => async (username, password) => {
             user: null
         }
     }
+
     return {
         err: null,
         user: user

@@ -6,12 +6,12 @@ const authMiddlewareRefresh = passport.authenticate('refresh', { session: false 
  * @param {string} roleName The correct role to be checked.
  * @returns {Function} Callback that checks user's role.
  */
-const roleMiddleware = (roleName = "admin") => {
+const roleMiddleware = (roleName) => {
     return (req, res, next) => {
         if (req.user && req.user.role === roleName) {
             next();
         } else {
-            next('Resource is forbidden. You are not an Admin!');
+            next("restricted");
         }
     };
 };

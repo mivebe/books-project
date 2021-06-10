@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Switch, Route, Redirect } from "react-router-dom"
 import HomePage from '../pages/HomePage'
 import PageNotFound from '../pages/PageNotFound';
@@ -9,10 +9,14 @@ import CreateBookPage from '../pages/CreateBookPage';
 import AllBooks from "../pages/AllBooks";
 import UserPanel from "../pages/UserPanel"
 import { BooksProvider } from '../contexts/BooksContext';
+import { InnerStorage } from "../contexts/AuthContext"
 
 
 const PrivateSwitch = () => {
     console.log("Private Switch Entered");
+    const authContext = useContext(InnerStorage)
+    const { role } = authContext.tokenInfo
+
     return (
         <div>
             <Navbar />
@@ -21,7 +25,7 @@ const PrivateSwitch = () => {
                 <Route exact path="/book/:id"><Book /></Route>
                 <Route exact path="/book"><Book /></Route>
                 <Route exact path="/all-books"><BooksProvider><AllBooks /></BooksProvider></Route>
-                <Route exact path="/create-book"><CreateBookPage /></Route>
+                {role === "admin" && <Route exact path="/create-book"><CreateBookPage /></Route>}
                 <Route exact path="/account"><UserPanel /></Route>
                 <Route exact path="/404"><PageNotFound /></Route>
                 <Redirect from="/logout" to="/login" />

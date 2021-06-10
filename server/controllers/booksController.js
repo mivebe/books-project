@@ -124,11 +124,27 @@ booksController
 
     .get("/:id/rating", async (req, res) => {
         const bookId = req.params.id;
-        const { err, rating } = await booksService.getBookRating(SQLRequests)(bookId);
-        if (err) {
-            return res.status(400).send({ msg: err })
+        const role = req.user.role
+
+        if (role === "admin") {
+            const { err, rating } = await booksService.getAnyBookRating(SQLRequests)(bookId);
+            if (err) {
+                return res.status(400).send({ msg: err })
+            }
+            res.status(200).send({ rating })
+
+        } else if (role === "user") {
+            const { err, rating } = await booksService.getBookRating(SQLRequests)(bookId);
+            if (err) {
+                return res.status(400).send({ msg: err })
+            }
+            res.status(200).send({ rating })
+
+        } else {
+            return res.status(400).send({ msg: "Nonexistant user role" })
         }
-        res.status(200).send({ rating })
+
+
     })
 
 

@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import logo from "../media/bambook-logo.png";
 import MGSearch from "../media/magnifying-glass.svg";
-import userImage from "../media/user-6.jpg";
+import placeholderAvatar from "../media/placeholder-avatar.jpg";
 import { useHistory } from 'react-router-dom';
+import { InnerStorage } from "./contexts/AuthContext"
 
 const Navbar = () => {
 
+    const authContext = useContext(InnerStorage)
+    const { backEndURL } = authContext
+    const { username, role, avatar } = authContext.tokenInfo
     const history = useHistory();
-    const username = "User Name"
+
 
     return (
         <div className="padding-container">
@@ -25,7 +29,7 @@ const Navbar = () => {
                     </form>
 
                     <nav className="navigation__container">
-                        <a className="navbar__btn navbar__btn--green " href="/create-book" >Create Book</a>
+                        {role === "admin" && <a className="navbar__btn navbar__btn--green " href="/create-book" >Create Book</a>}
                         <a className="navbar__btn navbar__btn--green " href="/book" >Book</a>
                         <a className="navbar__btn navbar__btn--green " href="/all-books" >All Books</a>
                     </nav>
@@ -35,7 +39,7 @@ const Navbar = () => {
                             <p>{username}</p>
                         </div>
                         <div className="nav__photo-container">
-                            <img className="nav__user-photo" src={userImage} alt="User photo"></img>
+                            <img className="nav__user-photo" src={`${backEndURL}/static/${avatar}` || placeholderAvatar} alt="User photo"></img>
                         </div>
                     </div>
 

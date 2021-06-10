@@ -2,8 +2,8 @@ import SQLRequests from "../data/SQLRequests.js";
 import { bookErrors, commentErrors } from "../errors/errors.js"
 
 const getAllBooks = (SQLRequests) => async (search, limit, offset, role) => {
-    console.log(limit);
-    console.log(offset);
+    console.log("limit: ", limit);
+    console.log("offset: ", offset);
     if (role === "admin") {
         return await SQLRequests.retrieveAllBooks(search, limit || 20, offset || 0);
     } else {
@@ -182,7 +182,7 @@ const getTraffic = (SQLRequests) => async () => {
 }
 
 const createBookRate = (SQLRequests) => async (userId, bookId, rate) => {
-    if (rate < 0 || rate > 10) {
+    if (rate < 0 || rate > 5) {
         return {
             err: bookErrors.INVALID_BOOK_RATE,
             rateEntry: null
@@ -201,6 +201,24 @@ const createBookRate = (SQLRequests) => async (userId, bookId, rate) => {
     return {
         err: null,
         rateEntry: rateEntry
+    }
+}
+
+const getAnyBookRating = (SQLRequests) => async (bookId) => {
+    const [book] = await SQLRequests.getAnyBookById(bookId);
+    if (!book) {
+        return {
+            err: bookErrors.INVALID_BOOK_ID,
+            rating: null
+        }
+    }
+
+    const fullRating = await SQLRequests.getBookRating(bookId)
+    const rating = fullRating[0].rate || 0
+
+    return {
+        err: null,
+        rating: rating
     }
 }
 
@@ -235,4 +253,5 @@ export default {
     getTraffic,
     createBookRate,
     getBookRating,
+    getAnyBookRating,
 }

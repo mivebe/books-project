@@ -13,8 +13,9 @@ export default function Login() {
 
     const handleLogin = async e => {
         e.preventDefault();
-        console.log(loginData);
+        console.log("input fields", loginData);
         const body = { ...loginData }
+        console.log("what is sent to server", body);
 
         try {
             const res = await axios.post(`${backEndURL}/users/login`, body)
@@ -26,7 +27,7 @@ export default function Login() {
             authContext.setRefreshToken(res.refreshToken);
             authContext.setLogged(true);
 
-            history.push("/home");
+            // history.push("/home");
         } catch (err) {
             console.log(err, "login err");
             history.push("/404")

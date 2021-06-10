@@ -1,21 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import userAvatar from "../../media/user-6.jpg";
+import React, { useEffect, useState, useContext } from 'react';
 import placeholderAvatar from "../../media/placeholder-avatar.jpg";
 import loader from "../../media/user-6.jpg";
+import { InnerStorage } from "../contexts/AuthContext"
 
 
 
 const UserPanel = () => {
+    const authContext = useContext(InnerStorage);
+    const { backEndURL } = authContext;
+    const { firstName, lastName, username, email, role, avatar } = authContext.tokenInfo;
 
     const [image, setImage] = useState()
     const [preview, setPreview] = useState(placeholderAvatar);
     const [isLoading, setIsLoading] = useState()
 
-    const email = "test@asd.com";
-    const username = "UseRnamE";
-    const lName = "Lastname";
-    const fName = "Firstname";
-    const role = "role"
 
     useEffect(() => {
         if (image) {
@@ -40,7 +38,7 @@ const UserPanel = () => {
             formData.append("cover", image);
 
             const res = await fetch(`${backEndURL}/uploadFile`, {
-                method: "post",
+                method: "POST",
                 body: formData,
             })
             const resBody = await res.json()
@@ -69,7 +67,7 @@ const UserPanel = () => {
                 <section className="up__avatar-section">
 
                     <div className="up__current-image-container">
-                        <img className="up__avatar" src={placeholderAvatar}></img>
+                        <img className="up__avatar" src={`${backEndURL}/static/${avatar}` || placeholderAvatar}></img>
                     </div>
 
                     <div className="up__button-container">
@@ -89,9 +87,9 @@ const UserPanel = () => {
 
                     <div className="up__info-container">
                         <label>First Name: </label>
-                        <p className="up__name up__name--first">{fName}</p>
+                        <p className="up__name up__name--first">{firstName}</p>
                         <label>Last Name: </label>
-                        <p className="up__name up__name--last">{lName}</p>
+                        <p className="up__name up__name--last">{lastName}</p>
                         <label>Username: </label>
                         <p className="up__username">{username}</p>
                         <label>Email: </label>
