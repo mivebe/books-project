@@ -10,6 +10,8 @@ import AllBooks from "../pages/AllBooks";
 import UserPanel from "../pages/UserPanel"
 import { BooksProvider } from '../contexts/BooksContext';
 import { InnerStorage } from "../contexts/AuthContext"
+import SearchPage from '../pages/SearchPage';
+import AnimatedMenu from '../dropdown/AnimatedMenu';
 
 
 const PrivateSwitch = () => {
@@ -24,14 +26,16 @@ const PrivateSwitch = () => {
                 <Route exact path="/home"><HomePage /></Route>
                 <Route exact path="/book/:id"><Book /></Route>
                 <Route exact path="/book"><Book /></Route>
+                <Route exact path="/anim"><AnimatedMenu /></Route>
                 <Route exact path="/all-books"><BooksProvider><AllBooks /></BooksProvider></Route>
                 {role === "admin" && <Route exact path="/create-book"><CreateBookPage /></Route>}
+                <Route exact path="/search"><SearchPage /></Route>
                 <Route exact path="/account"><UserPanel /></Route>
                 <Route exact path="/404"><PageNotFound /></Route>
                 <Redirect from="/logout" to="/login" />
                 <Redirect from="*" to="/home" />
             </Switch>
-            <Footer />
+            {/* <Footer /> */}
         </div>
     )
 }
