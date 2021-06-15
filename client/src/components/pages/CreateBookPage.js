@@ -17,14 +17,13 @@ const CreateBookPage = () => {
     const [modalData, setModalData] = useState({
         image: checkmark,
         message: "Book Created Successfully!",
-        url: "",
+        url: ""
     });
     const [image, setImage] = useState()
     const [preview, setPreview] = useState(placeholderBook);
     const [isLoading, setIsLoading] = useState()
 
     const [bookInfo, setBookInfo] = useState({
-        cover: "",
         title: "",
         author: "",
         genre: "",
@@ -60,26 +59,45 @@ const CreateBookPage = () => {
         console.log("bookInfo", bookInfo);
     }, [bookInfo])
 
+    const stateClear = (e) => {
+        setBookInfo({
+            title: "",
+            author: "",
+            genre: "",
+            publishdate: "",
+            listed: false,
+            copies: "",
+            description: "",
+        });
+        setImage();
+        setPreview(placeholderBook);
 
+        const btn = document.querySelector('input[type="radio"][name="genre"]:checked');
+        if (btn) { btn.checked = false; }
+        setIsOpen(false);
+    }
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
-
+        e.preventDefault()
         try {
             const { imageID } = await sendImage();
-            setBookInfo({ ...bookInfo, "cover": await imageID });
+            if (!imageID) {
+                console.log('did not create book because of no image');
+                return false;
+            }
+            // setBookInfo({ ...bookInfo, "cover": imageID });
 
-            const body = await { ...bookInfo };
-            const res = await axios.post(`${backEndURL}/books/`, await body, {
+            const body = { ...bookInfo, cover: imageID };
+            const res = await axios.post(`${backEndURL}/books/`, body, {
                 headers: {
                     'Authorization': `Bearer ${authContext.token}`,
                     'Accept': 'application/json, text/plain, */*',
                     'Content-Type': 'application/json'
                 }
             })
-            console.log("Book Created !!! ", await res.data);
-            console.log(await res.data.id);
-            setModalData({ ...modalData, url: `/book/${await res.data.id}` })
+            console.log("Book Created !!! ", res.data);
+            console.log(res.data.id);
+            setModalData({ ...modalData, url: `/book/${res.data.id}` })
             setIsOpen(true)
 
         } catch (err) {
@@ -88,11 +106,10 @@ const CreateBookPage = () => {
             // history.push("/404");
         }
 
+        return false;
     }
 
-    const handleImageChange = key => e => {
-        e.preventDefault();
-
+    const handleImageChange = e => {
         const file = e.target.files[0];
         if (file && file.type.substr(0, 5) == 'image') {
             setImage(file);
@@ -104,19 +121,18 @@ const CreateBookPage = () => {
     }
 
     const sendImage = async e => {
-        if (image) {
+        if (!image) { return {}; }
 
-            let formData = new FormData();
-            formData.append("cover", image);
+        let formData = new FormData();
+        formData.append("cover", image);
 
-            const res = await fetch(`${backEndURL}/uploadFile`, {
-                method: "POST",
-                body: formData,
-            })
-            const resBody = await res.json()
-            console.log(resBody);
-            return await resBody
-        }
+        const res = await fetch(`${backEndURL}/uploadFile`, {
+            method: "POST",
+            body: formData,
+        })
+        const resBody = await res.json()
+        console.log(resBody);
+        return resBody
     }
 
     return (
@@ -148,18 +164,17 @@ const CreateBookPage = () => {
 
             <div className="cb__form-container" >
 
-                <form className="cb__form" >
+                <form className="cb__form" onSubmit={handleSubmit}>
                     <p className="cb__form-title">FORM</p>
 
-                    <label htmlFor="cover">COVER</label>
-                    <input className="cb__form-input" type="file" id="file-input" name="cover" onChange={handleImageChange("cover")}></input>
-                    <button className="btn cb__form-button" onClick={(e) => { e.preventDefault; document.getElementById("file-input").click() }}>Choose Image</button>
+                    <label className="btn cb__form-button" htmlFor="file-input">Choose Cover Image</label>
+                    <input className="cb__form-input" type="file" id="file-input" name="cover" onChange={(e) => handleImageChange(e)}></input>
 
                     <label htmlFor="title">TITLE</label>
-                    <input className="cb__form-input" type="text" name="title" defaultValue={bookInfo.title} onChange={handleInputChange('title')} required></input>
+                    <input className="cb__form-input" type="text" name="title" value={bookInfo.title} onChange={handleInputChange('title')} required></input>
 
                     <label htmlFor="author">AUTHOR</label>
-                    <input className="cb__form-input" type="text" name="author" defaultValue={bookInfo.author} onChange={handleInputChange('author')} required></input>
+                    <input className="cb__form-input" type="text" name="author" value={bookInfo.author} onChange={handleInputChange('author')} required></input>
 
                     <label htmlFor="genre">GENRE</label>
                     <div className="cb__radio-list">
@@ -198,21 +213,21 @@ const CreateBookPage = () => {
                     </div>
 
                     <label htmlFor="publishdate">PUBLISHDATE</label>
-                    <input className="cb__form-input cb__form-input--date" type="number" name="publishdate" defaultValue={bookInfo.publishdate} min="1970" max={curYear} onChange={handleInputChange('publishdate')} required></input>
+                    <input className="cb__form-input cb__form-input--date" type="number" name="publishdate" value={bookInfo.publishdate} min="1970" max={curYear} onChange={handleInputChange('publishdate')} required></input>
 
                     <label htmlFor="listed">VISIBILITY</label>
-                    <input className="cb__form-input cb__form-input--visibility" type="checkbox" name="listed" id="listed" checked={bookInfo.listed} onChange={handleInputChange('listed')} defaultValue="Book is Visible"></input>
+                    <input className="cb__form-input cb__form-input--visibility" type="checkbox" name="listed" id="listed" checked={bookInfo.listed} onChange={handleInputChange('listed')} value="Book is Visible"></input>
 
                     <label htmlFor="copies">NUMBER OF COPIES</label>
-                    <input className="cb__form-input cb__form-input--copies" type="number" name="copies" min="0" defaultValue={bookInfo.copies} onChange={handleInputChange('copies')} required></input>
+                    <input className="cb__form-input cb__form-input--copies" type="number" name="copies" min="0" value={bookInfo.copies} onChange={handleInputChange('copies')} required></input>
 
                     <label htmlFor="description">DESCRIPTION</label>
-                    <textarea className="cb__form-input cb__form-input--desc" type="text" name="description" defaultValue={bookInfo.description} onChange={handleInputChange('description')} required></textarea>
+                    <textarea className="cb__form-input cb__form-input--desc" type="text" name="description" value={bookInfo.description} onChange={handleInputChange('description')} required></textarea>
 
-                    <input className="btn cb__form-button" defaultValue="Create Book" onClick={handleSubmit}></input>
+                    <input className="btn cb__form-button" value="Create Book" type="submit" />
                 </form>
             </div>
-            <Modal open={isOpen} onClose={() => setIsOpen(false)} modalData={{ ...modalData }} />
+            <Modal open={isOpen} onClose={() => setIsOpen(false)} onStateClear={stateClear} modalData={{ ...modalData }} />
         </div>
     )
 }

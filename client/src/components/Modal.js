@@ -27,7 +27,7 @@ import ReactDom from 'react-dom'
 //     zIndex: 1000
 // }
 
-export default function Modal({ open, children, onClose, modalData }) {
+export default function Modal({ open, children, onClose, onStateClear, modalData }) {
     if (!open) return null
     const { message, url, image } = modalData
 
@@ -38,8 +38,8 @@ export default function Modal({ open, children, onClose, modalData }) {
                 <img src={image} alt="Modal Image"></img>
                 {children}
                 <div className="button-container">
-                    <button className="btn btn--green"> <a href={url} >Check It Out</a></button>
-                    <button className="btn btn--brown"><a href="/create-book">Create Another</a></button>
+                    <button className="btn btn--green" onClick={() => { window.location.href = url; }}>Check It Out</button>
+                    <button className="btn btn--brown" onClick={onStateClear}>Create Another</button>
                     <button className="btn btn--red" onClick={onClose}>Close Modal</button>
                 </div>
             </div>
