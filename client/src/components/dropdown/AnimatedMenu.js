@@ -1,17 +1,13 @@
-import React, { useState, useContext, useRef, useEffect } from 'react'
-import "./AnimatedMenu.css"
-import { useHistory } from "react-router-dom"
-import { InnerStorage } from "../contexts/AuthContext"
-import { ReactComponent as DownArrow } from '../../media/down-arrow.svg'
-import { CSSTransition } from "react-transition-group"
-import { ReactComponent as BellIcon } from '../../media/bell.svg';
-import { ReactComponent as MessengerIcon } from '../../media/messenger.svg';
-import { ReactComponent as CaretIcon } from '../../media/caret.svg';
-import { ReactComponent as PlusIcon } from '../../media/plus.svg';
-import { ReactComponent as CogIcon } from '../../media/cog.svg';
-import { ReactComponent as ChevronIcon } from '../../media/chevron.svg';
-import { ReactComponent as ArrowIcon } from '../../media/arrow.svg';
-import { ReactComponent as BoltIcon } from '../../media/bolt.svg';
+import React, { useState, useContext, useRef, useEffect } from 'react';
+import { useHistory } from "react-router-dom";
+import { InnerStorage } from "../contexts/AuthContext";
+import { CSSTransition } from "react-transition-group";
+import { ReactComponent as BellIcon } from '../../media/icons/bell.svg';
+import { ReactComponent as PlusIcon } from '../../media/icons/plus.svg';
+import { ReactComponent as CogIcon } from '../../media/icons/cog.svg';
+import { ReactComponent as ArrowIcon } from '../../media/icons/arrow.svg';
+import { ReactComponent as DownArrow } from '../../media/icons/dropdown-arrow.svg';
+import { ReactComponent as LogoutIcon } from '../../media/icons/logout-icon.svg';
 
 const AnimatedMenu = () => {
     return (
@@ -29,8 +25,8 @@ const AnimatedMenu = () => {
 
 const Navbar = ({ children }) => {
     return (
-        <nav className="navbar">
-            <ul className="navbar-nav">
+        <nav className="dropdown-navbar">
+            <ul className="dropdown-navbar-nav">
                 {children}
             </ul>
         </nav>
@@ -40,7 +36,7 @@ const Navbar = ({ children }) => {
 const NavItem = ({ icon, children }) => {
     const [open, setOpen] = useState(false)
     return (
-        <li className="nav-item">
+        <li className="dropdown-nav-item">
             <a href="#" className="icon-button" onClick={() => setOpen(!open)}>{icon}</a>
             {open && children}
         </li>
@@ -87,8 +83,8 @@ const DropdownMenu = () => {
             >
                 <div className="menu">
 
-                    <DropdownItem onClick={() => setActiveMenu("settings")}>Settings</DropdownItem>
-                    <DropdownItem leftIcon={<DownArrow />} onClick={() => {
+                    <DropdownItem leftIcon={<CogIcon />} onClick={() => setActiveMenu("settings")}>Settings</DropdownItem>
+                    <DropdownItem leftIcon={<LogoutIcon />} onClick={() => {
                         document.cookie = "token=;expires=Thu,01 Jan 1970 00:00:00 UTC";
                         document.cookie = "refreshToken=;expires=Thu,01 Jan 1970 00:00:00 UTC";
 
@@ -111,8 +107,8 @@ const DropdownMenu = () => {
             >
                 <div className="menu">
 
-                    <DropdownItem onClick={() => setActiveMenu("main")}>Settings</DropdownItem>
-                    <DropdownItem onClick={() => setActiveMenu("main")}>Settings</DropdownItem>
+                    <DropdownItem leftIcon={<ArrowIcon />} onClick={() => setActiveMenu("main")}></DropdownItem>
+                    <DropdownItem onClick={() => setActiveMenu("main")}>Profile</DropdownItem>
                     <DropdownItem onClick={() => setActiveMenu("main")}>Settings</DropdownItem>
                     <DropdownItem onClick={() => setActiveMenu("main")}>Settings</DropdownItem>
                     <DropdownItem onClick={() => setActiveMenu("main")}>Settings</DropdownItem>

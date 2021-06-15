@@ -22,7 +22,14 @@ $color-transparent:rgba(0,0,0,0);
 
 
 //NAVBAR
-$navbar-height:15rem;
+$navbar-height: 15rem;
+$dropdown-bg: #242526;
+$dropdown-bg-accent: #484a4d;
+$dropdown-text-color: #dadce1;
+$dropdown-nav-size: 60px;
+$dropdown-border: 1px solid #474a4d;
+$dropdown-border-radius: 8px;
+$dropdown-speed: 500ms; 
 
 // FONT
 $default-font-size: 1.6rem; //16px as 1 rem is set to 10px in the base
