@@ -6,7 +6,7 @@
   
   .dropdown-navbar a {
     color: $dropdown-text-color;
-    text-decoration: none;;
+    text-decoration: none;
   }
   
   /* Top Navigation Bar */
@@ -65,7 +65,7 @@
   
   .dropdown {
     position: absolute;
-    top: 250px;
+    top: 140px;
     width: 300px;
     transform: translateX(-45%);
     background-color: $dropdown-bg;
@@ -74,6 +74,11 @@
     padding: 1rem;
     overflow: hidden;
     transition: height $dropdown-speed ease;
+
+    & a{
+      color: $dropdown-text-color;
+      text-decoration: none;
+    }
   }
   
   .menu {
@@ -104,9 +109,9 @@
         margin-left: auto;
     }
   }
-  
-  
-  /* CSSTransition classes  */
+
+
+
   .menu-primary-enter {
     position: absolute;
     transform: translateX(-110%);
@@ -114,9 +119,6 @@
   .menu-primary-enter-active {
     transform: translateX(0%);
     transition: all $dropdown-speed ease;
-  }
-  .menu-primary-exit {
-    position: absolute;
   }
   .menu-primary-exit-active {
     transform: translateX(-110%);
@@ -131,9 +133,6 @@
   .menu-secondary-enter-active {
     transform: translateX(0%);
     transition: all $dropdown-speed ease;
-  }
-  .menu-secondary-exit {
-  position: absolute;
   }
   .menu-secondary-exit-active {
     transform: translateX(110%);

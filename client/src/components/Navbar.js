@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import logo from "../media/bambook-logo.png";
-import MGSearch from "../media/magnifying-glass.svg";
+import MGSearch from "../media/icons/magnifying-glass.svg";
 import placeholderAvatar from "../media/placeholder-avatar.jpg";
 import { useHistory } from 'react-router-dom';
 import { InnerStorage } from "./contexts/AuthContext"
@@ -34,16 +34,17 @@ const Navbar = () => {
                         <a className="navbar__btn navbar__btn--green " href="/book" >Book</a>
                         <a className="navbar__btn navbar__btn--green " href="/all-books" >All Books</a>
                     </nav>
-                    {/* onClick={() => { history.push("/account") }} */}
-                    <div className="nav__user-panel" onClick={() => setOpen(!open)}>
+
+                    <div className="nav__user-panel">
                         <div className="nav__username-container">
                             <p>{username}</p>
                         </div>
-                        <div className="nav__photo-container">
+                        <div className="nav__photo-container" onClick={(e) => { setOpen(!open) }}>
                             <img className="nav__user-photo" src={`${backEndURL}/static/${avatar}` || placeholderAvatar} alt="User photo"></img>
                         </div>
                         {open && <DropdownMenu></DropdownMenu>}
                     </div>
+
 
                 </header>
             </div>
