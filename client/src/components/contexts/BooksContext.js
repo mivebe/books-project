@@ -7,12 +7,13 @@ export const BooksContext = createContext()
 export const BooksProvider = ({ children }) => {
     const [booksArray, setBooksArray] = useState([]);
     const authContext = useContext(InnerStorage);
+    const { backEndURL } = authContext
     const history = useHistory();
 
     useEffect(async () => {
         if (!authContext.logged) { history.push('/login') }
         else {
-            const res = await fetch('http://localhost:3001/books', {
+            const res = await fetch(`${backEndURL}/books`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${authContext.token}`,

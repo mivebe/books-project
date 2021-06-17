@@ -1,14 +1,15 @@
-import React, { useContext } from 'react'
+import React, { useContext, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import GetRating from "./GetRating"
 import { InnerStorage } from "./contexts/AuthContext";
 
-const BookCard = ({ book, returnBook }) => {
+const BookCard = ({ book, returnBook, lastRef }) => {
     const authContext = useContext(InnerStorage);
     const { backEndURL } = authContext;
 
+
     return (
-        <div key={book.id} className="book-card">
+        <div key={book.id} className="book-card" ref={lastRef ? lastRef : null}>
             <div className="bc__left-side">
                 <div className="bc__image-container">
                     <img src={`${backEndURL}/static/${book.cover}`} alt='Book cover' />
