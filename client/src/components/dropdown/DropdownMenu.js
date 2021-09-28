@@ -4,6 +4,9 @@ import { InnerStorage } from "../contexts/AuthContext";
 import { ReactComponent as CogIcon } from '../../media/icons/cog.svg';
 import { ReactComponent as LogoutIcon } from '../../media/icons/logout-icon.svg';
 import { ReactComponent as ArrowIcon } from '../../media/icons/arrow.svg';
+import { ReactComponent as AccountIcon } from '../../media/icons/account.svg';
+import { ReactComponent as FAQIcon } from '../../media/icons/faq.svg';
+import { ReactComponent as TermsIcon } from '../../media/icons/terms.svg';
 import DropdownItem from "./DropdownItem"
 
 const DropdownMenu = () => {
@@ -58,9 +61,9 @@ const DropdownMenu = () => {
 
                 <div className="menu menu-secondary-enter" ref={settingsRef}>
                     <DropdownItem leftIcon={<ArrowIcon />} onClick={() => setActiveMenu("main")}></DropdownItem>
-                    <DropdownItem onClick={() => setActiveMenu("main")}>Profile</DropdownItem>
-                    <DropdownItem onClick={() => setActiveMenu("main")}>Terms & Conditions</DropdownItem>
-                    <DropdownItem onClick={() => setActiveMenu("main")}>FAQ</DropdownItem>
+                    <DropdownItem leftIcon={<AccountIcon />} onClick={() => history.push("/account")}>Profile</DropdownItem>
+                    <DropdownItem leftIcon={<TermsIcon />} onClick={() => history.push("/terms")}>Terms & Conditions</DropdownItem>
+                    <DropdownItem leftIcon={<FAQIcon />} onClick={() => history.push("/faq")}>FAQ</DropdownItem>
                 </div>
             }
 

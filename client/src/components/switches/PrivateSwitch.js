@@ -11,6 +11,8 @@ import UserPanel from "../pages/UserPanel"
 import { BooksProvider } from '../contexts/BooksContext';
 import { InnerStorage } from "../contexts/AuthContext"
 import SearchPage from '../pages/SearchPage';
+import FAQ from '../FAQ'
+import Terms from '../pages/Terms'
 
 
 
@@ -31,6 +33,8 @@ const PrivateSwitch = () => {
                 <Route exact path="/search"><SearchPage /></Route>
                 <Route exact path="/account"><UserPanel /></Route>
                 <Route exact path="/404"><PageNotFound /></Route>
+                <Route exact path="/faq"><FAQ /></Route>
+                <Route exact path="/terms"><Terms /></Route>
                 <Redirect from="/logout" to="/login" />
                 <Redirect from="*" to="/home" />
             </Switch>
