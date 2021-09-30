@@ -202,22 +202,6 @@ export default function Home() {
                 </div>
             </section>
 
-            <div className="section-empty">
-
-                <button className="logout-btn"
-                    onClick={() => {
-                        document.cookie = "token=;expires=Thu,01 Jan 1970 00:00:00 UTC";
-                        document.cookie = "refreshToken=;expires=Thu,01 Jan 1970 00:00:00 UTC";
-
-                        authContext.setToken(null);
-                        authContext.setRefreshToken(null)
-                        authContext.setLogged(false);
-
-                        history.push("/logout");
-                    }}>Logout
-                </button>
-
-            </div>
 
         </div>
     )

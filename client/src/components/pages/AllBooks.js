@@ -10,6 +10,7 @@ const AllBooks = () => {
     const [additionalBooks, setAdditionalBooks] = useState([])
     const [offset, setOffset] = useState(20)
 
+
     useEffect(async () => {
         if (!authContext.logged) { history.push('/login') }
         else {
@@ -25,7 +26,7 @@ const AllBooks = () => {
             setAdditionalBooks(await books);
             // console.log("addition");
         }
-    }, [])
+    }, [offset])
 
 
     const observer = useRef()
@@ -44,8 +45,19 @@ const AllBooks = () => {
 
     return (
         <div className="all-books-page">
-            {books.map((el, i, arr) => arr.length === (i + 1) ? <BookCard key={el.id} book={el} lastRef={lastBookElement} /> : <BookCard key={el.id} book={el} />)}
-            {additionalBooks.length > 0 && additionalBooks.map((el, i, arr) => arr.length === (i + 1) ? <BookCard key={el.id} book={el} lastRef={lastBookElement} /> : <BookCard key={el.id} book={el} />)}
+            {books.map((el, i, arr) =>
+                arr.length === (i + 1) ?
+                    <BookCard key={el.id} book={el} lastRef={lastBookElement} />
+                    :
+                    <BookCard key={el.id} book={el} />)
+            }
+            {additionalBooks.length > 0 &&
+                additionalBooks.map((el, i, arr) =>
+                    arr.length === (i + 1) ?
+                        <BookCard key={el.id} book={el} lastRef={lastBookElement} />
+                        :
+                        <BookCard key={el.id} book={el} />)
+            }
         </div>
     )
 }

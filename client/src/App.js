@@ -26,7 +26,13 @@ export default function App() {
     const backEndURL = `${backEndProtocol}${backEndHost}:${backEndPort}`
 
     return (
-        <InnerStorage.Provider value={{ logged, setLogged, token, setToken, refreshToken, setRefreshToken, tokenInfo, setTokenInfo, backEndURL }}>
+        <InnerStorage.Provider value={{
+            logged, setLogged,
+            token, setToken,
+            refreshToken, setRefreshToken,
+            tokenInfo, setTokenInfo,
+            backEndURL
+        }}>
             <AppRouter />
         </InnerStorage.Provider>
     )

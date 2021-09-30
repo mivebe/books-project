@@ -11,7 +11,7 @@ import UserPanel from "../pages/UserPanel"
 import { BooksProvider } from '../contexts/BooksContext';
 import { InnerStorage } from "../contexts/AuthContext"
 import SearchPage from '../pages/SearchPage';
-import FAQ from '../FAQ'
+import FAQ from '../pages/FAQ'
 import Terms from '../pages/Terms'
 
 

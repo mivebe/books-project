@@ -3,7 +3,7 @@ import { Switch, Route, Redirect } from "react-router-dom"
 import LoginPage from '../pages/LoginPage'
 import PageNotFound from '../pages/PageNotFound'
 import ConfirmationPage from '../pages/ConfirmationPage'
-import FAQ from '../FAQ'
+import FAQ from '../pages/FAQ'
 import Terms from '../pages/Terms'
 
 const PublicSwitch = () => {
