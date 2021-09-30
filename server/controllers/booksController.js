@@ -81,7 +81,8 @@ booksController
 
     .get("/:id/comments", async (req, res) => {
         const bookId = req.params.id;
-        const { err, comments } = await booksService.getBookComments(SQLRequests)(bookId);
+        const userRole = req.user.role;
+        const { err, comments } = await booksService.getBookComments(SQLRequests)(bookId, userRole);
         if (err) {
             return res.status(400).send({ msg: err })
         }
@@ -99,11 +100,11 @@ booksController
         res.status(200).send(commentEntry)
     })
 
-    .delete("/:id/comments/:commentId", async (req, res) => {
+    .delete("/comments/:commentId", async (req, res) => {
         const userId = req.user.id;
-        const bookId = req.params.id;
+        const userRole = req.user.role
         const commentId = req.params.commentId;
-        const { err, commentEntry } = await booksService.deleteBookComment(SQLRequests)(userId, bookId, commentId);
+        const { err, commentEntry } = await booksService.deleteBookComment(SQLRequests)(userId, userRole, commentId);
         if (err) {
             return res.status(400).send({ msg: err })
         }
@@ -143,9 +144,19 @@ booksController
         } else {
             return res.status(400).send({ msg: "Nonexistant user role" })
         }
-
-
     })
+
+// .update("/:id/rate", async (req, res) => {
+//     // const userId = req.user.id;
+//     // const bookId = req.params.id;
+//     // const rate = req.body.rate;
+//     // const { err, rateEntry } = await booksService.createBookRate(SQLRequests)(userId, bookId, rate);
+
+//     // if (err) {
+//     //     return res.status(400).send({ msg: err })
+//     // }
+//     // res.status(200).send(`You rated this book with ${rateEntry.rate}`)
+// })
 
 
 export default booksController

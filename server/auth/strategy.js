@@ -12,7 +12,7 @@ const refreshOptions = {
 
 const jwtStrategy = new passportJwt.Strategy(options, async (payload, done) => {
     const userData = {
-        id: payload.sub,
+        id: payload.id,
         username: payload.username,
         role: payload.role,
     };

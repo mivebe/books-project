@@ -2,8 +2,8 @@ import SQLRequests from "../data/SQLRequests.js";
 import { bookErrors, commentErrors } from "../errors/errors.js"
 
 const getAllBooks = (SQLRequests) => async (search, limit, offset, role) => {
-    console.log("limit: ", limit);
-    console.log("offset: ", offset);
+    // console.log("limit: ", limit);
+    // console.log("offset: ", offset);
     if (role === "admin") {
         return await SQLRequests.retrieveAllBooks(search, limit || 20, offset || 0);
     } else {
@@ -103,8 +103,12 @@ const updateBookVisibility = (SQLRequests) => async (bookId) => {
     }
 }
 
-const getBookComments = (SQLRequests) => async (bookId) => {
-    const [book] = await SQLRequests.getBookById(bookId);
+const getBookComments = (SQLRequests) => async (bookId, userRole) => {
+    const [book] = userRole === "admin" ?
+        await SQLRequests.getAnyBookById(bookId)
+        :
+        await SQLRequests.getBookById(bookId)
+
     if (!book) {
         return {
             err: bookErrors.INVALID_BOOK_ID,
@@ -138,14 +142,7 @@ const createBookComment = (SQLRequests) => async (userId, bookId, comment) => {
 
 }
 
-const deleteBookComment = (SQLRequests) => async (userId, bookId, commentId) => {
-    const [book] = await SQLRequests.getBookById(bookId);
-    if (!book) {
-        return {
-            err: bookErrors.INVALID_BOOK_ID,
-            commentEntry: null
-        }
-    }
+const deleteBookComment = (SQLRequests) => async (userId, userRole, commentId) => {
 
     const [commentEntry] = await SQLRequests.getBookCommentById(commentId);
     if (!commentEntry) {
@@ -155,17 +152,17 @@ const deleteBookComment = (SQLRequests) => async (userId, bookId, commentId) => 
         }
     }
 
-    if (commentEntry.users_id !== userId) {
+    if (userRole !== "admin" || commentEntry.users_id !== userId) {
         return {
             err: commentErrors.COMMENT_NOT_ACCESIBLE,
             commentEntry: null
         }
     }
 
-    await SQLRequests.deleteBookComment(commentId)
+    const deletedComment = await SQLRequests.deleteBookComment(commentId)
     return {
         err: null,
-        commentEntry: commentEntry
+        commentEntry: deletedComment
     }
 }
 

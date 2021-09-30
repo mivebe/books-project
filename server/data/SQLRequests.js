@@ -141,7 +141,7 @@ const updateBookListed = async (bookId, changeTo) => {
 
 const getBookComments = async (bookId) => {
     const sql = `
-    SELECT c.*,u.username FROM comments c JOIN users u ON u.id=c.users_id WHERE books_id=?;
+    SELECT c.*,u.username,u.avatar FROM comments c JOIN users u ON u.id=c.users_id WHERE books_id=?;
     `
     const bookComments = await pool.query(sql, [bookId])
     return bookComments
@@ -149,7 +149,7 @@ const getBookComments = async (bookId) => {
 
 const getBookCommentById = async (commentId) => {
     const sql = `
-    SELECT c.*,u.username FROM comments c JOIN users u ON u.id=c.users_id WHERE c.id=?;
+    SELECT c.* FROM comments c WHERE c.id=?;
     `
     const commentEntry = await pool.query(sql, [commentId])
     return [...commentEntry]
