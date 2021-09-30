@@ -31,8 +31,11 @@ const getBook = (SQLRequests) => async (id, role) => {
         return await SQLRequests.getBookById(id)
     }
 }
-const rentBook = (SQLRequests) => async (userId, bookId) => {
-    const [book] = await SQLRequests.getBookById(bookId)
+const rentBook = (SQLRequests) => async (userId, bookId, userRole) => {
+    const [book] = userRole === "admin" ?
+        await SQLRequests.getAnyBookById(bookId)
+        :
+        await SQLRequests.getBookById(bookId)
 
     if (!book) {
         return {
@@ -57,8 +60,11 @@ const rentBook = (SQLRequests) => async (userId, bookId) => {
         entry: await SQLRequests.createRegisterEntry(userId, bookId, 1)
     }
 }
-const returnBook = (SQLRequests) => async (userId, bookId) => {
-    const [book] = await SQLRequests.getBookById(bookId)
+const returnBook = (SQLRequests) => async (userId, bookId, userRole) => {
+    const [book] = userRole === "admin" ?
+        await SQLRequests.getAnyBookById(bookId)
+        :
+        await SQLRequests.getBookById(bookId)
 
     if (!book) {
         return {
@@ -177,6 +183,25 @@ const getTraffic = (SQLRequests) => async () => {
         mostRentedAuthors
     }
 }
+const getPersonalRate = (SQLRequests) => async (userId, bookId, userRole) => {
+    const [book] = userRole === "admin" ?
+        await SQLRequests.getAnyBookById(bookId)
+        :
+        await SQLRequests.getBookById(bookId)
+
+    if (!book) {
+        return {
+            err: bookErrors.INVALID_BOOK_ID,
+            comments: null
+        }
+    }
+
+    const [rateEntry] = await SQLRequests.getPersonalRate(userId, bookId)
+    return {
+        err: null,
+        personalRate: rateEntry.rate
+    }
+}
 
 const createBookRate = (SQLRequests) => async (userId, bookId, rate) => {
     if (rate < 0 || rate > 5) {
@@ -251,4 +276,5 @@ export default {
     createBookRate,
     getBookRating,
     getAnyBookRating,
+    getPersonalRate,
 }

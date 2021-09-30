@@ -230,6 +230,14 @@ const getBookRate = async (rateId) => {
     return [...rateEntry]
 }
 
+const getPersonalRate = async (userId, bookId) => {
+    const sql = `
+    SELECT * FROM rates WHERE users_id=? AND books_id=?
+    `
+    const rateEntry = await pool.query(sql, [userId, bookId])
+    return [...rateEntry]
+}
+
 const getBookRating = async (bookId) => {
     const sql = `
     SELECT AVG(rate) as rate
@@ -266,4 +274,5 @@ export default {
     getMostRentedAuthors,
     createBookRate,
     getBookRating,
+    getPersonalRate,
 }

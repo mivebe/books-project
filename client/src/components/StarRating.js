@@ -1,4 +1,4 @@
-import { useRef, useState, useContext } from "react";
+import { useRef, useState, useContext, useEffect } from "react";
 import { ReactComponent as StarIcon } from "../media/icons/star.svg";
 import { InnerStorage } from './contexts/AuthContext';
 
@@ -10,6 +10,18 @@ const StarRating = ({ bookId }) => {
 
     const authContext = useContext(InnerStorage);
     const { backEndURL } = authContext;
+
+    useEffect(async () => {
+        const res = await fetch(`${backEndURL}/books/${bookId}/rate`, {
+            method: "GET",
+            headers: {
+                'Authorization': `Bearer ${authContext.token}`
+            }
+        })
+        const result = await res.json()
+        setRating(result.rate)
+        console.log("current rate", result);
+    }, [])
 
     const handleRate = async () => {
         let rating = 0

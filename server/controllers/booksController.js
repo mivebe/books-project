@@ -53,7 +53,8 @@ booksController
     .post("/:id", async (req, res) => {
         const userId = req.user.id;
         const bookId = req.params.id;
-        const { err, entry } = await booksService.rentBook(SQLRequests)(userId, bookId);
+        const userRole = req.user.role;
+        const { err, entry } = await booksService.rentBook(SQLRequests)(userId, bookId, userRole);
         if (err) {
             return res.status(400).send({ msg: err })
         }
@@ -63,7 +64,8 @@ booksController
     .delete("/:id", async (req, res) => {
         const userId = req.user.id;
         const bookId = req.params.id;
-        const { err, entry } = await booksService.returnBook(SQLRequests)(userId, bookId);
+        const userRole = req.user.role;
+        const { err, entry } = await booksService.returnBook(SQLRequests)(userId, bookId, userRole);
         if (err) {
             return res.status(400).send({ msg: err })
         }
@@ -111,6 +113,20 @@ booksController
         res.status(200).send(commentEntry)
     })
 
+    .get("/:id/rate", async (req, res) => {
+        const userId = req.user.id;
+        const bookId = req.params.id;
+        const userRole = req.user.role;
+        const { err, personalRate } = await booksService.getPersonalRate(SQLRequests)(userId, bookId, userRole);
+        if (err) {
+            return res.status(400).send({ msg: err })
+        }
+        res.status(200).send({
+            msg: `Your rating for this book is ${personalRate}`,
+            rate: personalRate
+        })
+    })
+
     .post("/:id/rate", async (req, res) => {
         const userId = req.user.id;
         const bookId = req.params.id;
@@ -120,7 +136,10 @@ booksController
         if (err) {
             return res.status(400).send({ msg: err })
         }
-        res.status(200).send(`You rated this book with ${rateEntry.rate}`)
+        res.status(200).send({
+            msg: `You just rated this book with ${rateEntry.rate}`,
+            rateEntry: rateEntry
+        })
     })
 
     .get("/:id/rating", async (req, res) => {

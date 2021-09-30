@@ -14,36 +14,28 @@ const Book = () => {
     const authContext = useContext(InnerStorage);
     const { backEndURL } = authContext;
     const history = useHistory();
-    const starContainerRef = useRef(null)
 
-    const handleRent = () => {
+    const handleRent = async () => {
+        const res = await fetch(`${backEndURL}/books/${id || "16"}`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${authContext.token}`
+            }
+        })
+        const result = await res.json();
+        console.log("In Use Entry", result);
 
     }
-    const handleReturn = () => {
-
+    const handleReturn = async () => {
+        const res = await fetch(`${backEndURL}/books/${id || "16"}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${authContext.token}`
+            }
+        })
+        const result = await res.json();
+        console.log("Deleted In Use Entry", result);
     }
-
-    // const handleRateChange = (e) => {
-    //     console.log(starContainerRef.current);
-    //     starContainerRef.current.children.map(c => {
-    //         if (c == e.target) {
-    //             console.log("ASD");
-    //         }
-    //     })
-    // }
-
-    // useEffect(() => {
-    //     const left = document.getElementById("left")
-    //     const right = document.getElementById("right")
-
-    //     left.addEventListener("mouseover", handleRateChange)
-    //     right.addEventListener("mouseover", handleRateChange)
-
-    //     return () => {
-    //         left.removeEventListener("mouseover", handleRateChange)
-    //         right.removeEventListener("mouseover", handleRateChange)
-    //     }
-    // }, [])
 
     useEffect(() => {
         (async () => {
@@ -93,17 +85,7 @@ const Book = () => {
                         <button className='btn' onClick={handleRent}>Rent</button>
                         <button className='btn' onClick={handleReturn}>Return</button>
                     </div>
-                    <div>
-                        <StarRating bookId={id || 16} />
-                        {/* <div ref={starContainerRef}>
-                            <span><StarIcon style={{ width: "50px", color: "white" }} /></span>
-                            <span><StarIcon style={{ width: "50px", color: "white" }} /></span>
-                            <span><StarIcon style={{ width: "50px", color: "white" }} /></span>
-                            <span><StarIcon style={{ width: "50px", color: "white" }} /></span>
-                            <span><StarIcon style={{ width: "50px", color: "white" }} /></span>
-                        </div> */}
-
-                    </div>
+                    <StarRating bookId={id || 16} />
                 </section>
             }
 
