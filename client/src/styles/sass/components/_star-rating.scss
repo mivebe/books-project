@@ -1,0 +1,13 @@
+button[type=star-button]{
+    font-size: 40px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+.on {
+    color: yellow;
+}
+.off {
+    color: white;
+}

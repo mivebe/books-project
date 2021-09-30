@@ -13,13 +13,13 @@
 
     & .logo{
         position: relative;
-        width: 30rem;
+        width: 15rem;
         @include noselect;
     }
 
     & .heading{
         &__primary{
-            font-size: 14rem;
+            font-size: 10rem;
             font-weight: 700;
             @include noselect;
     
