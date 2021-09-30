@@ -2,11 +2,11 @@ import React, { useState, useEffect, useContext, useRef } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { InnerStorage } from '../contexts/AuthContext';
 import { CommentsProvider } from '../contexts/CommentsContext';
-import placeholderCover from "../../media/grey-book.png"
-import CommentSection from '../comments/CommentsSection';
-import CreateComment from '../comments/CreateComment';
-import { ReactComponent as StarIcon } from "../../media/icons/star.svg"
-import StarRating from '../StarRating';
+import placeholderCover from "../media/grey-book.png"
+import CommentSection from '../components/comments/CommentsSection';
+import CreateComment from '../components/comments/CreateComment';
+import { ReactComponent as StarIcon } from "../media/icons/star.svg"
+import StarRating from '../components/StarRating';
 
 const Book = () => {
     const { id } = useParams()

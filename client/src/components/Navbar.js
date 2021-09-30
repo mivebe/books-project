@@ -3,9 +3,8 @@ import logo from "../media/bambook-logo.png";
 import MGSearch from "../media/icons/magnifying-glass.svg";
 import placeholderAvatar from "../media/placeholder-avatar.jpg";
 import { useHistory } from 'react-router-dom';
-import { InnerStorage } from "./contexts/AuthContext"
+import { InnerStorage } from "../contexts/AuthContext"
 import DropdownMenu from "./dropdown/DropdownMenu"
-import DropdownItem from "./dropdown/DropdownItem"
 
 const Navbar = () => {
 

@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import BookCard from '../BookCard';
+import BookCard from '../components/BookCard';
 import { InnerStorage } from "../contexts/AuthContext"
 
 const SearchPage = () => {

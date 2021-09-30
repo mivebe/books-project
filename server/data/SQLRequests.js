@@ -217,23 +217,33 @@ const createBookRate = async (userId, bookId, rate) => {
     INSERT INTO rates(users_id, books_id, rate)
     VALUE (?,?,?);
     `
+
+    // const sql = `
+    // IF( EXISTS(SELECT * from rates WHERE users_id=? AND books_id=?),
+    // UPDATE rates SET rate=? WHERE users_id=? AND books_id=?,
+    // INSERT INTO rates (users_id, books_id, rate)
+    // VALUES (?,?,?));
+    // `
+
     const { insertId } = await pool.query(sql, [userId, bookId, rate])
+    // const { insertId } = await pool.query(sql, [userId, bookId, rate, userId, bookId, userId, bookId, rate])
+
     const rateEntry = await getBookRate(insertId)
     return rateEntry
 }
 
 const getBookRate = async (rateId) => {
     const sql = `
-    SELECT * FROM rates WHERE id=?
-    `
+    SELECT * FROM rates WHERE id =?
+        `
     const rateEntry = await pool.query(sql, [rateId])
     return [...rateEntry]
 }
 
 const getPersonalRate = async (userId, bookId) => {
     const sql = `
-    SELECT * FROM rates WHERE users_id=? AND books_id=?
-    `
+    SELECT * FROM rates WHERE users_id =? AND books_id =?
+        `
     const rateEntry = await pool.query(sql, [userId, bookId])
     return [...rateEntry]
 }
@@ -241,7 +251,7 @@ const getPersonalRate = async (userId, bookId) => {
 const getBookRating = async (bookId) => {
     const sql = `
     SELECT AVG(rate) as rate
-    FROM rates WHERE books_id=${bookId}
+    FROM rates WHERE books_id = ${bookId}
     `
     const bookRating = await pool.query(sql, [bookId])
     return [...bookRating]

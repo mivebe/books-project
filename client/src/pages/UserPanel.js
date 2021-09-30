@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
-import placeholderAvatar from "../../media/placeholder-avatar.jpg";
-import loader from "../../media/user-6.jpg";
+import placeholderAvatar from "../media/placeholder-avatar.jpg";
+import loader from "../media/user-6.jpg";
 import { InnerStorage } from "../contexts/AuthContext"
 
 

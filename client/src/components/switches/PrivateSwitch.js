@@ -1,18 +1,18 @@
 import React, { useContext } from 'react'
 import { Switch, Route, Redirect } from "react-router-dom"
-import HomePage from '../pages/HomePage'
-import PageNotFound from '../pages/PageNotFound';
+import HomePage from '../../pages/HomePage'
+import PageNotFound from '../../pages/PageNotFound';
 import Navbar from "../Navbar"
 import Footer from "../Footer"
-import Book from "../pages/BookPage"
-import CreateBookPage from '../pages/CreateBookPage';
-import AllBooks from "../pages/AllBooks";
-import UserPanel from "../pages/UserPanel"
-import { BooksProvider } from '../contexts/BooksContext';
-import { InnerStorage } from "../contexts/AuthContext"
-import SearchPage from '../pages/SearchPage';
-import FAQ from '../pages/FAQ'
-import Terms from '../pages/Terms'
+import Book from "../../pages/BookPage"
+import CreateBookPage from '../../pages/CreateBookPage';
+import AllBooks from "../../pages/AllBooks";
+import UserPanel from "../../pages/UserPanel"
+import { BooksProvider } from '../../contexts/BooksContext';
+import { InnerStorage } from "../../contexts/AuthContext"
+import SearchPage from '../../pages/SearchPage';
+import FAQ from '../../pages/FAQ'
+import Terms from '../../pages/Terms'
 
 
 

@@ -1,6 +1,6 @@
 import { useRef, useState, useContext, useEffect } from "react";
 import { ReactComponent as StarIcon } from "../media/icons/star.svg";
-import { InnerStorage } from './contexts/AuthContext';
+import { InnerStorage } from '../contexts/AuthContext';
 
 
 const StarRating = ({ bookId }) => {

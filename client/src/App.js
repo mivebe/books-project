@@ -1,9 +1,9 @@
-import React, { createContext, useState } from 'react'
+import React, { useState } from 'react'
 import "./styles/sass/main.scss";
 import { getCookie } from "./components/Cookies"
 import jwt_decode from "jwt-decode"
 import AppRouter from "./AppRouter"
-import { InnerStorage } from "./components/contexts/AuthContext"
+import { InnerStorage } from "./contexts/AuthContext"
 
 
 // const init = { logged: false, token: null, refreshToken: null, tokenInfo: {}, setLogged: () => { }, setToken: () => { }, setRefreshToken: () => { }, setTokenInfo: () => { } }

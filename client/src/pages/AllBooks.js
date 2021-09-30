@@ -1,7 +1,7 @@
 import { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { BooksContext } from '../contexts/BooksContext';
 import { InnerStorage } from "../contexts/AuthContext";
-import BookCard from "../BookCard"
+import BookCard from "../components/BookCard"
 
 const AllBooks = () => {
     const authContext = useContext(InnerStorage)

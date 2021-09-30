@@ -1,7 +1,7 @@
 import { useContext } from 'react';
-import { InnerStorage } from '../contexts/AuthContext';
+import { InnerStorage } from '../../contexts/AuthContext';
 import placeholderAvatar from "../../media/za-warudo.jpg"
-import { CommentsContext } from '../contexts/CommentsContext';
+import { CommentsContext } from '../../contexts/CommentsContext';
 
 const CommentCard = ({ commentId, body, OP }) => {
     const authContext = useContext(InnerStorage);

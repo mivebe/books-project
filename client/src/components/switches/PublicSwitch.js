@@ -1,10 +1,10 @@
 import React from 'react'
 import { Switch, Route, Redirect } from "react-router-dom"
-import LoginPage from '../pages/LoginPage'
-import PageNotFound from '../pages/PageNotFound'
-import ConfirmationPage from '../pages/ConfirmationPage'
-import FAQ from '../pages/FAQ'
-import Terms from '../pages/Terms'
+import LoginPage from '../../pages/LoginPage'
+import PageNotFound from '../../pages/PageNotFound'
+import ConfirmationPage from '../../pages/ConfirmationPage'
+import FAQ from '../../pages/FAQ'
+import Terms from '../../pages/Terms'
 
 const PublicSwitch = () => {
     console.log("PUBLIC Switch");

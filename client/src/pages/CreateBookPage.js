@@ -2,10 +2,10 @@ import React, { useState, useContext, useEffect } from 'react';
 import axios from "axios";
 import { useHistory } from 'react-router-dom';
 import { InnerStorage } from "../contexts/AuthContext";
-import placeholderBook from "../../media/grey-book.png";
-import loader from "../../media/user-6.jpg";
-import Modal from "../Modal"
-import checkmark from "../../media/checkmark.svg.png"
+import placeholderBook from "../media/grey-book.png";
+import loader from "../media/user-6.jpg";
+import Modal from "../components/Modal"
+import checkmark from "../media/checkmark.svg.png"
 
 const CreateBookPage = () => {
     const history = useHistory()

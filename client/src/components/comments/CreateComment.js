@@ -1,6 +1,5 @@
-import { useRef, useState } from "react"
-import { useContext } from 'react';
-import { CommentsContext } from "../contexts/CommentsContext";
+import { useRef, useState, useContext } from "react"
+import { CommentsContext } from "../../contexts/CommentsContext";
 
 const CreateComment = ({ bookId }) => {
 

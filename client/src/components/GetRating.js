@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { InnerStorage } from "./contexts/AuthContext";
+import { InnerStorage } from "../contexts/AuthContext";
 
 
 const GetRating = ({ bookId, rate }) => {

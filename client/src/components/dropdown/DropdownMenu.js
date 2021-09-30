@@ -1,6 +1,6 @@
 import React, { useState, useContext, useRef, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
-import { InnerStorage } from "../contexts/AuthContext";
+import { InnerStorage } from "../../contexts/AuthContext";
 import { ReactComponent as CogIcon } from '../../media/icons/cog.svg';
 import { ReactComponent as LogoutIcon } from '../../media/icons/logout-icon.svg';
 import { ReactComponent as ArrowIcon } from '../../media/icons/arrow.svg';

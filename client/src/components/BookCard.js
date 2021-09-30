@@ -1,6 +1,6 @@
 import React, { useContext, useRef } from 'react'
 import GetRating from "./GetRating"
-import { InnerStorage } from "./contexts/AuthContext";
+import { InnerStorage } from "../contexts/AuthContext";
 import { useHistory } from 'react-router-dom';
 
 const BookCard = ({ book, returnBook, lastRef }) => {

@@ -1,8 +1,8 @@
 import { useEffect, useState, useContext } from "react"
 import { useHistory } from "react-router";
 import CommentCard from "./CommentCard";
-import { InnerStorage } from '../contexts/AuthContext';
-import { CommentsContext } from "../contexts/CommentsContext";
+import { InnerStorage } from '../../contexts/AuthContext';
+import { CommentsContext } from "../../contexts/CommentsContext";
 
 const CommentSection = ({ bookId }) => {
 

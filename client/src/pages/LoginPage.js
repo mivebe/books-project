@@ -1,8 +1,8 @@
-import logo from "../../media/bambook-logo.png"
+import logo from "../media/bambook-logo.png"
 import { useState } from "react"
-import Login from "../Login"
-import Register from "../Register"
-import LoginTabs from "../LoginTabs"
+import Login from "../components/Login"
+import Register from "../components/Register"
+import LoginTabs from "../components/LoginTabs"
 
 const LoginPage = () => {
     const [panelSelected, setPanelSelected] = useState(true)
