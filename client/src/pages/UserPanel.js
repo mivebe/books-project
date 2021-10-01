@@ -2,13 +2,14 @@ import React, { useEffect, useState, useContext } from 'react';
 import placeholderAvatar from "../media/placeholder-avatar.jpg";
 import loader from "../media/user-6.jpg";
 import { InnerStorage } from "../contexts/AuthContext"
+import GetUserHistory from "../components/GetUserHistory"
 
 
 
 const UserPanel = () => {
     const authContext = useContext(InnerStorage);
     const { backEndURL } = authContext;
-    const { firstName, lastName, username, email, role, avatar } = authContext.tokenInfo;
+    const { id, firstName, lastName, username, email, role, avatar } = authContext.tokenInfo;
 
     const [image, setImage] = useState()
     const [preview, setPreview] = useState(placeholderAvatar);
@@ -83,6 +84,10 @@ const UserPanel = () => {
 
                 </section>
 
+                <section className="up__user-history">
+                    <GetUserHistory userId={id} />
+                </section>
+
                 <section className="up__profile-data">
 
                     <div className="up__info-container">
@@ -99,14 +104,16 @@ const UserPanel = () => {
                     </div>
 
                     <div className="up__password-form">
-                        <label htmlFor="CurPassword">Current Password</label>
-                        <input type="password" name="curPassword" required></input>
+                        <form>
+                            <label htmlFor="CurPassword">Current Password</label>
+                            <input type="password" name="curPassword" autoComplete="on" required></input>
 
-                        <label htmlFor="NewPassword">Nem Password</label>
-                        <input type="password" name="NewPassword" required></input>
+                            <label htmlFor="NewPassword">Nem Password</label>
+                            <input type="password" name="NewPassword" autoComplete="on" required></input>
 
-                        <label htmlFor="reNewPassword">Repeat New Password</label>
-                        <input type="password" name="reNewPassword" required></input>
+                            <label htmlFor="reNewPassword">Repeat New Password</label>
+                            <input type="password" name="reNewPassword" autoComplete="on" required></input>
+                        </form>
                     </div>
 
                 </section>

@@ -52,7 +52,7 @@ const getUserHistoryById = (SQLRequests) => async (userId) => {
     const [user] = await SQLRequests.getUserById(userId);
     if (!user) {
         return {
-            err: "EMI NEMA BATE",
+            err: userErrors.NONEXISTANT_USER,
             userHistory: null
         }
     }

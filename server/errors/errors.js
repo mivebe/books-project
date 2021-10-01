@@ -1,6 +1,7 @@
 
 export const userErrors = {
     /** Such a record does not exist (when it is expected to exist) */
+    NONEXISTANT_USER: "This user does not exist.",
     DUPLICATE_USERNAME: 'Username already exists',
     DUPLICATE_EMAIL: "Email is already taken",
     /** The requirements do not allow such an operation */

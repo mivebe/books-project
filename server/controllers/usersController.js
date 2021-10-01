@@ -52,8 +52,8 @@ usersController
     })
 
     .get("/:id/history", async (req, res) => {
-        const targetUserId = req.params.id;
-        const { err, userHistory } = await usersService.getUserHistoryById(SQLRequests)(targetUserId);
+        const userId = req.params.id;
+        const { err, userHistory } = await usersService.getUserHistoryById(SQLRequests)(userId);
         if (err) {
             return res.status(400).send({ msg: err })
         }
