@@ -202,7 +202,7 @@ const getMostRentedAuthors = async () => {
 
 const getMostRentedBooks = async () => {
     const sql = `
-    SELECT COUNT(r.books_id) AS rented, b.title, b.author, b.publishdate, b.cover, r.books_id
+    SELECT COUNT(r.books_id) AS rented, b.title, b.author, b.publishdate, b.cover, r.books_id, b.description
     FROM register AS r JOIN books AS b ON r.books_id=b.id
     WHERE r.state=1
     GROUP BY r.books_id
