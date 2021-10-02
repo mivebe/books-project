@@ -22,7 +22,7 @@ const retrieveAllBooks = async (search = "", limit = 20, offset = 0) => {
 
     const res = await pool.query(sql, [+limit, +offset]);
 
-    return [...res]
+    return res
 
 };
 
@@ -80,8 +80,16 @@ const createBook = async (cover, title, author, genre, publishdate, listed, copi
     INSERT INTO books(cover, title, author, genre, publishdate, listed, copies, description)
     VALUE (?,?,?,?,?,?,?,?)
     `;
+    const sql2 = `
+    INSERT INTO authors (name)
+	VALUE(?)
+    ON DUPLICATE KEY 
+    UPDATE id = id
+    `;
     const { insertId } = await pool.query(sql, [cover, title, author, genre, publishdate, listed, copies, description]);
     const [book] = await getBookById(insertId);
+    const asd = await pool.query(sql2, [author])
+    console.log(asd);
     return await book
 }
 
@@ -190,11 +198,11 @@ const getBooksInUseCount = async () => {
 
 const getMostRentedAuthors = async () => {
     const sql = `
-    SELECT COUNT(b.author) AS topAuthors, b.author
-    FROM register AS r JOIN books AS b ON r.books_id=b.id
+    SELECT COUNT(b.author) AS timesRented, b.author, a.picture
+    FROM register AS r JOIN books AS b ON r.books_id=b.id JOIN authors AS a ON b.author=a.name
     WHERE r.state=1
     GROUP BY b.author
-    ORDER BY topAuthors DESC LIMIT 5
+    ORDER BY timesRented DESC LIMIT 5
     `
     const mostRentedAuthor = await pool.query(sql)
     return [...mostRentedAuthor]
@@ -214,20 +222,13 @@ const getMostRentedBooks = async () => {
 
 const createBookRate = async (userId, bookId, rate) => {
     const sql = `
-    INSERT INTO rates(users_id, books_id, rate)
-    VALUE (?,?,?);
+    INSERT INTO rates (users_id, books_id, rate)
+	VALUES (?,?,?)
+    ON DUPLICATE KEY 
+    UPDATE rate = VALUES (rate)
     `
 
-    // const sql = `
-    // IF( EXISTS(SELECT * from rates WHERE users_id=? AND books_id=?),
-    // UPDATE rates SET rate=? WHERE users_id=? AND books_id=?,
-    // INSERT INTO rates (users_id, books_id, rate)
-    // VALUES (?,?,?));
-    // `
-
     const { insertId } = await pool.query(sql, [userId, bookId, rate])
-    // const { insertId } = await pool.query(sql, [userId, bookId, rate, userId, bookId, userId, bookId, rate])
-
     const rateEntry = await getBookRate(insertId)
     return rateEntry
 }
