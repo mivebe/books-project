@@ -12,11 +12,9 @@ booksController
         const { search, limit, offset } = req.query;
         const { role } = req.user;
         const books = await booksService.getAllBooks(SQLRequests)(search, limit, offset, role);
-
         res.status(200).send(books)
     })
 
-    //homework research GUID, UUID
 
     .post("/", roleMiddleware("admin"), createValidator(createBookSchema), async (req, res) => {
         const { cover, title, author, genre, publishdate, listed, copies, description } = req.body
