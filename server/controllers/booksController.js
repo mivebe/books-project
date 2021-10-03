@@ -11,8 +11,8 @@ booksController
     .get("/", queryValidator(limitAndOffsetSchema), async (req, res) => {
         const { search, limit, offset } = req.query;
         const { role } = req.user;
-        const books = await booksService.getAllBooks(SQLRequests)(search, limit, offset, role);
-        res.status(200).send(books)
+        const { books, total } = await booksService.getAllBooks(SQLRequests)(search, limit, offset, role);
+        res.status(200).send({ books, total })
     })
 
 

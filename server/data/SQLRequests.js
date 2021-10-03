@@ -14,15 +14,21 @@ const retrieveAllListedBooks = async (search = "", limit = 20, offset = 0) => {
 
 };
 const retrieveAllBooks = async (search = "", limit = 20, offset = 0) => {
-    const sql = ` SELECT b.*
+    const sql = ` 
+    SELECT b.*
     FROM books b
     WHERE b.title LIKE '%${search}%'
     LIMIT ? OFFSET ?
     `;
 
-    const res = await pool.query(sql, [+limit, +offset]);
+    const sql2 = `
+    SELECT COUNT(id) AS total FROM books
+    `;
 
-    return res
+    const books = await pool.query(sql, [+limit, +offset]);
+    const total = await pool.query(sql2)
+
+    return { books: books, total: total[0].total }
 
 };
 
@@ -79,6 +85,8 @@ const createBook = async (cover, title, author, genre, publishdate, listed, copi
     const sql = `
     INSERT INTO books(cover, title, author, genre, publishdate, listed, copies, description)
     VALUE (?,?,?,?,?,?,?,?)
+    ON DUPLICATE KEY 
+    UPDATE id = id
     `;
     const sql2 = `
     INSERT INTO authors (name)
@@ -86,10 +94,25 @@ const createBook = async (cover, title, author, genre, publishdate, listed, copi
     ON DUPLICATE KEY 
     UPDATE id = id
     `;
-    const { insertId } = await pool.query(sql, [cover, title, author, genre, publishdate, listed, copies, description]);
-    const [book] = await getBookById(insertId);
-    const asd = await pool.query(sql2, [author])
-    console.log(asd);
+
+    const sql3 = `
+    BEGIN
+    INSERT INTO books(cover, title, author, genre, publishdate, listed, copies, description)
+    VALUE (?,?,?,?,?,?,?,?)
+    ON DUPLICATE KEY 
+    UPDATE id = id;
+    INSERT INTO authors (name)
+	VALUE(?)
+    ON DUPLICATE KEY 
+    UPDATE id = id;
+    COMMIT
+    `
+    // const { insertId } = await pool.query(sql, [cover, title, author, genre, publishdate, listed, copies, description]);
+    // const [book] = await getBookById(insertId);
+    // const asd = await pool.query(sql2, [author])
+    // console.log(asd);
+    const aasd = await pool.query(sql3, [cover, title, author, genre, publishdate, listed, copies, description, author])
+    // console.log(aasd);
     return await book
 }
 

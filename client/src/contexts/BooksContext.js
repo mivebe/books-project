@@ -11,13 +11,16 @@ export const BooksProvider = ({ children }) => {
     const [booksArray, setBooksArray] = useState([]);
     const [limit, setLimit] = useState(10)
     const [offset, setOffset] = useState(0)
+    const [total, setTotal] = useState(100)
 
     useEffect(async () => {
+        if (booksArray.length >= total) { return }
         getBooks()
     }, [history, authContext.logged, authContext.token, limit, offset])
 
     const getBooks = async () => {
         // console.log(limit, offset);
+
         if (!authContext.logged) { history.push('/login') }
         else {
             const res = await fetch(`${backEndURL}/books?limit=${limit}&offset=${offset}`, {
@@ -28,14 +31,22 @@ export const BooksProvider = ({ children }) => {
                     'Content-Type': 'application/json'
                 },
             })
-            const newBooks = await res.json();
-            // console.log("newBooks", newBooks);
-            setBooksArray(booksArray.concat(await newBooks))
+            const { books, total } = await res.json();
+            setTotal(total)
+            setBooksArray(booksArray.concat(books))
         }
     }
 
     return (
-        <BooksContext.Provider value={{ books: booksArray, limit: limit, setLimit: setLimit, offset: offset, setOffset: setOffset }} >
+        <BooksContext.Provider value={{
+            books: booksArray,
+            limit: limit,
+            setLimit: setLimit,
+            offset: offset,
+            setOffset: setOffset,
+            total: total,
+            setTotal: setTotal
+        }} >
             {children}
         </BooksContext.Provider>
     )
