@@ -12,8 +12,10 @@ const Navbar = () => {
     const { backEndURL } = authContext
     const { username, role, avatar } = authContext.tokenInfo
     const history = useHistory();
-    const [search, setSearch] = useState()
     const [open, setOpen] = useState(false)
+    const [query, setQuery] = useState('')
+
+    const handleSubmit = () => history.push({ pathname: "/all-books", search: `?query=${query}`, state: query })
 
     return (
         <div className="padding-container">
@@ -23,9 +25,15 @@ const Navbar = () => {
                         <img src={logo} alt="bambook logo" className="nav__logo"></img>
                     </div>
 
-                    <form action="#" className="search" onKeyPress={(e) => { if (e.key === "Enter") { history.push(`/search?search=${search}`) } }}>
-                        <input type="text" className="search__input" name="search" defaultValue={search} placeholder="Search by book name" onChange={e => setSearch(e.target.value)} autoFocus></input>
-                        <button className="search__button" onClick={(e) => { e.preventDefault; history.push(`/search?search=${search}`); return null }}><img src={MGSearch}></img></button>
+                    <form className="search"
+                        onKeyPress={e => e.key === "Enter" && handleSubmit}
+                        onChange={e => setQuery(e.target.value)}
+                        onSubmit={e => e.preventDefault()}
+                    >
+                        <input type="text" className="search__input" name="search" />
+                        <button className="search__button" onClick={handleSubmit}>
+                            <img src={MGSearch} />
+                        </button>
                     </form>
 
                     <nav className="navigation__container">

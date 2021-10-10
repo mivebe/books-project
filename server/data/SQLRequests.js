@@ -22,7 +22,9 @@ const retrieveAllBooks = async (search = "", limit = 20, offset = 0) => {
     `;
 
     const sql2 = `
-    SELECT COUNT(id) AS total FROM books
+    SELECT COUNT(id) AS total 
+    FROM books b
+    WHERE b.title LIKE '%${search}%'
     `;
 
     const books = await pool.query(sql, [+limit, +offset]);

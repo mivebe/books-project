@@ -7,16 +7,16 @@ const SearchPage = () => {
     //useLocation returns an object with three key/value pairs one of which is "search"
     // "search" has a type of string and value "?search='whatever you searched'" therefore i substring it to get only the query
     const searchQuery = useLocation().search.substring(8)
-
-    useEffect(() => {
-        console.log(searchQuery);
-    }, [])
     const [searchResult, setSearchResult] = useState([])
     const authContext = useContext(InnerStorage);
     const { backEndURL } = authContext
 
+    useEffect(() => {
+        console.log(searchQuery);
+    }, [])
+
     useEffect(async () => {
-        const res = await fetch(`${backEndURL}/books?search=${searchQuery}`, {
+        const res = await fetch(`${backEndURL}/books?q=${searchQuery}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${authContext.token}`,

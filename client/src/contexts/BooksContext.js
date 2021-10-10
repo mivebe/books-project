@@ -9,6 +9,7 @@ export const BooksProvider = ({ children }) => {
     const { backEndURL } = authContext
     const history = useHistory();
     const [booksArray, setBooksArray] = useState([]);
+    const [search, setSearch] = useState('')
     const [limit, setLimit] = useState(10)
     const [offset, setOffset] = useState(0)
     const [total, setTotal] = useState(100)
@@ -16,14 +17,14 @@ export const BooksProvider = ({ children }) => {
     useEffect(async () => {
         if (booksArray.length >= total) { return }
         getBooks()
-    }, [history, authContext.logged, authContext.token, limit, offset])
+    }, [history, authContext.logged, authContext.token, limit, offset, search])
 
     const getBooks = async () => {
         // console.log(limit, offset);
 
         if (!authContext.logged) { history.push('/login') }
         else {
-            const res = await fetch(`${backEndURL}/books?limit=${limit}&offset=${offset}`, {
+            const res = await fetch(`${backEndURL}/books?search=${search}&limit=${limit}&offset=${offset}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${authContext.token}`,
@@ -40,6 +41,8 @@ export const BooksProvider = ({ children }) => {
     return (
         <BooksContext.Provider value={{
             books: booksArray,
+            search: search,
+            setSearch: setSearch,
             limit: limit,
             setLimit: setLimit,
             offset: offset,

@@ -1,9 +1,16 @@
-import { useCallback, useContext, useRef } from 'react'
+import { useCallback, useContext, useRef, useLayoutEffect } from 'react'
+import { useLocation } from "react-router-dom"
 import { BooksContext } from '../contexts/BooksContext';
 import BookCard from "../components/BookCard"
 
 const AllBooks = () => {
-    const { books, offset, limit, setOffset, total } = useContext(BooksContext)
+    const location = useLocation()
+    const state = location?.state || ''
+    const { books, offset, limit, setOffset, total, setSearch } = useContext(BooksContext)
+
+    useLayoutEffect(() => {
+        state && setSearch(state)
+    }, [])
 
     const observer = useRef()
     const lastBookElement = useCallback(node => {

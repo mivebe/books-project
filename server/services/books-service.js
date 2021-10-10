@@ -2,6 +2,7 @@ import SQLRequests from "../data/SQLRequests.js";
 import { bookErrors, commentErrors } from "../errors/errors.js"
 
 const getAllBooks = (SQLRequests) => async (search, limit, offset, role) => {
+    // console.log("service ", search);
     // console.log("limit: ", limit);
     // console.log("offset: ", offset);
     if (role === "admin") {
