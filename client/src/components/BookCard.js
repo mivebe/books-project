@@ -1,5 +1,4 @@
-import React, { useContext, useRef, useState, useEffect } from 'react'
-import GetRating from "./GetRating"
+import React, { useContext, useState, useEffect } from 'react'
 import { InnerStorage } from "../contexts/AuthContext";
 import { useHistory } from 'react-router-dom';
 import { ReactComponent as BookPlaceholder } from "../media/icons/book-placeholder.svg"
@@ -47,7 +46,7 @@ const BookCard = ({ book, returnBook, lastRef }) => {
                 {imgasd && imgasd}
 
                 <div className="bc__rating-container">
-                    <p className='bc__rating'><GetRating bookId={book.id} /></p>
+                    <p className='bc__rating'>{book?.rating ? parseFloat(book.rating).toFixed(1) : "N/A"}</p>
                     <p className='bc__copies'><span>Copies: </span>{book.copies}</p>
                 </div>
             </div>
