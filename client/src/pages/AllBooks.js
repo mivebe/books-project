@@ -1,15 +1,17 @@
-import { useCallback, useContext, useRef, useLayoutEffect } from 'react'
+import { useCallback, useContext, useRef, useEffect } from 'react'
 import { useLocation } from "react-router-dom"
 import { BooksContext } from '../contexts/BooksContext';
 import BookCard from "../components/BookCard"
 
 const AllBooks = () => {
-    const location = useLocation()
-    const state = location?.state || ''
-    const { books, offset, limit, setOffset, total, setSearch } = useContext(BooksContext)
+    const location = useLocation();
+    const query = location?.state?.query || "";
+    const category = location?.state?.category || "";
+    const { books, offset, limit, setOffset, total, setSearch, setCategory } = useContext(BooksContext)
 
-    useLayoutEffect(() => {
-        state && setSearch(state)
+    useEffect(() => {
+        query && setSearch(query)
+        category && setCategory(category)
     }, [])
 
     const observer = useRef()

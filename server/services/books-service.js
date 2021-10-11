@@ -1,14 +1,11 @@
 import SQLRequests from "../data/SQLRequests.js";
 import { bookErrors, commentErrors } from "../errors/errors.js"
 
-const getAllBooks = (SQLRequests) => async (search, limit, offset, role) => {
-    // console.log("service ", search);
-    // console.log("limit: ", limit);
-    // console.log("offset: ", offset);
+const getAllBooks = (SQLRequests) => async (search, category, limit, offset, role) => {
     if (role === "admin") {
-        return await SQLRequests.retrieveAllBooks(search, limit || 20, offset || 0);
+        return await SQLRequests.retrieveAllBooks(search, category, limit || 20, offset || 0);
     } else {
-        return await SQLRequests.retrieveAllListedBooks(search, limit || 20, offset || 0);
+        return await SQLRequests.retrieveAllListedBooks(search, category, limit || 20, offset || 0);
     }
 }
 
@@ -193,11 +190,18 @@ const getPersonalRate = (SQLRequests) => async (userId, bookId, userRole) => {
     if (!book) {
         return {
             err: bookErrors.INVALID_BOOK_ID,
-            comments: null
+            personalRate: null
         }
     }
 
     const [rateEntry] = await SQLRequests.getPersonalRate(userId, bookId)
+    if (!rateEntry) {
+        return {
+            err: null,
+            personalRate: null
+        }
+    }
+
     return {
         err: null,
         personalRate: rateEntry.rate

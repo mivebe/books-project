@@ -1,0 +1,26 @@
+{
+    "categories": [
+        "Calassics",
+        "Detective & Mystery",
+        "Science Fiction",
+        "Action & Adventure",
+        "Romance",
+        "Comic Book & Novel",
+        "Short Stories",
+        "Horror"
+    ],
+    "rows": [
+        [
+            "Calassics",
+            "Detective & Mystery",
+            "Science Fiction",
+            "Action & Adventure"
+        ],
+        [
+            "Romance",
+            "Comic Book & Novel",
+            "Short Stories",
+            "Horror"
+        ]
+    ]
+}

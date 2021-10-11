@@ -15,7 +15,12 @@ const Navbar = () => {
     const [open, setOpen] = useState(false)
     const [query, setQuery] = useState('')
 
-    const handleSubmit = () => history.push({ pathname: "/all-books", search: `?query=${query}`, state: query })
+    const handleSubmit = () =>
+        history.push({
+            pathname: "/all-books",
+            search: history.location.search ? history.location.search + `&query${query}` : `?query=${query}`,
+            state: { ...history.location.state, query: query }
+        })
 
     return (
         <div className="padding-container">

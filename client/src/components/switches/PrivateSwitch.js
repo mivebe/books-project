@@ -29,7 +29,7 @@ const PrivateSwitch = () => {
                 <Route exact path="/home"><HomePage /></Route>
                 <Route exact path="/book/:id"><Book /></Route>
                 <Route exact path="/book"><Book /></Route>
-                <Route exact path={location.path} search={location.search} key={location.key}>
+                <Route exact path={"/all-books"} search={location.search} key={location.key}>
                     <BooksProvider>
                         <AllBooks />
                     </BooksProvider>

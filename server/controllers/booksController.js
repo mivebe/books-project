@@ -9,9 +9,9 @@ const booksController = express.Router()
 
 booksController
     .get("/", queryValidator(limitAndOffsetSchema), async (req, res) => {
-        const { search, limit, offset } = req.query;
+        const { search, category, limit, offset } = req.query;
         const { role } = req.user;
-        const { books, total } = await booksService.getAllBooks(SQLRequests)(search, limit, offset, role);
+        const { books, total } = await booksService.getAllBooks(SQLRequests)(search, category, limit, offset, role);
         res.status(200).send({ books, total })
     })
 

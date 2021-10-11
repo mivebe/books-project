@@ -1,15 +1,16 @@
 import pool from "./pool.js";
 
-const retrieveAllListedBooks = async (search = "", limit = 20, offset = 0) => {
+const retrieveAllListedBooks = async (search = "", category = "", limit = 20, offset = 0) => {
     const sql = ` 
     SELECT b.* ,
-    (SELECT AVG(rate) as rate 
+    (SELECT AVG(rate)
     FROM rates r 
     WHERE r.books_id = b.id)
     AS rating 
     FROM books b
     WHERE b.listed = 1
     AND b.title LIKE '%${search}%'
+    AND b.genre LIKE '%${category}%'
     LIMIT ? OFFSET ?
     `;
 
@@ -18,6 +19,7 @@ const retrieveAllListedBooks = async (search = "", limit = 20, offset = 0) => {
     FROM books b
     WHERE b.listed = 1
     AND b.title LIKE '%${search}%'
+    AND b.genre LIKE '%${category}%'
     `;
 
     const books = await pool.query(sql, [+limit, +offset]);
@@ -26,15 +28,16 @@ const retrieveAllListedBooks = async (search = "", limit = 20, offset = 0) => {
     return { books: books, total: total[0].total }
 
 };
-const retrieveAllBooks = async (search = "", limit = 20, offset = 0) => {
+const retrieveAllBooks = async (search = "", category = "", limit = 20, offset = 0) => {
     const sql = ` 
     SELECT b.* ,
-    (SELECT AVG(rate) as rate 
+    (SELECT AVG(rate)
     FROM rates r 
     WHERE r.books_id = b.id)
     AS rating 
     FROM books b
     WHERE b.title LIKE '%${search}%'
+    AND b.genre LIKE '%${category}%'
     LIMIT ? OFFSET ?
     `;
 
@@ -42,6 +45,7 @@ const retrieveAllBooks = async (search = "", limit = 20, offset = 0) => {
     SELECT COUNT(id) AS total 
     FROM books b
     WHERE b.title LIKE '%${search}%'
+    AND b.genre LIKE '%${category}%'
     `;
 
     const books = await pool.query(sql, [+limit, +offset]);

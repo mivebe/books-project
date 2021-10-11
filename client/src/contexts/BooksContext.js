@@ -10,6 +10,7 @@ export const BooksProvider = ({ children }) => {
     const history = useHistory();
     const [booksArray, setBooksArray] = useState([]);
     const [search, setSearch] = useState('')
+    const [category, setCategory] = useState('')
     const [limit, setLimit] = useState(10)
     const [offset, setOffset] = useState(0)
     const [total, setTotal] = useState(100)
@@ -17,14 +18,15 @@ export const BooksProvider = ({ children }) => {
     useEffect(async () => {
         if (booksArray.length >= total) { return }
         getBooks()
-    }, [history, authContext.logged, authContext.token, limit, offset, search])
+    }, [history, authContext.logged, authContext.token, limit, offset, search, category])
 
     const getBooks = async () => {
         // console.log(limit, offset);
+        console.log(category);
 
         if (!authContext.logged) { history.push('/login') }
         else {
-            const res = await fetch(`${backEndURL}/books?search=${search}&limit=${limit}&offset=${offset}`, {
+            const res = await fetch(`${backEndURL}/books?search=${search}&category=${category}&limit=${limit}&offset=${offset}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${authContext.token}`,
@@ -43,6 +45,8 @@ export const BooksProvider = ({ children }) => {
             books: booksArray,
             search: search,
             setSearch: setSearch,
+            category: category,
+            setCategory: setCategory,
             limit: limit,
             setLimit: setLimit,
             offset: offset,
