@@ -1,68 +1,39 @@
 import ReactDom from 'react-dom'
 
-// const MODAL_STYLES = {
-//     fontSize: "3rem",
-//     position: 'fixed',
-//     top: '50%',
-//     left: '50%',
-//     transform: 'translate(-50%, -50%)',
-//     backgroundColor: '#FFF',
-//     padding: '50px',
-//     zIndex: 1000,
-//     height: "50rem",
-//     width: "100rem",
-//     display: "flex",
-//     flexDirection: "column",
-//     alignItems: "center",
-//     justifyContent: "center",
-// }
-
-// const OVERLAY_STYLES = {
-//     position: 'fixed',
-//     top: 0,
-//     left: 0,
-//     right: 0,
-//     bottom: 0,
-//     backgroundColor: 'rgba(0, 0, 0, .6)',
-//     zIndex: 1000
-// }
-
-export default function Modal({ open, children, onClose, onStateClear, modalData }) {
+export default function Modal({ open, children, onLeftBtn, onRightBtn, onMiddleBtn, modalData }) {
     if (!open) return null
-    const { message, url, image } = modalData
+    const { message, url, images, LBMsg, MBMsg, RBMsg } = modalData
+    // console.log("url", url);
+    // console.log("message", message);
 
     return ReactDom.createPortal(
         <div className="modal-overlay">
             <div className="modal-container">
-                <p className="modal-title">{message}</p>
-                <img src={image} alt="Modal Image"></img>
+
+                {message ?
+                    Array.isArray(message) ?
+                        message.map(m => <p className="modal-title">{m}</p>)
+                        :
+                        <p className="modal-title">{message}</p>
+                    :
+                    ''
+                }
+                {images ?
+                    Array.isArray(images) ?
+                        images.map(img => <img src={img} alt="Modal Image"></img>)
+                        :
+                        <img src={images} alt="Modal Image"></img>
+                    :
+                    ''
+                }
                 {children}
                 <div className="button-container">
-                    <button className="btn btn--green" onClick={() => { window.location.href = url; }}>Check It Out</button>
-                    <button className="btn btn--brown" onClick={onStateClear}>Create Another</button>
-                    <button className="btn btn--red" onClick={onClose}>Close Modal</button>
+                    <button className="btn btn--green" onClick={onLeftBtn}>{LBMsg}</button>
+                    <button className="btn btn--brown" onClick={onMiddleBtn}>{MBMsg}</button>
+                    <button className="btn btn--red" onClick={onRightBtn}>{RBMsg}</button>
                 </div>
             </div>
         </div>,
         document.getElementById('portal')
     )
 }
-
-
-// const Modal = ({ show, handleClose, image, message, url }) => {
-//     return (
-//         <div onClick={close}>
-//             {show &&
-//                 <div className="footer__za-warudo">
-//                     <p>{message}</p>
-//                     <img src={image} alt="Modal Image"></img>
-//                     {url && <button><a href={`${url}`}>Check It Out</a></button>}
-//                     <button onClick={handleClose}><a href="/create-book">Create Another</a></button>
-//                 </div>
-//             }
-//         </div>
-
-//     );
-// }
-
-// export default Modal

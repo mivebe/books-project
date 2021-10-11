@@ -33,7 +33,7 @@ const Traffic = () => {
             })
             const result = await res.json()
             setTraffic(result)
-            console.log("result", result);
+            // console.log("result", result);
         })()
     }, [])
 

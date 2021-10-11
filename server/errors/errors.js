@@ -30,6 +30,7 @@ export const bookErrors = {
     TITLE_MUST_BE_A_VALID_STRING: "Title must be a valid string!",
     AUTHOR_IS_REQUIRED: 'Author name is required!',
     AUTHOR_MUST_BE_A_VALID_STRING: "Author name must be a valid string!",
+    AUTHOR_ALREADY_EXISTS: "Author already exists!",
     GENRE_IS_REQUIRED: 'Genre is required!',
     GENRE_MUST_BE_A_VALID_STRING: "Genre must be a valid string!",
     DESCRIPTION_IS_REQUIRED: 'Description is required!',
@@ -39,10 +40,12 @@ export const bookErrors = {
     COPIES_IS_REQUIRED: 'Number of copies is required!',
     COPIES_MUST_BE_A_VALID_NUMBER: "Number of copies must be a valid number!",
     INVALID_BOOK_ID: "Invlid book ID!",
-    BOOK_ALREADY_EXISTS: "This book already exists! Find and change it instead.",
+    BOOK_ALREADY_EXISTS: "This book already exists!",
     NO_AVAILABLE_COPIES: "There are no more available copies of this book.",
     NO_MATCHING_RENTED_BOOK: "This user has no such rented book.",
     INVALID_BOOK_RATE: "Rating must be a nnumber from 1-10",
+    BOOK_CREATION_SUCCESS: "New Book Created Successfully!",
+    AUTHOR_CREATION_SUCCESS: "New Author Created Successfully!",
 };
 
 export const commentErrors = {

@@ -6,6 +6,7 @@ import placeholderBook from "../media/grey-book.png";
 import loader from "../media/user-6.jpg";
 import Modal from "../components/Modal"
 import checkmark from "../media/checkmark.svg.png"
+import BookPreview from '../components/BookPreview';
 
 const CreateBookPage = () => {
     const history = useHistory()
@@ -13,17 +14,21 @@ const CreateBookPage = () => {
     const { backEndURL } = authContext;
     const curYear = new Date().getFullYear();
 
-    const [isOpen, setIsOpen] = useState(false)
+    const [isModalOpen, setIsModalOpen] = useState(false)
     const [modalData, setModalData] = useState({
-        image: checkmark,
-        message: "Book Created Successfully!",
-        url: ""
+        images: checkmark,
+        message: "",
+        url: "",
+        LBMsg: "Check It Out",
+        MBMsg: "Create Anoter",
+        RBMsg: "Close",
     });
     const [image, setImage] = useState()
     const [preview, setPreview] = useState(placeholderBook);
     const [isLoading, setIsLoading] = useState()
 
     const [bookInfo, setBookInfo] = useState({
+        cover: "",
         title: "",
         author: "",
         genre: "",
@@ -55,9 +60,9 @@ const CreateBookPage = () => {
 
     }, [image])
 
-    useEffect(() => {
-        console.log("bookInfo", bookInfo);
-    }, [bookInfo])
+    // useEffect(() => {
+    //     console.log("bookInfo", bookInfo);
+    // }, [bookInfo])
 
     const stateClear = (e) => {
         setBookInfo({
@@ -74,7 +79,22 @@ const CreateBookPage = () => {
 
         const btn = document.querySelector('input[type="radio"][name="genre"]:checked');
         if (btn) { btn.checked = false; }
-        setIsOpen(false);
+        setIsModalOpen(false);
+    }
+
+    const deleteImage = async (imageID) => {
+        const res = await fetch(`${backEndURL}/deleteFile`, {
+            method: "DELETE",
+            headers: {
+                'Authorization': `Bearer ${authContext.token}`,
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ filename: imageID }),
+        })
+        const result = await res.json()
+        console.log("deleteRes", result);
+        return result
     }
 
     const handleSubmit = async (e) => {
@@ -85,7 +105,8 @@ const CreateBookPage = () => {
                 console.log('did not create book because of no image');
                 return false;
             }
-            // setBookInfo({ ...bookInfo, "cover": imageID });
+            // let formData = new FormData();
+            // formData.append("cover", image);
 
             const body = { ...bookInfo, cover: imageID };
             const res = await axios.post(`${backEndURL}/books/`, body, {
@@ -95,15 +116,26 @@ const CreateBookPage = () => {
                     'Content-Type': 'application/json'
                 }
             })
-            console.log("Book Created !!! ", res.data);
-            console.log(res.data.id);
-            setModalData({ ...modalData, url: `/book/${res.data.id}` })
-            setIsOpen(true)
+            console.log("res", res);
+            let deleteMessages
+            if (res?.data?.warnings) {
+                const { messages } = await deleteImage(imageID)
+                deleteMessages = messages
+            }
+            setModalData({
+                ...modalData,
+                images: `${backEndURL}/static/${res.data.data.book.cover}`,
+                url: `/book/${res.data.data.book.id}`,
+                message: res?.data?.messages ? res.data.messages.concat(deleteMessages) : res.data.warnings.concat(deleteMessages)
+            })
+            setIsModalOpen(true)
 
         } catch (err) {
             console.log(err, "Book Creation Error");
-            // Display some popup or modal saying that something is wrong 
-            // history.push("/404");
+            deleteImage()
+
+            setModalData({ ...modalData, message: err })
+            setIsModalOpen(true)
         }
 
         return false;
@@ -137,30 +169,12 @@ const CreateBookPage = () => {
 
     return (
         <div className="create-book__page">
-            <div className="cb__preview__container">
-
-                <div className="cb__preview__image-container">
-                    <img className="cb__preview__image" src={preview} alt="IMAGE"></img>
-                    {isLoading && <img className="cb__preview__image-loader" src={loader} alt="loading"></img>}
-                </div>
-
-                <div className="cb__preview__info-container">
-                    <p className="cb__preview__title">{bookInfo.title || " "}</p>
-                    <p className="cb__preview__author">{bookInfo.author}</p>
-
-                    <div className="cb__preview__info-container--secondary">
-                        <p className="cb__preview__genre">{bookInfo.genre}</p>
-                        <p className="cb__preview__publishdate">{bookInfo.publishdate}</p>
-                        <p className="cb__preview__copies">{bookInfo.copies}</p>
-                        <p className="cb__preview__visibility">{bookInfo.listed ? "Visible" : "Hidden"}</p>
-                    </div>
-                </div>
-
-                <div className="cb__preview__description-container">
-                    <p className="cb__preview__description">{bookInfo.description}</p>
-                </div>
-
-            </div>
+            <BookPreview
+                preview={preview}
+                book={bookInfo}
+                isLoading={isLoading}
+                loader={loader}
+            />
 
             <div className="cb__form-container" >
 
@@ -227,7 +241,13 @@ const CreateBookPage = () => {
                     <input className="btn cb__form-button" value="Create Book" type="submit" />
                 </form>
             </div>
-            <Modal open={isOpen} onClose={() => setIsOpen(false)} onStateClear={stateClear} modalData={{ ...modalData }} />
+            <Modal
+                open={isModalOpen}
+                onRightBtn={() => setIsModalOpen(false)}
+                onMiddleBtn={stateClear}
+                onLeftBtn={() => history.push(modalData.url)}
+                modalData={modalData}
+            />
         </div>
     )
 }

@@ -36,6 +36,7 @@ app.use("/books", authMiddleware, booksController, errorMiddleware);
 
 /** Image upload and renaming logic */
 app.post("/uploadFile", upload.single("cover"), (req, res) => {
+    // console.log(req);
     const fileType = req.file.mimetype.split("/")[1];
     const newFilename = req.file.filename + "." + fileType;
     console.log("filetype:", fileType, "newfilename:", newFilename);
@@ -48,6 +49,13 @@ app.post("/uploadFile", upload.single("cover"), (req, res) => {
         });
     })
 });
+
+app.delete("/deleteFile", (req, res) => {
+    fs.unlink(`./uploads/${req.body.filename}`, () => {
+        console.log("deleted", req.body);
+        res.status(200).send({ messages: ["File Deleted Successfully"] })
+    })
+})
 
 /** !!! DO NOT write endpoints after the app.all"*"  because they crash  #nohoistingforme !!! */
 

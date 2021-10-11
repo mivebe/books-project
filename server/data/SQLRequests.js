@@ -100,8 +100,8 @@ const getAnyBookById = async (id) => {
 
 const getBookBySpecs = async (title, author, publishdate) => {
     const sql = ` SELECT * FROM books WHERE title= ? AND author=? AND publishdate=?`;
-    const bookInfo = await pool.query(sql, [title, author, publishdate]);
-    return [...bookInfo]
+    const [book] = await pool.query(sql, [title, author, publishdate]);
+    return book
 }
 
 const createBook = async (cover, title, author, genre, publishdate, listed, copies, description) => {
@@ -111,32 +111,10 @@ const createBook = async (cover, title, author, genre, publishdate, listed, copi
     ON DUPLICATE KEY 
     UPDATE id = id
     `;
-    const sql2 = `
-    INSERT INTO authors (name)
-	VALUE(?)
-    ON DUPLICATE KEY 
-    UPDATE id = id
-    `;
 
-    const sql3 = `
-    BEGIN
-    INSERT INTO books(cover, title, author, genre, publishdate, listed, copies, description)
-    VALUE (?,?,?,?,?,?,?,?)
-    ON DUPLICATE KEY 
-    UPDATE id = id;
-    INSERT INTO authors (name)
-	VALUE(?)
-    ON DUPLICATE KEY 
-    UPDATE id = id;
-    COMMIT
-    `
-    // const { insertId } = await pool.query(sql, [cover, title, author, genre, publishdate, listed, copies, description]);
-    // const [book] = await getBookById(insertId);
-    // const asd = await pool.query(sql2, [author])
-    // console.log(asd);
-    const aasd = await pool.query(sql3, [cover, title, author, genre, publishdate, listed, copies, description, author])
-    // console.log(aasd);
-    return await book
+    const { insertId } = await pool.query(sql, [cover, title, author, genre, publishdate, listed, copies, description])
+    const [book] = await getBookById(insertId);
+    return book
 }
 
 const getRegisterEntry = async (id) => {
@@ -304,6 +282,39 @@ const getBookRating = async (bookId) => {
     return [...bookRating]
 }
 
+const getAuthorById = async (authorId) => {
+    const sql = `
+    SELECT a.*
+    FROM authors a
+    WHERE a.id = ?
+    `
+    const [author] = await pool.query(sql, [authorId])
+    return author
+}
+
+const getAuthorByName = async (name) => {
+    const sql = `
+    SELECT a.*
+    FROM authors a
+    WHERE a.name = ?
+    `
+    const [author] = await pool.query(sql, [name])
+    return author
+}
+
+const createAuthor = async (name) => {
+    const sql = `
+    INSERT INTO authors (name)
+	VALUE(?)
+    ON DUPLICATE KEY 
+    UPDATE id = id
+    `;
+    const { insertId } = await pool.query(sql, [name])
+    const author = getAuthorById(insertId)
+    return author
+
+}
+
 export default {
     retrieveAllListedBooks,
     retrieveAllBooks,
@@ -332,4 +343,7 @@ export default {
     createBookRate,
     getBookRating,
     getPersonalRate,
+    getAuthorById,
+    getAuthorByName,
+    createAuthor,
 }

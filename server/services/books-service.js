@@ -10,16 +10,33 @@ const getAllBooks = (SQLRequests) => async (search, category, limit, offset, rol
 }
 
 const createBook = (SQLRequests) => async (cover, title, author, genre, publishdate, listed, copies, description) => {
-    const [existingBook] = await SQLRequests.getBookBySpecs(title, author, publishdate)
+    const errors = []
+    const data = {}
+    const messages = []
+
+    const existingBook = await SQLRequests.getBookBySpecs(title, author, publishdate)
     if (existingBook) {
-        return {
-            err: bookErrors.BOOK_ALREADY_EXISTS,
-            book: existingBook,
-        }
+        errors.push(bookErrors.BOOK_ALREADY_EXISTS)
+        data.book = existingBook
+    } else {
+        messages.push(bookErrors.BOOK_CREATION_SUCCESS)
+        data.book = await SQLRequests.createBook(cover, title, author, genre, publishdate, listed, copies, description)
     }
+
+    const existingAuthor = await SQLRequests.getAuthorByName(author)
+
+    if (existingAuthor) {
+        errors.push(bookErrors.AUTHOR_ALREADY_EXISTS)
+        data.author = existingAuthor
+    } else {
+        messages.push(bookErrors.AUTHOR_CREATION_SUCCESS)
+        data.author = await SQLRequests.createAuthor(author)
+    }
+
     return {
-        err: null,
-        book: await SQLRequests.createBook(cover, title, author, genre, publishdate, listed, copies, description),
+        warnings: errors.length ? errors : null,
+        data: data,
+        messages: messages.length ? messages : null
     }
 }
 const getBook = (SQLRequests) => async (id, role) => {

@@ -21,6 +21,7 @@ export const CommentsProvider = ({ children, authContext }) => {
 
         })
         const result = await res.json();
+        console.log(result);
         setComments(result)
         // console.log("result ", result);
 
@@ -38,8 +39,8 @@ export const CommentsProvider = ({ children, authContext }) => {
 
         })
         const result = await res.json();
+        console.log("result ", result);
         setComments([...comments, result])
-        // console.log("result ", result);
 
     }
 

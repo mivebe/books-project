@@ -21,9 +21,6 @@ export const BooksProvider = ({ children }) => {
     }, [history, authContext.logged, authContext.token, limit, offset, search, category])
 
     const getBooks = async () => {
-        // console.log(limit, offset);
-        console.log(category);
-
         if (!authContext.logged) { history.push('/login') }
         else {
             const res = await fetch(`${backEndURL}/books?search=${search}&category=${category}&limit=${limit}&offset=${offset}`, {

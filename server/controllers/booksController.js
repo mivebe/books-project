@@ -1,11 +1,18 @@
 import express from "express"
+import fs from "fs"
+import multer from "multer";
 import SQLRequests from "../data/SQLRequests.js"
 import booksService from "../services/books-service.js"
 import { roleMiddleware } from "../auth/auth-middleware.js"
+import { fileMiddleware } from "../auth/file-middleware.js"
 import { createValidator, createBookSchema, queryValidator, limitAndOffsetSchema, createCommentSchema } from "../validations/schemeNozzle.js"
 
 
+
 const booksController = express.Router()
+const PROTOCOL = "http://"
+const HOST = "localhost"
+const PORT = 3001
 
 booksController
     .get("/", queryValidator(limitAndOffsetSchema), async (req, res) => {
@@ -16,9 +23,35 @@ booksController
     })
 
 
+    // .post("/", roleMiddleware("admin"), createValidator(createBookSchema), async (req, res) => {
+    //     const { cover, title, author, genre, publishdate, listed, copies, description } = req.body
+    //     const { err, data, messages } = await booksService.createBook(SQLRequests)(
+    //         cover,
+    //         title,
+    //         author,
+    //         genre,
+    //         publishdate,
+    //         listed,
+    //         copies,
+    //         description
+    //     );
+
+    //     res.status(200).send({ errors: err, data, messages })
+    // })
+
     .post("/", roleMiddleware("admin"), createValidator(createBookSchema), async (req, res) => {
         const { cover, title, author, genre, publishdate, listed, copies, description } = req.body
-        const { err, book } = await booksService.createBook(SQLRequests)(
+        // console.log(cover);
+
+        // fs.rename(`./uploads/${req.file.filename}`, `./uploads/${newFilename}`, () => {
+        //     res.status(200).send({
+        //         imageID: `${newFilename}`,
+        //         imageURL: `${PROTOCOL}${HOST}:${PORT}/static/${newFilename}`,
+        //         msg: "Image uploaded and renamed"
+        //     });
+        // })
+
+        const { warnings, data, messages } = await booksService.createBook(SQLRequests)(
             cover,
             title,
             author,
@@ -28,11 +61,8 @@ booksController
             copies,
             description
         );
-        if (err) {
-            return res.status(400).send({ msg: err, book })
-        }
 
-        res.status(200).send(book)
+        res.status(200).send({ warnings: warnings, data, messages })
     })
 
     .get("/traffic", async (req, res) => {
