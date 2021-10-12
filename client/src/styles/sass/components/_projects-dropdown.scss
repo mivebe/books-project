@@ -1,0 +1,51 @@
+.mobile-projects{
+    position: absolute;
+    height: auto;
+    width: 20rem;
+    // top: 80;
+    // right: 100;
+    bottom: $footer-height;
+    right: 0;
+    
+    @include absoluteCenter;
+
+    &__list {
+        list-style: none;
+    }
+
+    &__list-item {
+        display: flex;
+        align-items: center;
+
+        &:not(:last-child) {
+            margin-right: 1.5rem;
+            margin-bottom: 2rem;
+        }
+    }
+
+    &__list-image {
+        width: 6rem;
+        margin-right: 1.5rem;
+        padding: .5rem;
+    }
+
+    &__link {
+        &:link,
+        &:visited {
+            color: $color-grey-light-1;
+            background-color: $color-grey-dark-3;
+            text-decoration: none;
+            text-align: center;
+            text-transform: uppercase;
+            display: inline-block;
+            transition: all .2s;
+        }
+
+        &:hover,
+        &:active {
+            color: $color-primary;
+            // box-shadow: 0 1rem 2rem rgba($color-black, .4);
+            transform: rotate(5deg) scale(1.3);
+        }
+    }
+}

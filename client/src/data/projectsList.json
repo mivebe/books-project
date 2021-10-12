@@ -1,0 +1,28 @@
+{
+    "projects": [
+        {
+            "name": "Project 1",
+            "image": "bambook-logo.png"
+        },
+        {
+            "name": "Project 2",
+            "image": "bambook-logo.png"
+        },
+        {
+            "name": "Project 3",
+            "image": "bambook-logo.png"
+        },
+        {
+            "name": "Project 4",
+            "image": "bambook-logo.png"
+        },
+        {
+            "name": "Project 5",
+            "image": "bambook-logo.png"
+        },
+        {
+            "name": "Project 6",
+            "image": "bambook-logo.png"
+        }
+    ]
+}
