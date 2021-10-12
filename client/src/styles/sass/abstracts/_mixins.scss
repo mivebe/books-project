@@ -42,7 +42,10 @@ ORDER: Base + typography > general layout + grid > page layout > components
 1em = 16px
 */
 @mixin responsive($breakpoint) {
-    @if $breakpoint == phone {
+    @if $breakpoint == mobile-port {
+        @media only screen and (max-width: 18.25em) { @content };    //300px
+    }
+    @if $breakpoint == mobile-land {
         @media only screen and (max-width: 37.5em) { @content };    //600px
     }
     @if $breakpoint == tab-port {

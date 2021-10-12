@@ -65,8 +65,8 @@
   
   .dropdown {
     position: absolute;
-    top: 140px;
-    width: 300px;
+    top: $navbar-height;
+    width: 25rem;
     transform: translateX(-45%);
     background-color: $dropdown-bg;
     border: $dropdown-border;

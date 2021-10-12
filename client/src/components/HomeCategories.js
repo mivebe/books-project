@@ -15,10 +15,10 @@ const HomeCategories = () => {
             </div>
 
             {categoriesList &&
-                categoriesList.rows.map(r =>
-                    <div className="row">
-                        {r.map(c =>
-                            <CategoryCard category={c} history={history} />
+                categoriesList.rows.map((r, i) =>
+                    <div className="row" key={i}>
+                        {r.map((c, i) =>
+                            <CategoryCard key={i} category={c} history={history} />
                         )}
                     </div>
                 )}

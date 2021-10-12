@@ -23,8 +23,8 @@ const Navbar = () => {
         })
 
     return (
-        <div className="padding-container">
-            <div className="fixed-container">
+        <div className="header_container--padding">
+            <div className="header_container--fixed">
                 <header className="navbar">
                     <div className="nav__logo-container" onClick={() => { history.push("/home") }}>
                         <img src={logo} alt="bambook logo" className="nav__logo"></img>
@@ -42,8 +42,6 @@ const Navbar = () => {
                     </form>
 
                     <nav className="navigation__container">
-                        {role === "admin" && <a className="navbar__btn navbar__btn--green " href="/create-book" >Create Book</a>}
-                        <a className="navbar__btn navbar__btn--green " href="/book" >Book</a>
                         <a className="navbar__btn navbar__btn--green " href="/all-books" >All Books</a>
                     </nav>
 
@@ -59,6 +57,14 @@ const Navbar = () => {
 
 
                 </header>
+                {role && role === "admin" &&
+                    <div className="admin-header">
+                        <nav className="navigation__container">
+                            <a className="navbar__btn navbar__btn--green " href="/create-book" >Create Book</a>
+                            <a className="navbar__btn navbar__btn--green " href="/book" >Book</a>
+                        </nav>
+                    </div>
+                }
             </div>
         </div>
     )

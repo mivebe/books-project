@@ -1,66 +1,61 @@
-import React, { useState, Modal } from 'react'
+import { useState } from 'react'
+import { useHistory } from "react-router-dom";
 import logo from "../media/bambook-logo.png";
-import TokiWoTomare from "./TokiWoTomare";
+import ProjectsDropdown from './dropdown/ProjectsDropdown';
+
+// import TokiWoTomare from "./TokiWoTomare";
 
 const Footer = () => {
-    const [modalShow, setModalShow] = useState(false);
-    const closeModalHandler = () => {
-        const scrollY = document.body.style.top;   //first get scrolled distance
-        document.body.style.position = 'initial';  //flip back the position
-        document.body.style.top = '';              //reset the scrolled distance
-        window.scrollTo(0, parseInt(scrollY || '0') * -1);  //scrol to the previously saved scroll distance
-        setModalShow(false);
-    }
-    const openModalHandler = () => {
-        document.body.style.top = `-${window.scrollY}px`;
-        document.body.style.position = 'fixed';
-        setModalShow(true);
-    }
+    const history = useHistory()
+    const [isOpen, setIsOpen] = useState(false)
 
     return (
-        <div className="footer-container">
-            <div className="footer">
+        <div className="footer__container--padding">
+            {/* <div className="footer__container--fixed">  //uncomment for sticky behavior   */}
+            <footer className="footer">
 
                 <div className="footer__logo-container">
                     <img className="footer__logo" src={logo}></img>
                 </div>
 
-                <div className="col-1-of-2">
-                    <p className="footer__terms" onClick={openModalHandler}>Terms of Use</p>
-                    <p className="footer__copyright">Copyright &copy; by MIVEBE</p>
+                <div className="footer__info">
+                    <p className="footer__info__copyright">Copyright &copy; by MIVEBE</p>
                 </div>
 
-                <div className="row">
+                <section className="footer__projects-section">
 
-                    <div className="col-1-of-3">
-                        <div className="footer__navigation">
-                            <ul className="footer__list">
-                                <li className="footer__list-item"><img className="footer__list-image" src={logo}></img><a href="#" className="footer__link">Project1</a></li>
-                                <li className="footer__list-item"><img className="footer__list-image" src={logo}></img><a href="#" className="footer__link">Project4</a></li>
+                    <div className="projectcol">
+                        <div className="projectcol__navigation">
+                            <ul className="projectcol__list">
+                                <li className="projectcol__list-item"><img className="projectcol__list-image" src={logo}></img><a href="#" className="projectcol__link">Project1</a></li>
+                                <li className="projectcol__list-item"><img className="projectcol__list-image" src={logo}></img><a href="#" className="projectcol__link">Project4</a></li>
                             </ul>
                         </div>
                     </div>
-                    <div className="col-1-of-3">
-                        <div className="footer__navigation">
-                            <ul className="footer__list">
-                                <li className="footer__list-item"><img className="footer__list-image" src={logo}></img><a href="#" className="footer__link">Project2</a></li>
-                                <li className="footer__list-item"><img className="footer__list-image" src={logo}></img><a href="#" className="footer__link">Project5</a></li>
+                    <div className="projectcol">
+                        <div className="projectcol__navigation">
+                            <ul className="projectcol__list">
+                                <li className="projectcol__list-item"><img className="projectcol__list-image" src={logo}></img><a href="#" className="projectcol__link">Project2</a></li>
+                                <li className="projectcol__list-item"><img className="projectcol__list-image" src={logo}></img><a href="#" className="projectcol__link">Project5</a></li>
                             </ul>
                         </div>
                     </div>
-                    <div className="col-1-of-3">
-                        <div className="footer__navigation">
-                            <ul className="footer__list">
-                                <li className="footer__list-item"><img className="footer__list-image" src={logo}></img><a href="#" className="footer__link">Project3</a></li>
-                                <li className="footer__list-item"><img className="footer__list-image" src={logo}></img><a href="#" className="footer__link">Project6</a></li>
+                    <div className="projectcol">
+                        <div className="projectcol__navigation">
+                            <ul className="projectcol__list">
+                                <li className="projectcol__list-item"><img className="projectcol__list-image" src={logo}></img><a href="#" className="projectcol__link">Project3</a></li>
+                                <li className="projectcol__list-item"><img className="projectcol__list-image" src={logo}></img><a href="#" className="projectcol__link">Project6</a></li>
                             </ul>
                         </div>
                     </div>
 
-                </div>
-
-            </div>
-            {modalShow && <TokiWoTomare show={modalShow} close={closeModalHandler} />}
+                </section>
+                <section className="footer__projects-section--mobile">
+                    <button className="navbar__btn navbar__btn--green" onClick={() => setIsOpen(!isOpen)}>Projects</button>
+                </section>
+                {isOpen && <ProjectsDropdown onClose={() => setIsOpen(false)} />}
+            </footer>
+            {/* </div> */}
         </div>
     )
 }

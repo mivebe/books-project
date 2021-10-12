@@ -7,28 +7,40 @@
 }
 
 html {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
     // This defines what 1rem is equal to  in order to cover situations when the user scales the webpage in the browser */
 
     font-size: 62.5%; //1 rem = 10px; 10px/16px = 62.5%
+    @include responsive(mobile-port){//1rem = 7px 7/16=43.75
+        font-size:43.75%
+    }
 
     @include responsive(tab-land) { // width < 1200?
-        // font-size: 56.25%; //1 rem = 9px, 9/16 = 50%
+        font-size: 56.25%; //1 rem = 9px, 9/16 = 50%
     }
 
     @include responsive(tab-port) { // width < 900?
-        // font-size: 50%; //1 rem = 8px, 8/16 = 50%
+        font-size: 50%; //1 rem = 8px, 8/16 = 50%
     }
     
     @include responsive(big-desktop) {
-        // font-size: 75%; //1rem = 12, 12/16
+        font-size: 75%; //1rem = 12, 12/16
     }
+
 }
 
 body {
     box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    left: 0;
     margin: 0;
+    padding: 0;
     background-position: center;
     height: 100vh;
+    width: 100vw;
     background-image: url("../../../media/dark-staircase-bg.jpg");
     background-size: cover;
     overflow-x: hidden;
