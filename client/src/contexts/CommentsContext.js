@@ -1,5 +1,5 @@
 import { useState, createContext } from "react"
-// import { InnerStorage } from './contexts/AuthContext';
+// import { AuthContext } from './contexts/AuthContext';
 
 export const CommentsContext = createContext({})
 
@@ -7,7 +7,7 @@ export const CommentsContext = createContext({})
 
 export const CommentsProvider = ({ children, authContext }) => {
     const [comments, setComments] = useState([])
-    // const authContext = useContext(InnerStorage);
+    // const authContext = useContext(AuthContext);
     const { backEndURL } = authContext;
 
     const fetchComments = async (bookId) => {

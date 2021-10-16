@@ -1,8 +1,8 @@
 import { useState, useEffect, useContext } from "react"
-import { InnerStorage } from "../contexts/AuthContext"
+import { AuthContext } from "../contexts/AuthContext"
 
 const GetUserHistory = ({ userId }) => {
-    const authContext = useContext(InnerStorage)
+    const authContext = useContext(AuthContext)
     const { backEndURL } = authContext
 
     const [data, setData] = useState([])

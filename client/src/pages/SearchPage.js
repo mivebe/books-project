@@ -1,14 +1,14 @@
 import { useState, useContext, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import BookCard from '../components/BookCard';
-import { InnerStorage } from "../contexts/AuthContext"
+import { AuthContext } from "../contexts/AuthContext"
 
 const SearchPage = () => {
     //useLocation returns an object with three key/value pairs one of which is "search"
     // "search" has a type of string and value "?search='whatever you searched'" therefore i substring it to get only the query
     const searchQuery = useLocation().search.substring(8)
     const [searchResult, setSearchResult] = useState([])
-    const authContext = useContext(InnerStorage);
+    const authContext = useContext(AuthContext);
     const { backEndURL } = authContext
 
     useEffect(() => {

@@ -1,6 +1,6 @@
 import { useRef, useState, useContext, useEffect } from "react";
 import { ReactComponent as StarIcon } from "../media/icons/star.svg";
-import { InnerStorage } from '../contexts/AuthContext';
+import { AuthContext } from '../contexts/AuthContext';
 
 
 const StarRating = ({ bookId }) => {
@@ -8,7 +8,7 @@ const StarRating = ({ bookId }) => {
     const [hover, setHover] = useState(0);
     const starRatingRef = useRef(null);
 
-    const authContext = useContext(InnerStorage);
+    const authContext = useContext(AuthContext);
     const { backEndURL } = authContext;
 
     useEffect(async () => {

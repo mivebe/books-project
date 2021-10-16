@@ -1,13 +1,13 @@
 import React, { useEffect, useState, useContext } from 'react';
 import placeholderAvatar from "../media/placeholder-avatar.jpg";
 import loader from "../media/user-6.jpg";
-import { InnerStorage } from "../contexts/AuthContext"
+import { AuthContext } from "../contexts/AuthContext"
 import GetUserHistory from "../components/GetUserHistory"
 
 
 
 const UserPanel = () => {
-    const authContext = useContext(InnerStorage);
+    const authContext = useContext(AuthContext);
     const { backEndURL } = authContext;
     const { id, firstName, lastName, username, email, role, avatar } = authContext.tokenInfo;
 

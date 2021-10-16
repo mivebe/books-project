@@ -1,6 +1,6 @@
 import React, { useState, useContext, useRef, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
-import { InnerStorage } from "../../contexts/AuthContext";
+import { AuthContext } from "../../contexts/AuthContext";
 import { ReactComponent as CogIcon } from '../../media/icons/cog.svg';
 import { ReactComponent as LogoutIcon } from '../../media/icons/logout-icon.svg';
 import { ReactComponent as ArrowIcon } from '../../media/icons/arrow.svg';
@@ -11,7 +11,7 @@ import DropdownItem from "./DropdownItem"
 
 const DropdownMenu = () => {
 
-    const authContext = useContext(InnerStorage);
+    const authContext = useContext(AuthContext);
     const history = useHistory();
     const [activeMenu, setActiveMenu] = useState("main");
     const [menuHeight, setMenuHeight] = useState(null);

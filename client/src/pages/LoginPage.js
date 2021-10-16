@@ -15,11 +15,8 @@ const LoginPage = () => {
                 <p className="heading__secondary">Some may read it as бомбок, but this is not the case.</p>
             </section>
             <section className="login-section">
-                {panelSelected ?
-                    <><LoginTabs panelSelected={panelSelected} setPanelSelected={setPanelSelected} />
-                        <Login /></> :
-                    <><LoginTabs panelSelected={panelSelected} setPanelSelected={setPanelSelected} />
-                        <Register /></>}
+                <LoginTabs panelSelected={panelSelected} setPanelSelected={setPanelSelected} />
+                {panelSelected ? <Login /> : <Register />}
             </section>
         </div>
     )

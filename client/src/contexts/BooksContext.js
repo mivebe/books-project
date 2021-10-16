@@ -1,11 +1,11 @@
 import React, { useState, useEffect, createContext, useContext } from 'react'
 import { useHistory } from 'react-router-dom';
-import { InnerStorage } from "./AuthContext";
+import { AuthContext } from "./AuthContext";
 
 export const BooksContext = createContext()
 
 export const BooksProvider = ({ children }) => {
-    const authContext = useContext(InnerStorage);
+    const authContext = useContext(AuthContext);
     const { backEndURL } = authContext
     const history = useHistory();
     const [booksArray, setBooksArray] = useState([]);

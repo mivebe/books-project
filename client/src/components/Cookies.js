@@ -21,14 +21,14 @@ const getCookie = (cname) => {
     return null;
 }
 
-const checkCookie = () => {
-    var user = getCookie("username");
+const checkCookie = (cname) => {
+    var user = getCookie(cname);
     if (user !== "") {
         alert("Welcome again " + user);
     } else {
         user = prompt("Please enter your name:", "");
         if (user !== "" && user != null) {
-            setCookie("username", user, 365);
+            setCookie(cname, user, 365);
         }
     }
 }

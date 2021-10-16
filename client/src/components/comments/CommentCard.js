@@ -1,10 +1,10 @@
 import { useContext } from 'react';
-import { InnerStorage } from '../../contexts/AuthContext';
+import { AuthContext } from '../../contexts/AuthContext';
 import placeholderAvatar from "../../media/za-warudo.jpg"
 import { CommentsContext } from '../../contexts/CommentsContext';
 
 const CommentCard = ({ commentId, body, OP }) => {
-    const authContext = useContext(InnerStorage);
+    const authContext = useContext(AuthContext);
     const { deleteComment } = useContext(CommentsContext)
     const { backEndURL } = authContext;
 

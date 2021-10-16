@@ -1,5 +1,7 @@
 import React, { useContext } from 'react'
 import { Switch, Route, Redirect, useLocation } from "react-router-dom"
+import { BooksProvider } from '../../contexts/BooksContext';
+import { AuthContext } from "../../contexts/AuthContext"
 import HomePage from '../../pages/HomePage'
 import PageNotFound from '../../pages/PageNotFound';
 import Navbar from "../Navbar"
@@ -8,8 +10,6 @@ import Book from "../../pages/BookPage"
 import CreateBookPage from '../../pages/CreateBookPage';
 import AllBooks from "../../pages/AllBooks";
 import UserPanel from "../../pages/UserPanel"
-import { BooksProvider } from '../../contexts/BooksContext';
-import { InnerStorage } from "../../contexts/AuthContext"
 import SearchPage from '../../pages/SearchPage';
 import FAQ from '../../pages/FAQ'
 import Terms from '../../pages/Terms'
@@ -19,7 +19,9 @@ import Terms from '../../pages/Terms'
 const PrivateSwitch = () => {
     console.log("Private Switch Entered");
     const location = useLocation()
-    const authContext = useContext(InnerStorage)
+    const authContext = useContext(AuthContext)
+    // console.log("switch", authContext);
+
     const { role } = authContext.tokenInfo
 
     return (

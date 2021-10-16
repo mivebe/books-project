@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import axios from "axios";
 import { useHistory } from 'react-router-dom';
-import { InnerStorage } from "../contexts/AuthContext";
+import { AuthContext } from "../contexts/AuthContext";
 import placeholderBook from "../media/grey-book.png";
 import loader from "../media/user-6.jpg";
 import Modal from "../components/Modal"
@@ -10,7 +10,7 @@ import BookPreview from '../components/BookPreview';
 
 const CreateBookPage = () => {
     const history = useHistory()
-    const authContext = useContext(InnerStorage);
+    const authContext = useContext(AuthContext);
     const { backEndURL } = authContext;
     const curYear = new Date().getFullYear();
 

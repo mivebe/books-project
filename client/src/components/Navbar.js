@@ -3,12 +3,12 @@ import logo from "../media/bambook-logo.png";
 import MGSearch from "../media/icons/magnifying-glass.svg";
 import placeholderAvatar from "../media/placeholder-avatar.jpg";
 import { useHistory } from 'react-router-dom';
-import { InnerStorage } from "../contexts/AuthContext"
+import { AuthContext } from "../contexts/AuthContext"
 import DropdownMenu from "./dropdown/DropdownMenu"
 
 const Navbar = () => {
 
-    const authContext = useContext(InnerStorage)
+    const authContext = useContext(AuthContext)
     const { backEndURL } = authContext
     const { username, role, avatar } = authContext.tokenInfo
     const history = useHistory();

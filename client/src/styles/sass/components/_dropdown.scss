@@ -67,6 +67,7 @@
     position: absolute;
     top: $navbar-height;
     width: 25rem;
+    z-index: 999;
     transform: translateX(-45%);
     background-color: $dropdown-bg;
     border: $dropdown-border;

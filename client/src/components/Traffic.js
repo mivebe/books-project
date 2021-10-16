@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { useHistory } from 'react-router-dom';
-import { InnerStorage } from "../contexts/AuthContext"
+import { AuthContext } from "../contexts/AuthContext"
 import { ReactComponent as AuthorPlaceholder } from "../media/icons/author-placeholder.svg"
 import { ReactComponent as BookPlaceholder } from "../media/icons/book-placeholder.svg"
 
@@ -8,7 +8,7 @@ import { ReactComponent as BookPlaceholder } from "../media/icons/book-placehold
 const Traffic = () => {
     const history = useHistory()
 
-    const authContext = useContext(InnerStorage)
+    const authContext = useContext(AuthContext)
     const { backEndURL } = authContext;
 
     const MRBDescription = "Book Description";

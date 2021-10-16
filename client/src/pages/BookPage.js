@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import { InnerStorage } from '../contexts/AuthContext';
+import { AuthContext } from '../contexts/AuthContext';
 import { CommentsProvider } from '../contexts/CommentsContext';
 import placeholderCover from "../media/grey-book.png"
 import CommentSection from '../components/comments/CommentsSection';
@@ -11,7 +11,7 @@ import StarRating from '../components/StarRating';
 const Book = () => {
     const { id } = useParams()
     const [book, setBook] = useState({});
-    const authContext = useContext(InnerStorage);
+    const authContext = useContext(AuthContext);
     const { backEndURL } = authContext;
     const history = useHistory();
 

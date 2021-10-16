@@ -1,12 +1,12 @@
 import React, { useContext } from 'react'
 import { BrowserRouter as Router } from "react-router-dom"
-import { InnerStorage } from './contexts/AuthContext'
+import { AuthContext } from './contexts/AuthContext'
 import PrivateSwitch from './components/switches/PrivateSwitch'
 import PublicSwitch from './components/switches/PublicSwitch'
 
 const AppRouter = () => {
 
-    const { logged } = useContext(InnerStorage)
+    const { logged } = useContext(AuthContext)
 
     return (
         <Router>

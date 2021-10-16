@@ -1,10 +1,10 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { InnerStorage } from "../contexts/AuthContext";
+import { AuthContext } from "../contexts/AuthContext";
 import { useHistory } from 'react-router-dom';
 import { ReactComponent as BookPlaceholder } from "../media/icons/book-placeholder.svg"
 
 const BookCard = ({ book, returnBook, lastRef }) => {
-    const authContext = useContext(InnerStorage);
+    const authContext = useContext(AuthContext);
     const { backEndURL } = authContext;
     const history = useHistory()
     const [imgasd, setImgasd] = useState(null)
