@@ -26,7 +26,7 @@ const returnBothTokens = async (err, user, res) => {
         const refreshToken = createRefreshToken(refreshPayload);
         const token = createToken(payload);
         // await usersService.saveRefreshToken(SQLRequestsS)(refreshToken, user.id);
-        return res.status(200).send({ refreshToken, token, devMsg: "brao brat" })
+        return res.status(200).send({ refreshToken, token, user, devMsg: "brao brat" })
     }
 }
 

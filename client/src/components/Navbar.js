@@ -15,6 +15,9 @@ const Navbar = () => {
     const [open, setOpen] = useState(false)
     const [query, setQuery] = useState('')
 
+
+    console.log("ASD", authContext.tokenInfo);
+
     const handleSubmit = () =>
         history.push({
             pathname: "/all-books",

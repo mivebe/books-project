@@ -7,6 +7,7 @@ import CommentSection from '../components/comments/CommentsSection';
 import CreateComment from '../components/comments/CreateComment';
 import { ReactComponent as StarIcon } from "../media/icons/star.svg"
 import StarRating from '../components/StarRating';
+import useBreakpoint from "../components/useBreakpoint";
 
 const Book = () => {
     const { id } = useParams()

@@ -2,10 +2,10 @@ import { createContext, useState, useEffect } from "react"
 import { getCookie } from "../components/Cookies"
 import jwtDecode from "jwt-decode";
 
+
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-
     const tokenCookie = getCookie("token");
     const refreshTokenCookie = getCookie("refreshToken");
 
@@ -21,11 +21,14 @@ export const AuthProvider = ({ children }) => {
     const [tokenInfo, setTokenInfo] = useState(token ? jwtDecode(token) : {})
     const backEndURL = `${backEndProtocol}${backEndHost}:${backEndPort}`
 
-    // useEffect(() => {
-    //     setToken(tokenCookie)
-    //     setRefreshToken(refreshTokenCookie)
-    //     setTokenInfo(token ? jwtDecode(token) : {})
-    // }, [logged])
+
+    useEffect(() => {
+        const tokenCookie = getCookie("token");
+        const refreshTokenCookie = getCookie("refreshToken");
+        setToken(tokenCookie)
+        setRefreshToken(refreshTokenCookie)
+    }, [logged])
+
 
     return (
         <AuthContext.Provider value={{

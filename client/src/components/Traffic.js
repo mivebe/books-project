@@ -10,21 +10,14 @@ const Traffic = () => {
 
     const authContext = useContext(AuthContext)
     const { backEndURL } = authContext;
-
-    const MRBDescription = "Book Description";
-    const MRBName = "Most Rented Book Name";
-    const MRBCover = "COVER";
-    const MRADescription = "Author Description";
-    const MRAName = "Most Rented Author Name"
-    const MRAImage = "IMAGE";
     const RentedNowDescription = "Rented Now Description";
-    const RentedNowImage = "IMAGE";
-    const RentedNowName = "Books Rented Now"
+
 
     const [traffic, setTraffic] = useState(null)
 
     useEffect(() => {
-        (async () => {
+        authContext.token && (async () => {
+            console.log(authContext.token);
             const res = await fetch(`${backEndURL}/books/traffic`, {
                 method: "GET",
                 headers: {
@@ -35,7 +28,7 @@ const Traffic = () => {
             setTraffic(result)
             // console.log("result", result);
         })()
-    }, [])
+    }, [authContext.token])
 
 
 

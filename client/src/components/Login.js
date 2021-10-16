@@ -26,6 +26,8 @@ export default function Login() {
             authContext.setToken(res.token);
             authContext.setRefreshToken(res.refreshToken);
             authContext.setLogged(res.data.token && res.data.refreshToken ? true : false);
+            authContext.setTokenInfo({ ...res.data.user })
+            console.log("res data", { ...res.data.user });
 
             history.push("/home")
         } catch (err) {
